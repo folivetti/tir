@@ -1,0 +1,117 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           tir
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/tir#readme>
+homepage:       https://github.com/githubuser/tir#readme
+bug-reports:    https://github.com/githubuser/tir/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2021 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/tir
+
+library
+  exposed-modules:
+      MachineLearning.Model.Fitness
+      MachineLearning.Model.Measure
+      MachineLearning.Model.Regression
+      MachineLearning.TIR
+      MachineLearning.TIR.Crossover
+      MachineLearning.TIR.Mutation
+      MachineLearning.TIR.Selection
+      MachineLearning.Utils.Config
+      MachineLearning.Utils.Data
+      MachineLearning.Utils.Report
+  other-modules:
+      Paths_tir
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , clock
+    , config-ini
+    , deepseq
+    , directory
+    , evolution
+    , hmatrix
+    , hmatrix-gsl
+    , hmatrix-morpheus
+    , intervals
+    , mltool
+    , mtl
+    , random
+    , split
+    , srtree
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable tir-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_tir
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -eventlog -O2 -optc-O3 -rtsopts
+  build-depends:
+      base >=4.7 && <5
+    , clock
+    , config-ini
+    , deepseq
+    , directory
+    , evolution
+    , hmatrix
+    , hmatrix-gsl
+    , hmatrix-morpheus
+    , intervals
+    , mltool
+    , mtl
+    , random
+    , split
+    , srtree
+    , text
+    , tir
+    , vector
+  default-language: Haskell2010
+
+test-suite tir-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_tir
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -eventlog -O2 -optc-O3 -rtsopts
+  build-depends:
+      base >=4.7 && <5
+    , clock
+    , config-ini
+    , deepseq
+    , directory
+    , evolution
+    , hmatrix
+    , hmatrix-gsl
+    , hmatrix-morpheus
+    , intervals
+    , mltool
+    , mtl
+    , random
+    , split
+    , srtree
+    , text
+    , tir
+    , vector
+  default-language: Haskell2010
