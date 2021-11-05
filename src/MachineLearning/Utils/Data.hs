@@ -24,8 +24,9 @@ processData cfg =
          image    = estimateImage (getImage cfg) trainY 
          xss_all  = toVecOfColumns trainX
          xss_test = toVecOfColumns testX
-         (xss_train, y_train, xss_val, y_val) = splitValidation 0.5 trainX trainY
+         (xss_train, y_train, xss_val, y_val) = splitValidation 0.9 trainX trainY
      return ((xss_train, y_train), (xss_val, y_val), (xss_all, trainY), (xss_test, testY), domains, image, nVars)
+     -- return ((xss_all, trainY), (xss_all, trainY), (xss_all, trainY), (xss_test, testY), domains, image, nVars)
 
 -- | Parse a numerical csv file into predictors and target variables
 parseFile :: String -> (LA.Matrix Double, Column Double)
@@ -55,9 +56,9 @@ splitValidation ratio xss ys
     nRowsTrain = round (fromIntegral nRows * ratio)
     nRowsVal   = nRows - nRowsTrain
     xss_train  = toVecOfColumns $ takeNRows nRowsTrain xss
-    xss_val    = toVecOfColumns $ dropNRows nRowsTrain xss
+    xss_val    = toVecOfColumns $ dropNRows nRowsVal xss
     y_train    = LA.subVector 0 nRowsTrain ys
-    y_val      = LA.subVector nRowsTrain nRowsVal ys    
+    y_val      = LA.subVector nRowsVal nRowsTrain ys    
     
 estimateImage :: Maybe (Double, Double) -> LA.Vector Double -> Interval Double
 estimateImage image ys = 

@@ -74,8 +74,9 @@ class TiredRegressor(BaseEstimator, RegressorMixin):
             
             fname   = temp_dir + "/tmpdata.csv"
             
-           
-            np.savetxt(f"{fname}", Z_train, delimiter=",")    
+            ixs = np.arange(0, Z_train.shape[0])
+            np.random.shuffle(ixs)
+            np.savetxt(f"{fname}", Z_train[ixs,:], delimiter=",")    
             
             minK, maxK = self.exponents
             
