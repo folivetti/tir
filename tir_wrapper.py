@@ -15,7 +15,7 @@ def sqrtAbs(a):
 
 class TiredRegressor(BaseEstimator, RegressorMixin):
 
-    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", random_state=-1, penalty=0.0):
+    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", penalty=0.01, random_state=-1):
         """ Builds a Symbolic Regression model using ITEA.
 
         Parameters
