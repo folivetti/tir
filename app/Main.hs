@@ -40,7 +40,7 @@ isNotNullNaNInf xs = not (null xs || isNaN xl || isNaN xu || isInfinite xl || is
 {-# INLINE isNotNullNaNInf #-}
 
 parseCLI :: [String] -> IO ()
-parseCLI [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, trainname] = do
+parseCLI [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, trainname] = do
   let mutCfg = dfltMutCfg { _kRange = (read expminP, read expmaxP)
                           , _yfuns  = map read $ splitOn "," ytfuncsP
                           , _funs   = map read $ splitOn "," tfuncsP
@@ -54,12 +54,14 @@ parseCLI [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, 
                           , _measures = [toMeasure errorMetric]
                           }
       ioCfg = IOCfg trainname trainname Screen
-      cfg   = Conf mutCfg ioCfg algCfg dfltCnstrCfg
+      pn    = read penalty
+      cnst  = if pn == 0.0 then dfltCnstrCfg  else dfltCnstrCfg{ _penaltyType  = Len pn }
+      cfg   = Conf mutCfg ioCfg algCfg cnst
   (champion, _, _) <- runGP cfg 
   let bias = V.head $ VS.convert $ head $ _weights champion
   print $ (showPython . assembleTree bias . _chromo) champion <> ";" <> (show . _len) champion <> ";" <> (show . _fit) champion 
 
-parseCLI _ = putStrLn "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed trainname"
+parseCLI _ = putStrLn "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty trainname"
 
 runWithCfg :: [FilePath] -> IO ()
 runWithCfg [fname] = do 

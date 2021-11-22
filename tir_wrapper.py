@@ -15,7 +15,7 @@ def sqrtAbs(a):
 
 class TiredRegressor(BaseEstimator, RegressorMixin):
 
-    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", random_state=-1):
+    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", random_state=-1, penalty=0.0):
         """ Builds a Symbolic Regression model using ITEA.
 
         Parameters
@@ -47,6 +47,7 @@ class TiredRegressor(BaseEstimator, RegressorMixin):
         self.pm = pm
         self.random_state = random_state
         self.error = error
+        self.penalty = penalty
     
     def fit(self, X_train, y_train):
         """A reference implementation of a fitting function.
@@ -81,7 +82,7 @@ class TiredRegressor(BaseEstimator, RegressorMixin):
             minK, maxK = self.exponents
             
             cwd = os.path.dirname(os.path.realpath(__file__))
-            ans = subprocess.check_output(["bin/tir-srbench.sh", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{fname}"], cwd=cwd)
+            ans = subprocess.check_output(["bin/tir-srbench.sh", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{fname}"], cwd=cwd)
             self.expr, n, e = eval(ans).split(";")
             print(e)
 
