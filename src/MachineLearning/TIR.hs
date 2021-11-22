@@ -21,7 +21,7 @@ data TIR = TIR { _funY :: Function
 
 instance NFData TIR where
   rnf _ = ()
-  
+
 type Sigma = [Pi]
 type Pi    = (Double, Function, [(Int, Int)])
 
@@ -56,7 +56,7 @@ randomVar params = do
 randomVars :: MutationCfg -> Rnd [(Int, Int)]
 randomVars params = do
   (v, params') <- randomVar params
-  k            <- randomRngNZ $ _kRange params 
+  k            <- randomRngNZ $ _kRange params
   case v of
     Nothing  -> pure []
     Just var -> do vs <- randomVars params'
@@ -82,7 +82,7 @@ randomSigma params budget = do
                Nothing -> pure (terms, budget')
                Just t  -> pure (t:terms, budget')
 
-  where 
+  where
     spentBudget Nothing           = 0
     spentBudget (Just (_, _, ps)) = 1 -- length ps
 
@@ -94,12 +94,12 @@ randomTIR params = do
   if null p
     then randomTIR params
     else pure (TIR yf p q)
-  
+
 type Column a   = LA.Vector a
 type Dataset a  = Vector (Column a)
 type Constraint = SRTree Int Double -> Double
 
-data Individual = Individual { _chromo  :: TIR 
+data Individual = Individual { _chromo  :: TIR
                              , _fit     :: [Double]
                              , _weights :: [LA.Vector Double]
                              , _constr  :: Double
@@ -120,24 +120,24 @@ replaceConsts (TIR g p q) ws = TIR g p' q'
   where
     (p', ws1) = runState (traverse replaceWeight p) (V.toList ws)
     (q', ws2) = runState (traverse replaceWeight q) ws1
-       
+
 replaceWeight :: Pi -> State [Double] Pi
 replaceWeight (w, g, h) = state $ \ws -> case ws of
                                            (wi:ws') -> ((wi, g, h), ws')
                                            []       -> error $ show h -- ((w, g, h), [])
 
 instance Eq Individual where
-  t1 == t2 = penalizedFit t1 == penalizedFit t2
+    t1 == t2 = penalizedFit t1 == penalizedFit t2 && _len t1 == _len t2 
 instance Ord Individual where
-  t1 <= t2 = penalizedFit t1 <= penalizedFit t2
+    t1 <= t2 = penalizedFit t1 <= penalizedFit t2 && _len t1 <= _len t2
 
 instance NFData Individual where
   rnf _ = ()
- 
+
 instance Solution Individual where
-  _getFitness = head . _fit 
+  _getFitness = head . _fit
   _isFeasible = (==0.0) . _constr
-  
+
 assembleTree :: Double -> TIR -> SRTree Int Double
 assembleTree bias (TIR f p q) = Fun f ((Const bias + assemble p) / (1 + assemble q))
   where
@@ -147,7 +147,7 @@ assembleTree bias (TIR f p q) = Fun f ((Const bias + assemble p) / (1 + assemble
     assemble (p':ps) = mk p' + assemble ps
 
     -- mk :: Pi ix val -> SRTree ix val
-    mk (v, g, ts) = Const v * Fun g (foldr (\(ix, k) acc -> acc * (Pow (Var ix) k)) 1 ts)
+    mk (v, g, ts) = Const v * Fun g (foldr (\(ix, k) acc -> acc * Pow (Var ix) k) 1 ts)
 
 prettyPrintsolution :: Individual -> String
 prettyPrintsolution sol | Prelude.null (_fit sol) = error "unevaluated solution"

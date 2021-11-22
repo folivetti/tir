@@ -85,7 +85,7 @@ class TiredRegressor(BaseEstimator, RegressorMixin):
             self.expr, n, e = eval(ans).split(";")
             print(e)
 
-            self.expr = self.expr.replace("/ ((1.0) + ())", "")
+            self.expr = self.expr.replace("/ ((1.0) + ())", "").replace("atan","arctan")
 
             self.len = int(n)
             self.is_fitted_ = True
