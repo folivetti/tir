@@ -129,7 +129,8 @@ replaceWeight (w, g, h) = state $ \ws -> case ws of
 instance Eq Individual where
     t1 == t2 = penalizedFit t1 == penalizedFit t2 && _len t1 == _len t2 
 instance Ord Individual where
-    t1 <= t2 = penalizedFit t1 <= penalizedFit t2 && _len t1 <= _len t2
+    t1 <= t2 | penalizedFit t1 == penalizedFit t2 = _len t1 <= _len t2
+             | otherwise                          = penalizedFit t1 <= penalizedFit t2
 
 instance NFData Individual where
   rnf _ = ()
