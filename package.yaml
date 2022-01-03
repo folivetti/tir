@@ -28,7 +28,7 @@ dependencies:
 - hmatrix-gsl
 - hmatrix-morpheus
 - mltool
-- intervals
+- modal-interval
 - split
 - config-ini
 - text
@@ -37,6 +37,7 @@ dependencies:
 - srtree
 - evolution
 - deepseq
+- shape-constraint 
 
 library:
   source-dirs: src

@@ -17,26 +17,27 @@ import System.Environment (getArgs)
 import Control.Monad.State.Strict
 import Data.Bifunctor             (second)
 import Data.List.Split            (splitOn)
-import Data.Maybe                 (fromJust)
+import Data.Maybe                 (fromJust, fromMaybe)
 import Numeric.LinearAlgebra      (size)
 import System.Random              (mkStdGen, getStdGen)
 import System.IO                  (Handle)
 import System.Clock               (Clock(..), getTime, sec)
-import Numeric.Interval
+import Numeric.ModalInterval
 import qualified Data.Vector.Storable  as VS
 import qualified Data.Vector  as V
 
 import Prelude hiding (null)
+import Algorithm.ShapeConstraint (getViolationFun)
 
-filterImage :: Interval Double -> [Function] -> [Function]
+filterImage :: Kaucher Double -> [Function] -> [Function]
 filterImage image = filter (isNotNullNaNInf . (`evalFun` image) . inverseFunc)
 {-# INLINE filterImage #-}
 
-isNotNullNaNInf :: Interval Double -> Bool
-isNotNullNaNInf xs = not (null xs || isNaN xl || isNaN xu || isInfinite xl || isInfinite xu)
+isNotNullNaNInf :: Kaucher Double -> Bool
+isNotNullNaNInf xs = not (isEmpty xs || isNaN xl || isNaN xu || isInfinite xl || isInfinite xu)
   where
-    xl = inf xs
-    xu = sup xs
+    xl = fromMaybe (-1/0) $ inf xs
+    xu = fromMaybe (1/0) $ sup xs
 {-# INLINE isNotNullNaNInf #-}
 
 parseCLI :: [String] -> IO ()
@@ -90,7 +91,9 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
       task         = _task algCfg
       measures     = _measures algCfg
       penalty      = _penaltyType cnstCfg
-      cnstr        = const 0.0 -- fromShapes (_shapes cnstCfg) (_domains cnstCfg)
+      cnstr        = case _evaluator cnstCfg of 
+                       Nothing -> const 0.0 
+                       Just e  -> getViolationFun e (_shapes cnstCfg) (_domains cnstCfg)
       fitnessTrain = evalTrain task False measures cnstr penalty domains (fst train) (snd train) (fst val) (snd val)
       fitnessAll   = evalTrain task True measures cnstr penalty domains (fst alldata) (snd alldata) (fst alldata) (snd alldata)
       fitnessTest  = evalTest task measures (fst test) (snd test)

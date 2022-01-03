@@ -3,7 +3,7 @@ module MachineLearning.Utils.Data (processData) where
 import Data.List                             (transpose)
 import Data.List.Split                       (splitOn)
 import Data.Vector                           (Vector, fromList)
-import           Numeric.Interval            (Interval, (...))
+import           Numeric.ModalInterval            (Kaucher, (<.<))
 import Numeric.LinearAlgebra ((??))
 import qualified Numeric.LinearAlgebra as LA
 import Numeric.Morpheus.MatrixReduce         (columnPredicate)
@@ -15,7 +15,7 @@ import MachineLearning.TIR
 type DataSplit = (Dataset Double, Column Double)
 
 -- | Support function for running ITEA
-processData :: Config -> IO (DataSplit, DataSplit, DataSplit, DataSplit, Vector (Interval Double), Interval Double, Int)
+processData :: Config -> IO (DataSplit, DataSplit, DataSplit, DataSplit, Vector (Kaucher Double), Kaucher Double, Int)
 processData cfg =
   do (trainX, trainY) <- readAndParse (getTrainName cfg)
      (testX , testY ) <- readAndParse (getTestName  cfg)
@@ -60,21 +60,22 @@ splitValidation ratio xss ys
     y_train    = LA.subVector 0 nRowsTrain ys
     y_val      = LA.subVector nRowsVal nRowsTrain ys    
     
-estimateImage :: Maybe (Double, Double) -> LA.Vector Double -> Interval Double
+estimateImage :: Maybe (Double, Double) -> LA.Vector Double -> Kaucher Double
 estimateImage image ys = 
   case image of 
-       Nothing       -> minY ... maxY
-       Just (lo, hi) -> lo ... hi
+       Nothing       -> minY <.< maxY
+       Just (lo, hi) -> lo <.< hi
   where
     minY = minimum $ LA.toList ys
     maxY = maximum $ LA.toList ys
 
-type Domains = Maybe ()
-estimateDomains :: Domains -> LA.Matrix Double -> [Interval Double]
+type Domains = [(Double, Double)]
+
+estimateDomains :: Domains -> LA.Matrix Double -> [Kaucher Double]
 estimateDomains domains xss =
   case domains of
-    Nothing -> zipWith (...) minX maxX
-    Just ds -> zipWith (...) minX maxX -- map (uncurry (...)) ds
+    [] -> zipWith (<.<) minX maxX
+    ds -> map (uncurry (<.<)) ds
   where
     minX = Prelude.tail $ LA.toList $ columnPredicate min xss
     maxX = Prelude.tail $ LA.toList $ columnPredicate max xss    

@@ -42,12 +42,14 @@ packages:
 #
 # extra-deps: []
 extra-deps:
-  - git: https://github.com/folivetti/intervals.git
-    commit: 934c6f4b9edf9480aa07c77a9d82634de2e767eb
   - git: https://github.com/folivetti/srtree.git
-    commit: 555dccba7377fad6d50db8ba0c2c9449136130a9
+    commit: db83f1573a72da27e4755133116305e3e44f24bf
   - git: https://github.com/folivetti/evolution.git
     commit: 186a10371cb026dee478b4c8f059ac6052314dc1        
+  - git: https://github.com/folivetti/modal-interval.git 
+    commit: 295accf1c884ec02b5458ae813eabf54f34dc944
+  - git: https://github.com/folivetti/shape-constraint.git 
+    commit: 1987079f5c8eff52d46d50fa9431ce59504676c9
 # Override default flag values for local packages and extra-deps
 # flags: {}
 

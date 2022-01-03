@@ -11,13 +11,13 @@ import Data.Maybe            (fromJust)
 import Data.Vector.Storable  (Vector)
 import Data.Vector           ((!))
 import Numeric.LinearAlgebra ((<\>))
-import Numeric.Interval      (Interval, inf, sup, width, singleton)
-import qualified Numeric.Interval as Interval 
+import Numeric.ModalInterval      (Kaucher, inf, sup, width, singleton)
+import qualified Numeric.ModalInterval as Interval 
 import Control.Monad.Reader
 import qualified Data.Vector.Storable  as VS
 import qualified Data.Vector           as V
 import qualified Numeric.LinearAlgebra as LA
-
+import Data.Maybe (fromMaybe)
 import MachineLearning.Model.Measure       (Measure)
 import MachineLearning.Model.Regression    (nonlinearFit, evalPenalty, fitTask, predictTask, applyMeasures)
 import MachineLearning.TIR       (TIR(..),  Individual(..), Dataset, Constraint, assembleTree, replaceConsts)
@@ -26,7 +26,7 @@ import Data.SRTree                (SRTree(..), Function, OptIntPow(..), evalTree
 
 import Data.SRTree.Print
 
-selectValidTerms :: TIR -> V.Vector (Interval Double) -> TIR
+selectValidTerms :: TIR -> V.Vector (Kaucher Double) -> TIR
 selectValidTerms tir@(TIR _ p q) domains = tir{ _p=p', _q=q' }
   where
     p' = selectValid p
@@ -50,16 +50,17 @@ tirToMatrix xss (TIR _ p q) = bimap (LA.fromColumns . (bias:)) LA.fromColumns (p
 isValidInterval = not. isInvalidInterval
 {-# INLINE isValidInterval #-}
 
-isInvalidInterval :: Interval Double -> Bool                        
-isInvalidInterval ys =  Interval.null ys 
+isInvalidInterval :: Kaucher Double -> Bool                        
+isInvalidInterval ys =  Interval.isEmpty ys 
+                     || Interval.isInvalid ys
                      || isInfinite ys1 || isInfinite ys2 
                      || ys2 < ys1 
                      || abs ys1 >= 1e50 || abs ys2 >= 1e50
                      || isNaN ys1 || isNaN ys2
                      || width ys < 1e-8
   where
-    ys1 = inf ys
-    ys2 = sup ys
+    ys1 = fromMaybe (-1/0) $ inf ys
+    ys2 = fromMaybe (1/0) $ sup ys
 {-# INLINE isInvalidInterval #-}            
 
 evalTrain :: Task
@@ -67,7 +68,7 @@ evalTrain :: Task
           -> [Measure]
           -> Constraint 
           -> Penalty
-          -> V.Vector (Interval Double)
+          -> V.Vector (Kaucher Double)
           -> Dataset Double
           -> Vector Double
           -> Dataset Double
@@ -76,6 +77,7 @@ evalTrain :: Task
           -> Individual
 evalTrain task isRefit measures cnstrFun penalty domains xss_train ys_train xss_val ys_val sol
   | LA.cols zss == 0                   = error "found"
+  | (not.null) (LA.find (\x -> isNaN x || isInfinite x) zss)  = error $ (show $ _chromo sol) <> show domains 
   | not isRefit && (not.null._fit) sol = sol
   | LA.cols zssP == 0                  = sol { _fit = [1/0] }
   | otherwise                          = sol{ _chromo  = fitted

@@ -49,10 +49,11 @@ library
     , hmatrix
     , hmatrix-gsl
     , hmatrix-morpheus
-    , intervals
     , mltool
+    , modal-interval
     , mtl
     , random
+    , shape-constraint
     , split
     , srtree
     , text
@@ -76,10 +77,11 @@ executable tir-exe
     , hmatrix
     , hmatrix-gsl
     , hmatrix-morpheus
-    , intervals
     , mltool
+    , modal-interval
     , mtl
     , random
+    , shape-constraint
     , split
     , srtree
     , text
@@ -105,10 +107,11 @@ test-suite tir-test
     , hmatrix
     , hmatrix-gsl
     , hmatrix-morpheus
-    , intervals
     , mltool
+    , modal-interval
     , mtl
     , random
+    , shape-constraint
     , split
     , srtree
     , text

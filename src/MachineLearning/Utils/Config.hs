@@ -20,6 +20,7 @@ import Prelude          hiding (readFile)
 -- import Constraints.Shape       (Shape(..), Domains)
 import MachineLearning.Model.Measure           (Measure, toMeasure)
 import Data.SRTree                    (Function(..))
+import Algorithm.ShapeConstraint
 
 allFunctions = [Id .. ]
 
@@ -72,12 +73,13 @@ dfltAlgCfg :: AlgorithmCfg
 dfltAlgCfg = AlgCfg GA Regression 100 100 0.25 1.0 Nothing [toMeasure "RMSE"]
 
 data ConstraintCfg = CnsCfg { _penaltyType :: Penalty
-                            , _shapes      :: [()] -- [Shape]
-                            , _domains     :: Maybe () --Domains
+                            , _shapes      :: [Shape] 
+                            , _domains     :: [(Double, Double)]
+                            , _evaluator   :: Maybe Evaluator 
                             } deriving (Show, Read)
 
 dfltCnstrCfg :: ConstraintCfg
-dfltCnstrCfg = CnsCfg NoPenalty [] Nothing
+dfltCnstrCfg = CnsCfg NoPenalty [] [] Nothing
 
 getLogType :: Config -> Output
 getLogType = _logType . _ioCfg
@@ -98,7 +100,7 @@ getTrainName, getTestName :: Config -> String
 getTrainName = _trainFilename . _ioCfg
 getTestName  = _testFilename  . _ioCfg
 
-getDomains :: Config -> Maybe () -- Domains
+getDomains :: Config -> [(Double, Double)]
 getDomains = _domains . _constraintCfg
 
 getImage :: Config -> Maybe (Double, Double)
@@ -111,7 +113,7 @@ getImage = const Nothing -- findImg . _shapes . _constraintCfg
 getMeasures :: Config -> [Measure]
 getMeasures = _measures . _algorithmCfg
 
-getShapes :: Config -> [()] -- [Shape]
+getShapes :: Config -> [Shape]
 getShapes = _shapes . _constraintCfg
 
 getPenalty :: Config -> Penalty
@@ -148,7 +150,8 @@ parseConfig = do
     return $ AlgCfg alg task nGens nPop pm pc seed $ map toMeasure perf_mes
   cnsCfg <- section "Constraints" $ do
     penalty <- fieldOf "penalty" readable
-    --shapes <- fieldOf "shapes" readable
-    --domains <- fieldOf "domains" readable
-    return $ CnsCfg penalty [] Nothing -- shapes domains
+    shapes <- fieldOf "shapes" readable
+    domains <- fieldOf "domains" readable
+    evaluator <- fieldOf "evaluator" readable
+    return $ CnsCfg penalty shapes domains evaluator 
   return $ Conf mutCfg ioCfg algCfg cnsCfg 

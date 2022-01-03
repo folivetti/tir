@@ -136,7 +136,7 @@ instance NFData Individual where
 
 instance Solution Individual where
   _getFitness = head . _fit
-  _isFeasible = (==0.0) . _constr
+  _isFeasible = (<1e-12) . _constr
 
 assembleTree :: Double -> TIR -> SRTree Int Double
 assembleTree bias (TIR f p q) = Fun f ((Const bias + assemble p) / (1 + assemble q))
