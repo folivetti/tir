@@ -33,14 +33,17 @@ ridge a b = oA <\> oB
    b' = LA.tr $ LA.asColumn b
    oA = (a' <> LA.tr a') + (mu * LA.ident (LA.rows a'))
    oB = a' <> LA.tr b'
+{-# INLINE ridge #-}
 
 predict :: Matrix Double -> Vector Double -> Vector Double 
 predict xs w | LA.cols xs == LA.size w = xs LA.#> w
              | otherwise = error $ "predict: " ++ show (LA.size xs) ++ show (LA.size w)
+{-# INLINE predict #-}
 
 -- | Solve the OLS *zss*w = ys*
 solveOLS :: Matrix Double -> Vector Double -> Vector Double 
 solveOLS zss ys = zss <\> ys
+{-# INLINE solveOLS #-}
 -- solveOLS zss ys = LA.flatten $ LA.linearSolveLS zss $ LA.asColumn ys -- <\> ys
 
 -- solveOLS zss ys = LA.flatten $ ridge zss ys
@@ -49,6 +52,7 @@ solveOLS zss ys = zss <\> ys
 -- if the expression is invalid, it returns Infinity as a fitness
 regress :: Matrix Double -> Vector Double -> [Vector Double]
 regress zss ys = [solveOLS zss ys]
+{-# INLINE regress #-}
 
 classify :: Matrix Double -> Vector Double -> [Vector Double]
 classify zss ys
@@ -69,23 +73,28 @@ fitTask :: Task -> Matrix Double -> Vector Double -> [Vector Double]
 fitTask Regression     = regress
 fitTask Classification = classify
 fitTask ClassMult      = classifyMult
+{-# INLINE fitTask #-}
 
 sigmoid :: Floating a => a -> a
 sigmoid z = 1 / (1+exp(-z))
+{-# INLINE sigmoid #-}
 
 predictTask :: Task -> [Vector Double] -> Vector Double
 predictTask _ []               = error "predictTask: empty coefficients matrix"
 predictTask Regression yss     = head yss
 predictTask Classification yss = sigmoid $ head yss
 predictTask ClassMult yss      = LA.vector $ map (fromIntegral . LA.maxIndex) $ LA.toRows $ LA.fromColumns $ map sigmoid yss
+{-# INLINE predictTask #-}
 
 evalPenalty :: Penalty -> Int -> Double -> Double
 evalPenalty NoPenalty _   _   = 0.0
 evalPenalty (Len c)   len _   = fromIntegral len * c
 evalPenalty (Shape c) _   val = val*c
+{-# INLINE evalPenalty #-}
 
 applyMeasures :: [Measure] -> Vector Double -> Vector Double -> [Double]
 applyMeasures measures ys ysHat = map ((`uncurry` (ys, ysHat)) . _fun) measures
+{-# INLINE applyMeasures #-}
 
 nonlinearFit :: Monad m => Vector Double -> Matrix Double -> Matrix Double -> Vector Double -> m (Vector Double)
 nonlinearFit ys_train zssP zssQ = return . fst . nlFitting LevenbergMarquardtScaled 1e-9 1e-9 200 model' jacob'

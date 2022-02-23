@@ -77,7 +77,7 @@ evalTrain :: Task
           -> Individual
 evalTrain task isRefit measures cnstrFun penalty domains xss_train ys_train xss_val ys_val sol
   | LA.cols zss == 0                   = error "found"
-  | (not.null) (LA.find (\x -> isNaN x || isInfinite x) zss)  = error $ (show $ _chromo sol) <> show domains 
+--  | (not.null) (LA.find (\x -> isNaN x || isInfinite x) zss)  = error $ (show $ _chromo sol) <> show domains 
   | not isRefit && (not.null._fit) sol = sol
   | LA.cols zssP == 0                  = sol { _fit = [1/0] }
   | otherwise                          = sol{ _chromo  = fitted

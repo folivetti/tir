@@ -47,9 +47,9 @@ extra-deps:
   - git: https://github.com/folivetti/evolution.git
     commit: 186a10371cb026dee478b4c8f059ac6052314dc1        
   - git: https://github.com/folivetti/modal-interval.git 
-    commit: 295accf1c884ec02b5458ae813eabf54f34dc944
+    commit: 3701cab7fa16ddf23174ed9bfa13014a85477472
   - git: https://github.com/folivetti/shape-constraint.git 
-    commit: 1987079f5c8eff52d46d50fa9431ce59504676c9
+    commit: 58a3229f898c7a633aafd3ba7e9f1182c8c8a06f
 # Override default flag values for local packages and extra-deps
 # flags: {}
 

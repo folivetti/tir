@@ -25,6 +25,7 @@ instance Show Measure where
 -- | Mean for a vector of doubles
 mean :: Vector -> Double
 mean xs = V.sum xs / fromIntegral (V.length xs)
+{-# INLINE mean #-}
 
 -- | Variance for a vector of doubles
 var :: Vector -> Double
@@ -32,6 +33,7 @@ var xs = sum' / fromIntegral (V.length xs)
   where
     mu   = mean xs
     sum' = V.foldl (\s x -> s + (x-mu)^(2 :: Int)) 0 xs
+{-# INLINE var #-}
 
 -- | generic mean error measure
 meanError :: (Vector -> Vector) -- ^ a function to be applied to the error terms (abs, square,...)
@@ -39,6 +41,7 @@ meanError :: (Vector -> Vector) -- ^ a function to be applied to the error terms
           -> Vector             -- ^ fitted values          
           -> Double
 meanError op ys ysHat = mean $ op $ ysHat - ys
+{-# INLINE meanError #-}
 
 -- * Common error measures for regression:
 -- MSE, MAE, RMSE, NMSE, r^2
@@ -47,18 +50,22 @@ meanError op ys ysHat = mean $ op $ ysHat - ys
 mse :: Vector -> Vector -> Double
 --mse           = meanError (^(2 :: Int))
 mse ys ysHat = mean $ (ysHat - ys) ^(2 :: Int)
+{-# INLINE mse #-}
 
 -- | Mean Absolute Error
 mae :: Vector -> Vector -> Double
 mae ys ysHat = mean $ abs (ysHat - ys) -- meanError abs
+{-# INLINE mae #-}
 
 -- | Normalized Mean Squared Error
 nmse :: Vector -> Vector -> Double
 nmse ys ysHat = mse ysHat ys / var ys
+{-# INLINE nmse #-}
 
 -- | Root of the Mean Squared Error
 rmse :: Vector -> Vector -> Double
 rmse ys ysHat = sqrt $ mse ysHat ys
+{-# INLINE rmse #-}
 
 -- | negate R^2 - minimization metric
 rSq :: Vector -> Vector -> Double
@@ -68,6 +75,7 @@ rSq ys ysHat = negate (1 - r/t)
     t       = sumOfSq $ V.map (\yi -> yi - ym) ys
     r       = sumOfSq $ ys - ysHat
     sumOfSq = V.foldl (\s di -> s + di^(2 :: Int)) 0
+{-# INLINE rSq #-}
 
 -- * Regression measures
 _rmse, _mae, _nmse, _r2 :: Measure
