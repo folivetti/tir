@@ -10,11 +10,11 @@ packages:
     git: https://github.com/folivetti/srtree.git
     pantry-tree:
       size: 817
-      sha256: 94e90a962e7dd66a28c05cd2c6e52ff810edbe970377341920f9dce8acd2ece3
-    commit: db83f1573a72da27e4755133116305e3e44f24bf
+      sha256: bc96f6fba1d20b5537a961578e53e23be8b5500dcb359d49965541c4b6e18810
+    commit: 2b376f6d7a9cacf65978e9f8718c3c0d330b4cba
   original:
     git: https://github.com/folivetti/srtree.git
-    commit: db83f1573a72da27e4755133116305e3e44f24bf
+    commit: 2b376f6d7a9cacf65978e9f8718c3c0d330b4cba
 - completed:
     name: evolution
     version: 0.1.0.0
@@ -32,22 +32,22 @@ packages:
     git: https://github.com/folivetti/modal-interval.git
     pantry-tree:
       size: 950
-      sha256: eb3fa68ee9c81e43d33cc26442ab8f6ad38e92a6a9ec19ee7ce317f81450516b
-    commit: 3701cab7fa16ddf23174ed9bfa13014a85477472
+      sha256: 742fc6a721c8a3cf3eb3c7edb26b9acb148d162ef8daee04b03ca8150312815d
+    commit: d43ec184314c2bb61aa8bbb974866d68d14b2e45
   original:
     git: https://github.com/folivetti/modal-interval.git
-    commit: 3701cab7fa16ddf23174ed9bfa13014a85477472
+    commit: d43ec184314c2bb61aa8bbb974866d68d14b2e45
 - completed:
     name: shape-constraint
     version: 0.1.0.0
     git: https://github.com/folivetti/shape-constraint.git
     pantry-tree:
       size: 643
-      sha256: 34c591f3c2fd0fa8aa0d8a330820d7c4247c4cd33ee7c41e56fe66b0ad8bab17
-    commit: 58a3229f898c7a633aafd3ba7e9f1182c8c8a06f
+      sha256: 4bbe7df25b0e9213e128e443737589fd027e65e951ceece197b442d3150bb01d
+    commit: 88015baff58ef88deaf47980844becfe9ef9a110
   original:
     git: https://github.com/folivetti/shape-constraint.git
-    commit: 58a3229f898c7a633aafd3ba7e9f1182c8c8a06f
+    commit: 88015baff58ef88deaf47980844becfe9ef9a110
 snapshots:
 - completed:
     size: 586268
