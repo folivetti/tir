@@ -1,3 +1,4 @@
+{-# language TypeFamilies #-}
 module Main where
 
 import MachineLearning.Utils.Config
@@ -6,7 +7,6 @@ import MachineLearning.Utils.Data
 import MachineLearning.TIR
 import MachineLearning.TIR.Crossover
 import MachineLearning.TIR.Mutation
-import MachineLearning.TIR.Selection
 import MachineLearning.Model.Fitness
 import MachineLearning.Model.Measure
 import Control.Evolution
@@ -39,6 +39,10 @@ isNotNullNaNInf xs = not (isEmpty xs || isNaN xl || isNaN xu || isInfinite xl ||
     xl = fromMaybe (-1/0) $ inf xs
     xu = fromMaybe (1/0) $ sup xs
 {-# INLINE isNotNullNaNInf #-}
+
+instance EvoClass Individual where 
+  data Crossover Individual = OnePoint | UniformCX deriving (Show, Read)
+  data Mutation  Individual = GroupMutation deriving (Show, Read)
 
 parseCLI :: [String] -> IO ()
 parseCLI [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, trainname] = do
@@ -99,22 +103,24 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
       fitnessTest  = evalTest task measures (fst test) (snd test)
       
       myCX OnePoint  = onepoint
-      myCX CustomCX1 = uniformCx
+      myCX UniformCX = uniformCx
       myMut GroupMutation = multiMut mutCfg'
-      myRep Generational = generational
-      mySelect (Tournament n) = tournament n
-      myFilter _ = id
+      --myRep Generational = generational
+      --mySelect (Tournament n) = tournament n
+      --myFilter _ = id
       myCreate = createIndividual <$> randomTIR mutCfg'
       -- myFitness x = liftIO (print (_chromo x)) >> liftIO (print (tirToMatrix (fst train) $ selectValidTerms (_chromo x) domains)) >> pure (fitnessTrain x)
       myFitness = pure . fitnessTrain
 
       interpret :: Interpreter Individual
-      interpret = Funs myCX myMut myRep mySelect myFilter myCreate myFitness
+      interpret = Funs myCX myMut myCreate myFitness
       
       gp           = Reproduce Generational 
-                       All End 
-                       All (Cross OnePoint 2 (_pc algCfg) (Tournament 2)
-                             (Mutate GroupMutation (_pm algCfg) End))
+                       [Cross OnePoint 2 (_pc algCfg) (Tournament 2) :> Mutate GroupMutation (_pm algCfg) :> Done]
+      fi           = Reproduce Merge
+                       [ With Feasible :> Cross OnePoint 2 (_pc algCfg) (Tournament 2) :> Mutate GroupMutation (_pm algCfg) :> Done
+                       , With Infeasible :> Cross OnePoint 2 (_pc algCfg) (Tournament 2) :> Mutate GroupMutation (_pm algCfg) :> Done
+                       ]
                                                       
       alg          = case _algorithm algCfg of
                        GA -> gp

@@ -122,3 +122,17 @@ jacob zssP zssQ beta | LA.cols zssQ == 0 = zssP
     ysHat          = ysHat_P / (1 + ysHat_Q)
     pjac           = [c / ysHat_Q | c <- LA.toColumns zssP]
     qjac           = [-c*(ysHat_P / ysHat_Q^2) | c <- LA.toColumns zssQ]
+    
+{-
+toEv :: SRTree Int Double -> (V.Vector Double -> Double)
+toEv (Var !ix) = (`V.unsafeIndex` ix)
+toEv (Const !val) = const val
+toEv (Add !l !r) = jn (+) (toEv l) (toEv r)
+toEv (Mul !l !r) = jn (*) (toEv l) (toEv r)
+toEv (Fun Exp !t) = exp . toEv t
+{-# INLINE toEv #-}
+
+jn :: (Double -> Double -> Double) -> (V.Vector Double -> Double) -> (V.Vector Double -> Double) -> (V.Vector Double -> Double)
+jn op f g = \x -> op (f x) (g x)
+{-# INLINE jn #-}
+-}

@@ -45,7 +45,7 @@ extra-deps:
   - git: https://github.com/folivetti/srtree.git
     commit: 2b376f6d7a9cacf65978e9f8718c3c0d330b4cba
   - git: https://github.com/folivetti/evolution.git
-    commit: 186a10371cb026dee478b4c8f059ac6052314dc1        
+    commit: a9bb20fdb739d4d2e275643f58a755c8e3572f50        
   - git: https://github.com/folivetti/modal-interval.git 
     commit: d43ec184314c2bb61aa8bbb974866d68d14b2e45 
   - git: https://github.com/folivetti/shape-constraint.git 
