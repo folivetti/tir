@@ -4,22 +4,22 @@ from itertools import product
 hyper_params = [
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((-5,5),)
     },
     {
         'transfunctions' : ('Id',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((-5,5),)
     },
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((-1,1),)
     },
     {
         'transfunctions' : ('Id',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((-1,1),)
     },
 ]
@@ -27,32 +27,32 @@ hyper_params = [
 hyper_params = [
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((-5,5),)
     },
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((0,5),)
     },
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((-1,1),)
     },
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((0,1),)
     },
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((-2,2),)
     },
     {
         'transfunctions' : ('Id,Tanh,Sin,Cos,Log,Exp,Sqrt',),
-        'ytransfunctions' : ('Id,Sqrt,Exp,Log',),
+        'ytransfunctions' : ('Id,Sqrt,Exp,Log,ATan,Tan,Tanh',),
         'exponents' : ((0,2),)
     },
 ]
