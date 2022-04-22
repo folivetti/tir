@@ -21,11 +21,11 @@ packages:
     git: https://github.com/folivetti/evolution.git
     pantry-tree:
       size: 629
-      sha256: ffa1465ed6f1a8ccdc2c12537b4e24d71386fa845545c841438aa922c722cabc
-    commit: a9bb20fdb739d4d2e275643f58a755c8e3572f50
+      sha256: 6fced66fc4693e974508712239f319ad77a9e8cdba5a072306e0413f03601629
+    commit: 6570a7747f31c9c2204fe0b26905622cd363f829
   original:
     git: https://github.com/folivetti/evolution.git
-    commit: a9bb20fdb739d4d2e275643f58a755c8e3572f50
+    commit: 6570a7747f31c9c2204fe0b26905622cd363f829
 - completed:
     name: modal-interval
     version: 0.1.0.0

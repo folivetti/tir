@@ -1,0 +1,9 @@
+setup.py
+tir
+pyTIR/TIRRegressor.py
+pyTIR/__init__.py
+pyTIR.egg-info/PKG-INFO
+pyTIR.egg-info/SOURCES.txt
+pyTIR.egg-info/dependency_links.txt
+pyTIR.egg-info/requires.txt
+pyTIR.egg-info/top_level.txt
