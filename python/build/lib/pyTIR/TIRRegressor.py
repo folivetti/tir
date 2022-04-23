@@ -55,8 +55,6 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         self.error = error
         self.penalty = penalty
         
-        print(self.penalty)
-    
     def fit(self, X_train, y_train):
         """A reference implementation of a fitting function.
         Parameters

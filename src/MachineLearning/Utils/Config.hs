@@ -27,7 +27,7 @@ allFunctions = [Id .. ]
 data Task = Regression | Classification | ClassMult
          deriving (Eq, Read, Show)
 
-data Algorithm = GA | FI deriving (Eq, Read, Show)
+data Algorithm = GPTIR | SCTIR deriving (Eq, Read, Show)
 
 data Penalty = NoPenalty | Len Double | Shape Double deriving (Show, Read)
 
@@ -70,7 +70,7 @@ data AlgorithmCfg = AlgCfg { _algorithm :: Algorithm
                            } deriving (Show)
 
 dfltAlgCfg :: AlgorithmCfg
-dfltAlgCfg = AlgCfg GA Regression 100 100 0.25 1.0 Nothing [toMeasure "RMSE"]
+dfltAlgCfg = AlgCfg GPTIR Regression 100 100 0.25 1.0 Nothing [toMeasure "RMSE"]
 
 data ConstraintCfg = CnsCfg { _penaltyType :: Penalty
                             , _shapes      :: [Shape] 

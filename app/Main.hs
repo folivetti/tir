@@ -123,8 +123,8 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
                        ]
                                                       
       alg          = case _algorithm algCfg of
-                       GA -> gp
-                       FI -> undefined
+                       GPTIR -> gp
+                       SCTIR -> fi
   (logger, mh)  <- makeLogger cfg fitnessTest
   (_, champion) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret 
   return (fitnessAll champion, mh, fitnessTest)
