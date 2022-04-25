@@ -1,3 +1,14 @@
+{-|
+Module      : MachineLearning.TIR.Crossover
+Description : TIR expression data structures
+Copyright   : (c) Fabricio Olivetti de Franca, 2022
+License     : GPL-3
+Maintainer  : fabricio.olivetti@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+Crossover operators.
+-}
 module MachineLearning.TIR.Crossover where
 
 import MachineLearning.TIR
@@ -18,6 +29,7 @@ choose :: a -> a -> Bool -> a
 choose x y b = if b then x else y
 {-# INLINE choose #-}
 
+-- | One-point crossover
 onepoint :: [Individual] -> Rnd Individual
 onepoint (p1:p2:_) = do
   r <- randomRng (0, npc1 + nqc1)
@@ -47,14 +59,8 @@ onepoint (p1:p2:_) = do
                let qc' = take ix qc1 <> drop ix qc2 
                pure $ p1{ _chromo = c1{ _p = pc1, _q = qc' }, _fit = [] }
 onepoint _         = error "Not enough individuals for onepoint crossover"
-      {-
-coin <- toss
-  let c = if coin
-           then c1{ _q = _q c2 }
-           else c2{ _q = _q c1 }
-  pure $ p1{ _chromo=c, _fit=[] }
--}
-
+    
+-- | Uniform crossover
 uniformCx :: [Individual] -> Rnd Individual
 uniformCx (p1:p2:_) = do
   let c1   = _chromo p1

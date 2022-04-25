@@ -2,7 +2,9 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/folivetti/tir/blob/main/LICENSE)
 
-**TIR** is a fast and simple Evolutionary Algorithm for Symbolic Regression developed in Haskell. Check out the API [documentation](https://folivetti.github.io/tir/) if you want to extend the code.
+**TIR** is a fast and simple Evolutionary Algorithm for Symbolic Regression developed in Haskell. Check out the [documentation](https://folivetti.github.io/tir/) if you want to extend the code.
+
+Transformation-Interaction-Rational (TIR) is a representation proposed in [1]() extending IT representation.
 
 ## Dependencies
 
@@ -22,17 +24,17 @@ For Python wrapper:
 
 1. Clone the repository with `git clone https://github.com/folivetti/tir.git`.
 
-### Using Haskell stack
+### Using Haskell Stack
 
 2. Install the Haskell Stack tool following the instructions at [https://docs.haskellstack.org/en/stable/README/](https://docs.haskellstack.org/en/stable/README/).
 
 3. Run `install_stack.sh`
 
-### Using ghcup
+### Using Cabal
 
-2. Run `install_ghcup.sh` (this will also install ghcup)
+2. Run `install_cabal.sh`
 
-### Using nix flake
+### Using Nix flake
 
 2. Run `install_nix.sh`
 
@@ -46,7 +48,6 @@ The config file is split into three sections where you can set different hyperpa
 [IO]
 train = path and name of the training set
 test  = path and name of the test set
-task  = Regression
 log   = PartialLog "path and name of the output file"
 
 [Mutation]
@@ -57,7 +58,7 @@ ytransfunctions  = [Id, Exp, Sin]
 [Algorithm]
 npop      = 1000
 ngens     = 500
-algorithm = GA
+algorithm = GPTIR
 measures  = ["RMSE", "NMSE", "MAE", "R^2"]
 task      = Regression
 probmut   = 0.8
@@ -67,12 +68,9 @@ seed      = Nothing
 [Constraints]
 penalty = NoPenalty
 shapes  = []
-domains = Nothing
-varnames = ["x0", "x1"]
+domains = []
+evaluator = Nothing
 ```
-
-The `task` parameter can be set to `Regression` or `Classification`, `transfunctions` accepts a list of transformation functions supported (see `src/IT/Eval.hs` block "Transformation Functions"), `measures` accepts a list of error (minimization) functions to use in the report generator (see `src/IT/Metrics.hs` blocks "Regression measures" and "Classification measures"). 
-The `penalty` option can be `NoPenalty`, `Len <double value>` or `Shape <double value>`. The `shapes` option is a list of shape constraints, see `src/IT/Shape.hs` for a list of choices. `domains` is either `Nothing` or `Just [min_x0 ... max_x0, ...]` a list of interval of each variable domain. The `algorithm` option can be `GA` or `FI`.
 
 Run the algorithm with the command:
 
@@ -84,9 +82,38 @@ where <conf-file> is the path and name of the config file.
 
 As an alternative you can use the python wrapper as illustrated in `example.py`.
 
-## Interaction-Transformation
+## Configuration options
 
-Transformation-Interaction-Rational (TIR) is a representation proposed in [1]() extending IT representation.
+### IO
+
+- `train` - path of a comma separated file containing the training data
+- `test` - path of a comma separated file containing the test data (use the same as `train` if you don't want to use a test set)
+- `log` - `Screen` for screen-only results, `PartialLog "directory"` folder of where to store a partial log of the final results, `FullLog "directory"` folder where to store a full log of the whole evolutionary process.
+
+
+### Mutation
+
+- `krange` - tuple of integers of the minimum and maximum exponents of the interaction terms.
+- `transfunctions` - list of transformation functions. Available functions are `Id, Abs, Sin, Cos, Tan, Sinh, Cosh, Tanh, ASin, ACos, ATan, ASinh, ACosh, ATanh, Sqrt, Square, Log, Exp`.
+- `ytransfunctions` - list of invertible transformation function. Available functions are `Id, Sin, Cos, Tan, Tanh, ASin, ACos, ATan, ATanh, Sqrt, Square, Log, Exp`.
+
+### Algorithm
+
+- `npop` - population size
+- `ngens` - number of generations
+- `algorithm` - algorithm: `GPTIR` for genetic programming TIR or `SCTIR` for shape-constrained genetic programming TIR.
+- `measures`  - list of performance measures to calculate: `"RMSE", "NMSE", "MAE", "R^2"`. The first measure is the fitness function.
+- `task` - Regression / Classification (currently unsupported)
+- `probmut` - mutation probability
+- `probcx` - crossover probability
+- `seed` - random seed to be used: `Nothing` for default seed (i.e., current time), `Just 42` for the random seed 42.
+
+## Constraints
+
+- `penalty` - the penalty term to be added to the fitness function: `NoPenalty`, `Len 0.01` (0.01 times the number of nodes of the expression), `Shape 0.01` (0.01 times the number of shape-constraint violations).
+- `shapes`  - list of shape-constraints (refer to https://github.com/folivetti/shape-constraint).
+- `domains` - list of tuples with the minimum and maximum values of each variable.
+- `evaluator` - constraint evaluator: `Nothing`, `Just InnerInterval`, `Just OuterInterval`, `Just (Sampling 100)` (evaluate with 100 samples), `Just Hybrid`, `Just Bisection` (refer to https://github.com/folivetti/shape-constraint).
 
 ## Cite
 

@@ -1,3 +1,14 @@
+{-|
+Module      : MachineLearning.Model.Measure 
+Description : TIR expression data structures
+Copyright   : (c) Fabricio Olivetti de Franca, 2022
+License     : GPL-3
+Maintainer  : fabricio.olivetti@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+Performance measures for Regression and Classification.
+-}
 module MachineLearning.Model.Measure 
   ( Measure(..)
   , toMeasure
@@ -15,6 +26,9 @@ import qualified Data.Vector.Storable        as V
 type Vector = LA.Vector Double
 -- * Performance measures
 
+-- | A performance measure has a string name and a function that 
+-- takes a vector of the true values, a vector of predict values
+-- and returns a `Double`.
 data Measure = Measure { _name :: String
                        , _fun  :: Vector -> Vector -> Double -- ^ true values -> predicted values -> measure
                        }

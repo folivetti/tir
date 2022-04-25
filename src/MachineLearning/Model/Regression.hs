@@ -1,3 +1,14 @@
+{-|
+Module      : MachineLearning.Model.Regression
+Description : TIR expression data structures
+Copyright   : (c) Fabricio Olivetti de Franca, 2022
+License     : GPL-3
+Maintainer  : fabricio.olivetti@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+Fitting functions for the coefficients.
+-}
 module MachineLearning.Model.Regression 
   (fitTask
   , predictTask
@@ -23,7 +34,7 @@ import MachineLearning.Model.Measure (Measure(..))
 -- * IT specific stuff
 
 
--- | Predict a linear model using l2-penalty
+-- | Fits a linear model using l2-penalty
 ridge :: Matrix Double -> Vector Double -> Matrix Double
 ridge a b = oA <\> oB
   where
@@ -35,6 +46,7 @@ ridge a b = oA <\> oB
    oB = a' <> LA.tr b'
 {-# INLINE ridge #-}
 
+-- | Predicts a linear model
 predict :: Matrix Double -> Vector Double -> Vector Double 
 predict xs w | LA.cols xs == LA.size w = xs LA.#> w
              | otherwise = error $ "predict: " ++ show (LA.size xs) ++ show (LA.size w)
@@ -44,9 +56,6 @@ predict xs w | LA.cols xs == LA.size w = xs LA.#> w
 solveOLS :: Matrix Double -> Vector Double -> Vector Double 
 solveOLS zss ys = zss <\> ys
 {-# INLINE solveOLS #-}
--- solveOLS zss ys = LA.flatten $ LA.linearSolveLS zss $ LA.asColumn ys -- <\> ys
-
--- solveOLS zss ys = LA.flatten $ ridge zss ys
 
 -- | Applies OLS and returns a Solution
 -- if the expression is invalid, it returns Infinity as a fitness
@@ -54,12 +63,14 @@ regress :: Matrix Double -> Vector Double -> [Vector Double]
 regress zss ys = [solveOLS zss ys]
 {-# INLINE regress #-}
 
+-- | Applies conjugate gradient for binary classification
 classify :: Matrix Double -> Vector Double -> [Vector Double]
 classify zss ys
     = let ws0     = LA.konst 0 (LA.cols zss)
           (ws, _) = BC.learn (BC.ConjugateGradientPR 0.1 0.1) 0.0001 500 BC.RegNone zss ys ws0
       in  [ws]
 
+-- | Applies conjugate gradient for one-vs-all classification
 classifyMult :: Matrix Double -> Vector Double -> [Vector Double]
 classifyMult zss ys
     = let ws0       = replicate numLabels $ LA.konst 0 (LA.cols zss)
@@ -67,18 +78,20 @@ classifyMult zss ys
           (ws, _)   = OVA.learn (OVA.ConjugateGradientPR 0.1 0.1) 0.0001 500 OVA.RegNone numLabels zss ys ws0
       in  ws
 
--- | Fitness function for regression
 
+-- | chooses the appropriate fitting function
 fitTask :: Task -> Matrix Double -> Vector Double -> [Vector Double]
 fitTask Regression     = regress
 fitTask Classification = classify
 fitTask ClassMult      = classifyMult
 {-# INLINE fitTask #-}
 
+-- | sigmoid function for classification.
 sigmoid :: Floating a => a -> a
 sigmoid z = 1 / (1+exp(-z))
 {-# INLINE sigmoid #-}
 
+-- | chooses the appropriate prediction function
 predictTask :: Task -> [Vector Double] -> Vector Double
 predictTask _ []               = error "predictTask: empty coefficients matrix"
 predictTask Regression yss     = head yss
@@ -86,22 +99,26 @@ predictTask Classification yss = sigmoid $ head yss
 predictTask ClassMult yss      = LA.vector $ map (fromIntegral . LA.maxIndex) $ LA.toRows $ LA.fromColumns $ map sigmoid yss
 {-# INLINE predictTask #-}
 
+-- | evals the penalty function
 evalPenalty :: Penalty -> Int -> Double -> Double
 evalPenalty NoPenalty _   _   = 0.0
 evalPenalty (Len c)   len _   = fromIntegral len * c
 evalPenalty (Shape c) _   val = val*c
 {-# INLINE evalPenalty #-}
 
+-- | applies a list of performance measures
 applyMeasures :: [Measure] -> Vector Double -> Vector Double -> [Double]
 applyMeasures measures ys ysHat = map ((`uncurry` (ys, ysHat)) . _fun) measures
 {-# INLINE applyMeasures #-}
 
+-- | Non-linear optimization using Levenberg-Marquardt method.
 nonlinearFit :: Monad m => Vector Double -> Matrix Double -> Matrix Double -> Vector Double -> m (Vector Double)
 nonlinearFit ys_train zssP zssQ = return . fst . nlFitting LevenbergMarquardtScaled 1e-9 1e-9 200 model' jacob'
   where
     model' = model ys_train zssP zssQ
     jacob' = jacob zssP zssQ
-    
+
+-- | calculates the error given the parameter vector beta
 model :: Vector Double -> Matrix Double -> Matrix Double -> Vector Double -> Vector Double
 model ys_train zssP zssQ beta 
   | LA.cols zssQ == 0 = ysHat_P - ys_train
@@ -111,7 +128,9 @@ model ys_train zssP zssQ beta
     ysHat_P        = predict zssP betaP
     ysHat_Q        = if LA.cols zssQ == 0 then 0 else predict zssQ betaQ
     ysHat          = ysHat_P / (1 + ysHat_Q)
-  
+
+-- | calculates the Jacobian given the parameter vector beta. Doesn't support
+-- the outer transformation function.
 jacob :: Matrix Double -> Matrix Double -> Vector Double -> Matrix Double
 jacob zssP zssQ beta | LA.cols zssQ == 0 = zssP
                      | otherwise         = LA.fromColumns $ pjac <> qjac

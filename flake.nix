@@ -52,10 +52,10 @@
           inherit system config;
         };
 
-        #drv = pkgs.haskell.packages.ghc.callCabal2nixWithOptions "tir" ./. "--no-check" {};
-        drv = pkgs.haskell.packages.ghc.callCabal2nix "tir" ./. {};
+        drv = pkgs.haskell.packages.ghc.callCabal2nix "tir" ./. {};      
+
       in {
-        defaultPackage = drv;
+        defaultPackage = drv;    
         devShell = drv.env;
       });
 }

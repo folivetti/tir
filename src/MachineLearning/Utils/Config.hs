@@ -1,16 +1,16 @@
 {-# language OverloadedStrings #-}
-module MachineLearning.Utils.Config where
-
 {-|
-Module      : Example.Regression
-Description : Example of usage for Symbolic Regression
-Copyright   : (c) Fabricio Olivetti de Franca, 2020
+Module      : MachineLearning.Utils.Config
+Description : TIR expression data structures
+Copyright   : (c) Fabricio Olivetti de Franca, 2022
 License     : GPL-3
 Maintainer  : fabricio.olivetti@gmail.com
 Stability   : experimental
 Portability : POSIX
+
 Configuration parsing and report generation.
 -}
+module MachineLearning.Utils.Config where
 
 import Data.Ini.Config         (IniParser, readable, parseIniFile, section, fieldOf)
 import Data.Text        hiding (map)
@@ -24,11 +24,15 @@ import Algorithm.ShapeConstraint
 
 allFunctions = [Id .. ]
 
+-- | Task can be Regression, Classification and One-vs-All Classification
 data Task = Regression | Classification | ClassMult
          deriving (Eq, Read, Show)
 
+-- | Current algorithm implementation are traditional Evolutionary (GPTIR) and 
+-- Feasible-Infeasible two-population for shape-constraint (SCTIR).
 data Algorithm = GPTIR | SCTIR deriving (Eq, Read, Show)
 
+-- | Type of penalty function
 data Penalty = NoPenalty | Len Double | Shape Double deriving (Show, Read)
 
 -- | Output configuration 

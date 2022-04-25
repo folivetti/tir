@@ -1,3 +1,14 @@
+{-|
+Module      : MachineLearning.TIR.Mutation
+Description : TIR expression data structures
+Copyright   : (c) Fabricio Olivetti de Franca, 2022
+License     : GPL-3
+Maintainer  : fabricio.olivetti@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+Mutation operators.
+-}
 module MachineLearning.TIR.Mutation where
 
 import MachineLearning.TIR
@@ -32,6 +43,13 @@ applyMut params x mut = do
   t <- mut params (_chromo x)
   pure x{ _chromo=t, _fit=[] }
 
+-- | Multi-mutation, it applies one of the following mutations at random:
+--
+-- * insertNode
+-- * removeNode
+-- * changeVar
+-- * changeExponent
+-- * changeFun
 multiMut :: MutationCfg -> Individual -> Rnd Individual
 multiMut params x = do
   let (TIR _ p q) = _chromo x
@@ -42,6 +60,7 @@ multiMut params x = do
                  else randomFrom [insertNode, removeNode, changeVar, changeExponent, changeFun]
   applyMut params x mut
 
+-- | inserts a random node
 insertNode :: MutationCfg -> TIR -> Rnd TIR
 insertNode params (TIR g p q) 
   | null p && null q = insertTerm
@@ -83,6 +102,7 @@ insertNode params (TIR g p q)
                                   else x : insertInto (ix - nvars) xs y
     appendVar (x, y, z) z' = if z' `elem` z then (x, y, z) else (x, y, z':z)
 
+-- | removes a random node
 removeNode :: MutationCfg -> TIR -> Rnd TIR
 removeNode params (TIR g p q) = randomChoice removeVar removeTerm
   where
@@ -110,6 +130,7 @@ removeNode params (TIR g p q) = randomChoice removeVar removeTerm
                                              else (a, b, removeAt ix c) : xs
                                        else (a,b,c) : removeVarAt (ix - nvars) xs
 
+-- | changes the index of a random variable node.
 changeVar :: MutationCfg -> TIR -> Rnd TIR
 changeVar params (TIR g p q) = do
   let np = countVars p
@@ -134,6 +155,7 @@ changeVar params (TIR g p q) = do
                               else do v' <- randomFrom vs
                                       pure $ take ix ys ++ ((v', snd y) : drop (ix+1) ys)
 
+-- | changes a random exponent.
 changeExponent :: MutationCfg -> TIR -> Rnd TIR
 changeExponent params (TIR g p q) = do
   let np = countVars p
@@ -155,6 +177,7 @@ changeExponent params (TIR g p q) = do
                             k <- randomRngNZ $ _kRange params
                             pure $ take ix ys ++ ((fst y, k) : drop (ix+1) ys)
 
+-- | changes a random transformation function.
 changeFun :: MutationCfg -> TIR -> Rnd TIR
 changeFun params (TIR g p q) = do
   let np = length p
@@ -172,5 +195,6 @@ changeFun params (TIR g p q) = do
     changeFunAt 0  ((w,h,ys):xs) h' = (w,h',ys) : xs
     changeFunAt ix ((w,h,ys):xs) h' = (w,h,ys)  : changeFunAt (ix-1) xs h' 
 
+-- | replaces a subtree at random (not yet implemented).
 replaceSubTree :: MutationCfg -> TIR -> Rnd TIR
 replaceSubTree = undefined

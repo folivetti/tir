@@ -1,4 +1,16 @@
 {-# language FlexibleInstances #-}
+{-|
+Module      : MachineLearning.Model.Fitness 
+Description : TIR expression data structures
+Copyright   : (c) Fabricio Olivetti de Franca, 2022
+License     : GPL-3
+Maintainer  : fabricio.olivetti@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+This module exports the functions that calculates the coefficients,
+evaluate the fitness, penalty and constraints of a TIR expression.
+-}
 module MachineLearning.Model.Fitness 
   ( evalTrain
   , evalTest
@@ -26,6 +38,10 @@ import Data.SRTree                (SRTree(..), Function, OptIntPow(..), evalTree
 
 import Data.SRTree.Print
 
+-- | removes invalid terms from the TIR expression. Invalid terms
+-- are those that evaluate to `NaN` or `Infinite` within the
+-- domains of each variable. The domains are either provided by
+-- the configuration file or estimated using the training data.
 selectValidTerms :: TIR -> V.Vector (Kaucher Double) -> TIR
 selectValidTerms tir@(TIR _ p q) domains = tir{ _p=p', _q=q' }
   where
@@ -36,6 +52,9 @@ selectValidTerms tir@(TIR _ p q) domains = tir{ _p=p', _q=q' }
     evalPi      = foldr (\(ix, k) acc -> acc * (domains ! ix ^. k)) 1 
 {-# INLINE selectValidTerms #-}
 
+-- | transform a data matrix using a TIR expression. This function returns
+-- a tuple with the transformed data of the numerator and denominator, respectivelly.
+-- Each column of the transformed data represents one term of the TIR expression.
 tirToMatrix :: Dataset Double -> TIR -> (LA.Matrix Double, LA.Matrix Double)
 tirToMatrix xss (TIR _ p q) = bimap (LA.fromColumns . (bias:)) LA.fromColumns (p', q')
   where
@@ -63,16 +82,19 @@ isInvalidInterval ys =  Interval.isEmpty ys
     ys2 = fromMaybe (1/0) $ sup ys
 {-# INLINE isInvalidInterval #-}            
 
-evalTrain :: Task
-          -> Bool
-          -> [Measure]
-          -> Constraint 
-          -> Penalty
-          -> V.Vector (Kaucher Double)
-          -> Dataset Double
-          -> Vector Double
-          -> Dataset Double
-          -> Vector Double
+-- | evaluates an individual first fitting the expression
+-- with either OLS or a nonlinear optimization (not yet implemented) 
+-- and calculating the fitness vector, constraints, penalty.
+evalTrain :: Task                          -- ^ Regression or Classification task
+          -> Bool                          -- ^ if we are fitting the final best individual, in this case do not split the training data for validation
+          -> [Measure]                     -- ^ list of performance measures to calculate
+          -> Constraint                    -- ^ constraint function
+          -> Penalty                       -- ^ penalty
+          -> V.Vector (Kaucher Double)     -- ^ variable domains represented as a Kaucher Interval
+          -> Dataset Double                -- ^ training data
+          -> Vector Double                 -- ^ training target
+          -> Dataset Double                -- ^ validation data
+          -> Vector Double                 -- ^ validation target
           -> Individual 
           -> Individual
 evalTrain task isRefit measures cnstrFun penalty domains xss_train ys_train xss_val ys_val sol

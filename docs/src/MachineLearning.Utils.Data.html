@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-comment">{-|
+Module      : MachineLearning.Utils.Data
+Description : TIR expression data structures
+Copyright   : (c) Fabricio Olivetti de Franca, 2022
+License     : GPL-3
+Maintainer  : fabricio.olivetti@gmail.com
+Stability   : experimental
+Portability : POSIX
+
+Dataset handling functions.
+
+-}</span><span>
+</span><span id="line-13"></span><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">MachineLearning.Utils.Data</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="MachineLearning.Utils.Data.html#processData"><span class="hs-identifier">processData</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-14"></span><span>
+</span><span id="line-15"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.List</span></span><span>                             </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">transpose</span></span><span class="hs-special">)</span><span>
+</span><span id="line-16"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.List.Split</span></span><span>                       </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">splitOn</span></span><span class="hs-special">)</span><span>
+</span><span id="line-17"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Vector</span></span><span>                           </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Vector</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">fromList</span></span><span class="hs-special">)</span><span>
+</span><span id="line-18"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Numeric.ModalInterval</span></span><span>            </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Kaucher</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-operator">(&lt;.&lt;)</span></span><span class="hs-special">)</span><span>
+</span><span id="line-19"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Numeric.LinearAlgebra</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-operator">(??)</span></span><span class="hs-special">)</span><span>
+</span><span id="line-20"></span><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="annot"><span class="hs-identifier">Numeric.LinearAlgebra</span></span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">LA</span></span><span>
+</span><span id="line-21"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Numeric.Morpheus.MatrixReduce</span></span><span>         </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">columnPredicate</span></span><span class="hs-special">)</span><span>
+</span><span id="line-22"></span><span>
+</span><span id="line-23"></span><span class="hs-comment">-- import Constraints.Shape</span><span>
+</span><span id="line-24"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Config.html"><span class="hs-identifier">MachineLearning.Utils.Config</span></a></span><span>
+</span><span id="line-25"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="MachineLearning.TIR.html"><span class="hs-identifier">MachineLearning.TIR</span></a></span><span>
+</span><span id="line-26"></span><span>
+</span><span id="line-27"></span><span class="hs-comment">-- | A tuple of features columns and target</span><span>
+</span><span id="line-28"></span><span class="hs-keyword">type</span><span> </span><span id="DataSplit"><span class="annot"><a href="MachineLearning.Utils.Data.html#DataSplit"><span class="hs-identifier hs-var">DataSplit</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="MachineLearning.TIR.html#Dataset"><span class="hs-identifier hs-type">Dataset</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="MachineLearning.TIR.html#Column"><span class="hs-identifier hs-type">Column</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span>
+</span><span id="line-29"></span><span>
+</span><span id="line-30"></span><span class="hs-comment">-- | Reads and loads the data. It returns the training X, y, test X, y, vector of domains and image of the training data,</span><span>
+</span><span id="line-31"></span><span class="hs-comment">-- number of variables</span><span>
+</span><span id="line-32"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#processData"><span class="hs-identifier hs-type">processData</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Config.html#Config"><span class="hs-identifier hs-type">Config</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="MachineLearning.Utils.Data.html#DataSplit"><span class="hs-identifier hs-type">DataSplit</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Data.html#DataSplit"><span class="hs-identifier hs-type">DataSplit</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Data.html#DataSplit"><span class="hs-identifier hs-type">DataSplit</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Data.html#DataSplit"><span class="hs-identifier hs-type">DataSplit</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Vector</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Kaucher</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Kaucher</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">)</span><span>
+</span><span id="line-33"></span><span id="processData"><span class="annot"><span class="annottext">processData :: Config
+-&gt; IO
+     (DataSplit, DataSplit, DataSplit, DataSplit,
+      Vector (Kaucher Double), Kaucher Double, Int)
+</span><a href="MachineLearning.Utils.Data.html#processData"><span class="hs-identifier hs-var hs-var">processData</span></a></span></span><span> </span><span id="local-6989586621679074268"><span class="annot"><span class="annottext">Config
+</span><a href="#local-6989586621679074268"><span class="hs-identifier hs-var">cfg</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-34"></span><span>  </span><span class="hs-keyword">do</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679074267"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074267"><span class="hs-identifier hs-var">trainX</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679074266"><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074266"><span class="hs-identifier hs-var">trainY</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">FilePath -&gt; IO (Matrix Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#readAndParse"><span class="hs-identifier hs-var">readAndParse</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Config -&gt; FilePath
+</span><a href="MachineLearning.Utils.Config.html#getTrainName"><span class="hs-identifier hs-var">getTrainName</span></a></span><span> </span><span class="annot"><span class="annottext">Config
+</span><a href="#local-6989586621679074268"><span class="hs-identifier hs-var">cfg</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-35"></span><span>     </span><span class="hs-special">(</span><span id="local-6989586621679074263"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074263"><span class="hs-identifier hs-var">testX</span></a></span></span><span> </span><span class="hs-special">,</span><span> </span><span id="local-6989586621679074262"><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074262"><span class="hs-identifier hs-var">testY</span></a></span></span><span> </span><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">FilePath -&gt; IO (Matrix Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#readAndParse"><span class="hs-identifier hs-var">readAndParse</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Config -&gt; FilePath
+</span><a href="MachineLearning.Utils.Config.html#getTestName"><span class="hs-identifier hs-var">getTestName</span></a></span><span>  </span><span class="annot"><span class="annottext">Config
+</span><a href="#local-6989586621679074268"><span class="hs-identifier hs-var">cfg</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-36"></span><span>     </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679074260"><span class="annot"><span class="annottext">nVars :: Int
+</span><a href="#local-6989586621679074260"><span class="hs-identifier hs-var hs-var">nVars</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Int
+forall t. Matrix t -&gt; Int
+</span><span class="hs-identifier hs-var">LA.cols</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074267"><span class="hs-identifier hs-var">trainX</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-glyph hs-var">-</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1</span></span><span>
+</span><span id="line-37"></span><span>         </span><span id="local-6989586621679074258"><span class="annot"><span class="annottext">domains :: Vector (Kaucher Double)
+</span><a href="#local-6989586621679074258"><span class="hs-identifier hs-var hs-var">domains</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Kaucher Double] -&gt; Vector (Kaucher Double)
+forall a. [a] -&gt; Vector a
+</span><span class="hs-identifier hs-var">fromList</span></span><span> </span><span class="annot"><span class="annottext">([Kaucher Double] -&gt; Vector (Kaucher Double))
+-&gt; [Kaucher Double] -&gt; Vector (Kaucher Double)
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Domains -&gt; Matrix Double -&gt; [Kaucher Double]
+</span><a href="MachineLearning.Utils.Data.html#estimateDomains"><span class="hs-identifier hs-var">estimateDomains</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Config -&gt; Domains
+</span><a href="MachineLearning.Utils.Config.html#getDomains"><span class="hs-identifier hs-var">getDomains</span></a></span><span> </span><span class="annot"><span class="annottext">Config
+</span><a href="#local-6989586621679074268"><span class="hs-identifier hs-var">cfg</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074267"><span class="hs-identifier hs-var">trainX</span></a></span><span>
+</span><span id="line-38"></span><span>         </span><span id="local-6989586621679074255"><span class="annot"><span class="annottext">image :: Kaucher Double
+</span><a href="#local-6989586621679074255"><span class="hs-identifier hs-var hs-var">image</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Maybe (Double, Double) -&gt; Vector Double -&gt; Kaucher Double
+</span><a href="MachineLearning.Utils.Data.html#estimateImage"><span class="hs-identifier hs-var">estimateImage</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Config -&gt; Maybe (Double, Double)
+</span><a href="MachineLearning.Utils.Config.html#getImage"><span class="hs-identifier hs-var">getImage</span></a></span><span> </span><span class="annot"><span class="annottext">Config
+</span><a href="#local-6989586621679074268"><span class="hs-identifier hs-var">cfg</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074266"><span class="hs-identifier hs-var">trainY</span></a></span><span> </span><span>
+</span><span id="line-39"></span><span>         </span><span id="local-6989586621679074252"><span class="annot"><span class="annottext">xss_all :: Dataset Double
+</span><a href="#local-6989586621679074252"><span class="hs-identifier hs-var hs-var">xss_all</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Dataset Double
+</span><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-var">toVecOfColumns</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074267"><span class="hs-identifier hs-var">trainX</span></a></span><span>
+</span><span id="line-40"></span><span>         </span><span id="local-6989586621679074250"><span class="annot"><span class="annottext">xss_test :: Dataset Double
+</span><a href="#local-6989586621679074250"><span class="hs-identifier hs-var hs-var">xss_test</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Dataset Double
+</span><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-var">toVecOfColumns</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074263"><span class="hs-identifier hs-var">testX</span></a></span><span>
+</span><span id="line-41"></span><span>         </span><span class="hs-special">(</span><span id="local-6989586621679074249"><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074249"><span class="hs-identifier hs-var">xss_train</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679074248"><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074248"><span class="hs-identifier hs-var">y_train</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679074247"><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074247"><span class="hs-identifier hs-var">xss_val</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679074246"><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074246"><span class="hs-identifier hs-var">y_val</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Double
+-&gt; Matrix Double
+-&gt; Vector Double
+-&gt; (Dataset Double, Vector Double, Dataset Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#splitValidation"><span class="hs-identifier hs-var">splitValidation</span></a></span><span> </span><span class="annot"><span class="annottext">Double
+</span><span class="hs-number">0.9</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074267"><span class="hs-identifier hs-var">trainX</span></a></span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074266"><span class="hs-identifier hs-var">trainY</span></a></span><span>
+</span><span id="line-42"></span><span>     </span><span class="annot"><span class="annottext">(DataSplit, DataSplit, DataSplit, DataSplit,
+ Vector (Kaucher Double), Kaucher Double, Int)
+-&gt; IO
+     (DataSplit, DataSplit, DataSplit, DataSplit,
+      Vector (Kaucher Double), Kaucher Double, Int)
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="hs-special">(</span><span class="hs-special">(</span><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074249"><span class="hs-identifier hs-var">xss_train</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074248"><span class="hs-identifier hs-var">y_train</span></a></span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074247"><span class="hs-identifier hs-var">xss_val</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074246"><span class="hs-identifier hs-var">y_val</span></a></span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074252"><span class="hs-identifier hs-var">xss_all</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074266"><span class="hs-identifier hs-var">trainY</span></a></span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074250"><span class="hs-identifier hs-var">xss_test</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074262"><span class="hs-identifier hs-var">testY</span></a></span><span class="hs-special">)</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector (Kaucher Double)
+</span><a href="#local-6989586621679074258"><span class="hs-identifier hs-var">domains</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Kaucher Double
+</span><a href="#local-6989586621679074255"><span class="hs-identifier hs-var">image</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074260"><span class="hs-identifier hs-var">nVars</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-43"></span><span>
+</span><span id="line-44"></span><span class="hs-comment">-- | Parse a numerical csv file into predictors and target variables</span><span>
+</span><span id="line-45"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#parseFile"><span class="hs-identifier hs-type">parseFile</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="MachineLearning.TIR.html#Column"><span class="hs-identifier hs-type">Column</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span>
+</span><span id="line-46"></span><span id="parseFile"><span class="annot"><span class="annottext">parseFile :: FilePath -&gt; (Matrix Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#parseFile"><span class="hs-identifier hs-var hs-var">parseFile</span></a></span></span><span> </span><span id="local-6989586621679074242"><span class="annot"><span class="annottext">FilePath
+</span><a href="#local-6989586621679074242"><span class="hs-identifier hs-var">css</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; (Matrix Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#splitToXY"><span class="hs-identifier hs-var">splitToXY</span></a></span><span> </span><span class="annot"><span class="annottext">(Matrix Double -&gt; (Matrix Double, Vector Double))
+-&gt; ([[Double]] -&gt; Matrix Double)
+-&gt; [[Double]]
+-&gt; (Matrix Double, Vector Double)
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">[[Double]] -&gt; Matrix Double
+forall t. Element t =&gt; [[t]] -&gt; Matrix t
+</span><span class="hs-identifier hs-var">LA.fromLists</span></span><span> </span><span class="annot"><span class="annottext">([[Double]] -&gt; (Matrix Double, Vector Double))
+-&gt; [[Double]] -&gt; (Matrix Double, Vector Double)
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">([FilePath] -&gt; [Double]) -&gt; [[FilePath]] -&gt; [[Double]]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(FilePath -&gt; Double) -&gt; [FilePath] -&gt; [Double]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">FilePath -&gt; Double
+forall a. Read a =&gt; FilePath -&gt; a
+</span><span class="hs-identifier hs-var">read</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">[[FilePath]]
+</span><a href="#local-6989586621679074237"><span class="hs-identifier hs-var">dat</span></a></span><span>
+</span><span id="line-47"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-48"></span><span>    </span><span id="local-6989586621679074237"><span class="annot"><span class="annottext">dat :: [[FilePath]]
+</span><a href="#local-6989586621679074237"><span class="hs-identifier hs-var hs-var">dat</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(FilePath -&gt; [FilePath]) -&gt; [FilePath] -&gt; [[FilePath]]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">FilePath -&gt; FilePath -&gt; [FilePath]
+forall a. Eq a =&gt; [a] -&gt; [a] -&gt; [[a]]
+</span><span class="hs-identifier hs-var">splitOn</span></span><span> </span><span class="annot"><span class="annottext">FilePath
+</span><span class="hs-string">&quot;,&quot;</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">([FilePath] -&gt; [[FilePath]]) -&gt; [FilePath] -&gt; [[FilePath]]
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">FilePath -&gt; [FilePath]
+</span><span class="hs-identifier hs-var">lines</span></span><span> </span><span class="annot"><span class="annottext">FilePath
+</span><a href="#local-6989586621679074242"><span class="hs-identifier hs-var">css</span></a></span><span>
+</span><span id="line-49"></span><span>    </span><span>
+</span><span id="line-50"></span><span class="hs-comment">-- | read and parse the csv file</span><span>
+</span><span id="line-51"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#readAndParse"><span class="hs-identifier hs-type">readAndParse</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">FilePath</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Vector</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span>
+</span><span id="line-52"></span><span id="readAndParse"><span class="annot"><span class="annottext">readAndParse :: FilePath -&gt; IO (Matrix Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#readAndParse"><span class="hs-identifier hs-var hs-var">readAndParse</span></a></span></span><span> </span><span id="local-6989586621679074235"><span class="annot"><span class="annottext">FilePath
+</span><a href="#local-6989586621679074235"><span class="hs-identifier hs-var">f</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679074234"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074234"><span class="hs-identifier hs-var">xss</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679074233"><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074233"><span class="hs-identifier hs-var">ys</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">FilePath -&gt; (Matrix Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#parseFile"><span class="hs-identifier hs-var">parseFile</span></a></span><span> </span><span class="annot"><span class="annottext">(FilePath -&gt; (Matrix Double, Vector Double))
+-&gt; IO FilePath -&gt; IO (Matrix Double, Vector Double)
+forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
+</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">FilePath -&gt; IO FilePath
+</span><span class="hs-identifier hs-var">readFile</span></span><span> </span><span class="annot"><span class="annottext">FilePath
+</span><a href="#local-6989586621679074235"><span class="hs-identifier hs-var">f</span></a></span><span>
+</span><span id="line-53"></span><span>                    </span><span class="annot"><span class="annottext">(Matrix Double, Vector Double) -&gt; IO (Matrix Double, Vector Double)
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Matrix Double
+</span><span class="hs-number">1.0</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Matrix Double -&gt; Matrix Double
+forall t. Element t =&gt; Matrix t -&gt; Matrix t -&gt; Matrix t
+</span><span class="hs-operator hs-var">LA.|||</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074234"><span class="hs-identifier hs-var">xss</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074233"><span class="hs-identifier hs-var">ys</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-54"></span><span>
+</span><span id="line-55"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-type">toVecOfColumns</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="MachineLearning.TIR.html#Dataset"><span class="hs-identifier hs-type">Dataset</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span>
+</span><span id="line-56"></span><span id="toVecOfColumns"><span class="annot"><span class="annottext">toVecOfColumns :: Matrix Double -&gt; Dataset Double
+</span><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-var hs-var">toVecOfColumns</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Vector Double] -&gt; Dataset Double
+forall a. [a] -&gt; Vector a
+</span><span class="hs-identifier hs-var">fromList</span></span><span> </span><span class="annot"><span class="annottext">([Vector Double] -&gt; Dataset Double)
+-&gt; (Matrix Double -&gt; [Vector Double])
+-&gt; Matrix Double
+-&gt; Dataset Double
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; [Vector Double]
+forall t. Element t =&gt; Matrix t -&gt; [Vector t]
+</span><span class="hs-identifier hs-var">LA.toColumns</span></span><span>
+</span><span id="line-57"></span><span>
+</span><span id="line-58"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#takeNRows"><span class="hs-identifier hs-type">takeNRows</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Data.html#dropNRows"><span class="hs-identifier hs-type">dropNRows</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span>
+</span><span id="line-59"></span><span id="takeNRows"><span class="annot"><span class="annottext">takeNRows :: Int -&gt; Matrix Double -&gt; Matrix Double
+</span><a href="MachineLearning.Utils.Data.html#takeNRows"><span class="hs-identifier hs-var hs-var">takeNRows</span></a></span></span><span> </span><span id="local-6989586621679074226"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074226"><span class="hs-identifier hs-var">n</span></a></span></span><span> </span><span id="local-6989586621679074225"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074225"><span class="hs-identifier hs-var">xss</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074225"><span class="hs-identifier hs-var">xss</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; (Extractor, Extractor) -&gt; Matrix Double
+forall t.
+Element t =&gt;
+Matrix t -&gt; (Extractor, Extractor) -&gt; Matrix t
+</span><span class="hs-operator hs-var">LA.??</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int -&gt; Extractor
+</span><span class="hs-identifier hs-var">LA.Take</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074226"><span class="hs-identifier hs-var">n</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Extractor
+</span><span class="hs-identifier hs-var">LA.All</span></span><span class="hs-special">)</span><span>
+</span><span id="line-60"></span><span id="dropNRows"><span class="annot"><span class="annottext">dropNRows :: Int -&gt; Matrix Double -&gt; Matrix Double
+</span><a href="MachineLearning.Utils.Data.html#dropNRows"><span class="hs-identifier hs-var hs-var">dropNRows</span></a></span></span><span> </span><span id="local-6989586621679074222"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074222"><span class="hs-identifier hs-var">n</span></a></span></span><span> </span><span id="local-6989586621679074221"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074221"><span class="hs-identifier hs-var">xss</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074221"><span class="hs-identifier hs-var">xss</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; (Extractor, Extractor) -&gt; Matrix Double
+forall t.
+Element t =&gt;
+Matrix t -&gt; (Extractor, Extractor) -&gt; Matrix t
+</span><span class="hs-operator hs-var">LA.??</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int -&gt; Extractor
+</span><span class="hs-identifier hs-var">LA.Drop</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074222"><span class="hs-identifier hs-var">n</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Extractor
+</span><span class="hs-identifier hs-var">LA.All</span></span><span class="hs-special">)</span><span>
+</span><span id="line-61"></span><span>
+</span><span id="line-62"></span><span class="hs-comment">-- | split the training data into training and validation</span><span>
+</span><span id="line-63"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#splitValidation"><span class="hs-identifier hs-type">splitValidation</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Vector</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span>
+</span><span id="line-64"></span><span>                </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="MachineLearning.TIR.html#Dataset"><span class="hs-identifier hs-type">Dataset</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Vector</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="MachineLearning.TIR.html#Dataset"><span class="hs-identifier hs-type">Dataset</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Vector</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span>
+</span><span id="line-65"></span><span id="splitValidation"><span class="annot"><span class="annottext">splitValidation :: Double
+-&gt; Matrix Double
+-&gt; Vector Double
+-&gt; (Dataset Double, Vector Double, Dataset Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#splitValidation"><span class="hs-identifier hs-var hs-var">splitValidation</span></a></span></span><span> </span><span id="local-6989586621679074219"><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074219"><span class="hs-identifier hs-var">ratio</span></a></span></span><span> </span><span id="local-6989586621679074218"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074218"><span class="hs-identifier hs-var">xss</span></a></span></span><span> </span><span id="local-6989586621679074217"><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074217"><span class="hs-identifier hs-var">ys</span></a></span></span><span>
+</span><span id="line-66"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074216"><span class="hs-identifier hs-var">nRows</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
+forall a. Ord a =&gt; a -&gt; a -&gt; Bool
+</span><span class="hs-operator hs-var">&lt;=</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">50</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Matrix Double -&gt; Dataset Double
+</span><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-var">toVecOfColumns</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074218"><span class="hs-identifier hs-var">xss</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074217"><span class="hs-identifier hs-var">ys</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Dataset Double
+</span><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-var">toVecOfColumns</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074218"><span class="hs-identifier hs-var">xss</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074217"><span class="hs-identifier hs-var">ys</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-67"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Bool
+</span><span class="hs-identifier hs-var">otherwise</span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074214"><span class="hs-identifier hs-var">xss_train</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074213"><span class="hs-identifier hs-var">y_train</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Dataset Double
+</span><a href="#local-6989586621679074212"><span class="hs-identifier hs-var">xss_val</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074211"><span class="hs-identifier hs-var">y_val</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-68"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-69"></span><span>    </span><span id="local-6989586621679074216"><span class="annot"><span class="annottext">nRows :: Int
+</span><a href="#local-6989586621679074216"><span class="hs-identifier hs-var hs-var">nRows</span></a></span></span><span>      </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Int
+forall t. Matrix t -&gt; Int
+</span><span class="hs-identifier hs-var">LA.rows</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074218"><span class="hs-identifier hs-var">xss</span></a></span><span>
+</span><span id="line-70"></span><span>    </span><span id="local-6989586621679074209"><span class="annot"><span class="annottext">nRowsTrain :: Int
+</span><a href="#local-6989586621679074209"><span class="hs-identifier hs-var hs-var">nRowsTrain</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Double -&gt; Int
+forall a b. (RealFrac a, Integral b) =&gt; a -&gt; b
+</span><span class="hs-identifier hs-var">round</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int -&gt; Double
+forall a b. (Integral a, Num b) =&gt; a -&gt; b
+</span><span class="hs-identifier hs-var">fromIntegral</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074216"><span class="hs-identifier hs-var">nRows</span></a></span><span> </span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Double
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">*</span></span><span> </span><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074219"><span class="hs-identifier hs-var">ratio</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-71"></span><span>    </span><span id="local-6989586621679074206"><span class="annot"><span class="annottext">nRowsVal :: Int
+</span><a href="#local-6989586621679074206"><span class="hs-identifier hs-var hs-var">nRowsVal</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074216"><span class="hs-identifier hs-var">nRows</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-glyph hs-var">-</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074209"><span class="hs-identifier hs-var">nRowsTrain</span></a></span><span>
+</span><span id="line-72"></span><span>    </span><span id="local-6989586621679074214"><span class="annot"><span class="annottext">xss_train :: Dataset Double
+</span><a href="#local-6989586621679074214"><span class="hs-identifier hs-var hs-var">xss_train</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Dataset Double
+</span><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-var">toVecOfColumns</span></a></span><span> </span><span class="annot"><span class="annottext">(Matrix Double -&gt; Dataset Double)
+-&gt; Matrix Double -&gt; Dataset Double
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Matrix Double -&gt; Matrix Double
+</span><a href="MachineLearning.Utils.Data.html#takeNRows"><span class="hs-identifier hs-var">takeNRows</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074209"><span class="hs-identifier hs-var">nRowsTrain</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074218"><span class="hs-identifier hs-var">xss</span></a></span><span>
+</span><span id="line-73"></span><span>    </span><span id="local-6989586621679074212"><span class="annot"><span class="annottext">xss_val :: Dataset Double
+</span><a href="#local-6989586621679074212"><span class="hs-identifier hs-var hs-var">xss_val</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Dataset Double
+</span><a href="MachineLearning.Utils.Data.html#toVecOfColumns"><span class="hs-identifier hs-var">toVecOfColumns</span></a></span><span> </span><span class="annot"><span class="annottext">(Matrix Double -&gt; Dataset Double)
+-&gt; Matrix Double -&gt; Dataset Double
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Matrix Double -&gt; Matrix Double
+</span><a href="MachineLearning.Utils.Data.html#dropNRows"><span class="hs-identifier hs-var">dropNRows</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074206"><span class="hs-identifier hs-var">nRowsVal</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074218"><span class="hs-identifier hs-var">xss</span></a></span><span>
+</span><span id="line-74"></span><span>    </span><span id="local-6989586621679074213"><span class="annot"><span class="annottext">y_train :: Vector Double
+</span><a href="#local-6989586621679074213"><span class="hs-identifier hs-var hs-var">y_train</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Vector Double -&gt; Vector Double
+forall t. Storable t =&gt; Int -&gt; Int -&gt; Vector t -&gt; Vector t
+</span><span class="hs-identifier hs-var">LA.subVector</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">0</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074209"><span class="hs-identifier hs-var">nRowsTrain</span></a></span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074217"><span class="hs-identifier hs-var">ys</span></a></span><span>
+</span><span id="line-75"></span><span>    </span><span id="local-6989586621679074211"><span class="annot"><span class="annottext">y_val :: Vector Double
+</span><a href="#local-6989586621679074211"><span class="hs-identifier hs-var hs-var">y_val</span></a></span></span><span>      </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Vector Double -&gt; Vector Double
+forall t. Storable t =&gt; Int -&gt; Int -&gt; Vector t -&gt; Vector t
+</span><span class="hs-identifier hs-var">LA.subVector</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074206"><span class="hs-identifier hs-var">nRowsVal</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074209"><span class="hs-identifier hs-var">nRowsTrain</span></a></span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074217"><span class="hs-identifier hs-var">ys</span></a></span><span>    </span><span>
+</span><span id="line-76"></span><span>
+</span><span id="line-77"></span><span class="hs-comment">-- | estimates the target image of the function    </span><span>
+</span><span id="line-78"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#estimateImage"><span class="hs-identifier hs-type">estimateImage</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Vector</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Kaucher</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span>
+</span><span id="line-79"></span><span id="estimateImage"><span class="annot"><span class="annottext">estimateImage :: Maybe (Double, Double) -&gt; Vector Double -&gt; Kaucher Double
+</span><a href="MachineLearning.Utils.Data.html#estimateImage"><span class="hs-identifier hs-var hs-var">estimateImage</span></a></span></span><span> </span><span id="local-6989586621679074204"><span class="annot"><span class="annottext">Maybe (Double, Double)
+</span><a href="#local-6989586621679074204"><span class="hs-identifier hs-var">image</span></a></span></span><span> </span><span id="local-6989586621679074203"><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074203"><span class="hs-identifier hs-var">ys</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span>
+</span><span id="line-80"></span><span>  </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Maybe (Double, Double)
+</span><a href="#local-6989586621679074204"><span class="hs-identifier hs-var">image</span></a></span><span> </span><span class="hs-keyword">of</span><span> </span><span>
+</span><span id="line-81"></span><span>       </span><span class="annot"><span class="annottext">Maybe (Double, Double)
+</span><span class="hs-identifier hs-var">Nothing</span></span><span>       </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074202"><span class="hs-identifier hs-var">minY</span></a></span><span> </span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Kaucher Double
+forall a. RealFloat a =&gt; a -&gt; a -&gt; Kaucher a
+</span><span class="hs-operator hs-var">&lt;.&lt;</span></span><span> </span><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074201"><span class="hs-identifier hs-var">maxY</span></a></span><span>
+</span><span id="line-82"></span><span>       </span><span class="annot"><span class="hs-identifier hs-type">Just</span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679074200"><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074200"><span class="hs-identifier hs-var">lo</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679074199"><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074199"><span class="hs-identifier hs-var">hi</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074200"><span class="hs-identifier hs-var">lo</span></a></span><span> </span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Kaucher Double
+forall a. RealFloat a =&gt; a -&gt; a -&gt; Kaucher a
+</span><span class="hs-operator hs-var">&lt;.&lt;</span></span><span> </span><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679074199"><span class="hs-identifier hs-var">hi</span></a></span><span>
+</span><span id="line-83"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-84"></span><span>    </span><span id="local-6989586621679074202"><span class="annot"><span class="annottext">minY :: Double
+</span><a href="#local-6989586621679074202"><span class="hs-identifier hs-var hs-var">minY</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Double] -&gt; Double
+forall (t :: * -&gt; *) a. (Foldable t, Ord a) =&gt; t a -&gt; a
+</span><span class="hs-identifier hs-var">minimum</span></span><span> </span><span class="annot"><span class="annottext">([Double] -&gt; Double) -&gt; [Double] -&gt; Double
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Vector Double -&gt; [Double]
+forall a. Storable a =&gt; Vector a -&gt; [a]
+</span><span class="hs-identifier hs-var">LA.toList</span></span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074203"><span class="hs-identifier hs-var">ys</span></a></span><span>
+</span><span id="line-85"></span><span>    </span><span id="local-6989586621679074201"><span class="annot"><span class="annottext">maxY :: Double
+</span><a href="#local-6989586621679074201"><span class="hs-identifier hs-var hs-var">maxY</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Double] -&gt; Double
+forall (t :: * -&gt; *) a. (Foldable t, Ord a) =&gt; t a -&gt; a
+</span><span class="hs-identifier hs-var">maximum</span></span><span> </span><span class="annot"><span class="annottext">([Double] -&gt; Double) -&gt; [Double] -&gt; Double
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Vector Double -&gt; [Double]
+forall a. Storable a =&gt; Vector a -&gt; [a]
+</span><span class="hs-identifier hs-var">LA.toList</span></span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074203"><span class="hs-identifier hs-var">ys</span></a></span><span>
+</span><span id="line-86"></span><span>
+</span><span id="line-87"></span><span class="hs-keyword">type</span><span> </span><span id="Domains"><span class="annot"><a href="MachineLearning.Utils.Data.html#Domains"><span class="hs-identifier hs-var">Domains</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span class="hs-special">]</span><span>
+</span><span id="line-88"></span><span>
+</span><span id="line-89"></span><span class="hs-comment">-- | estimates the target domain of the function    </span><span>
+</span><span id="line-90"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#estimateDomains"><span class="hs-identifier hs-type">estimateDomains</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Data.html#Domains"><span class="hs-identifier hs-type">Domains</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Kaucher</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">]</span><span>
+</span><span id="line-91"></span><span id="estimateDomains"><span class="annot"><span class="annottext">estimateDomains :: Domains -&gt; Matrix Double -&gt; [Kaucher Double]
+</span><a href="MachineLearning.Utils.Data.html#estimateDomains"><span class="hs-identifier hs-var hs-var">estimateDomains</span></a></span></span><span> </span><span id="local-6989586621679074195"><span class="annot"><span class="annottext">Domains
+</span><a href="#local-6989586621679074195"><span class="hs-identifier hs-var">domains</span></a></span></span><span> </span><span id="local-6989586621679074194"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074194"><span class="hs-identifier hs-var">xss</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-92"></span><span>  </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Domains
+</span><a href="#local-6989586621679074195"><span class="hs-identifier hs-var">domains</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-93"></span><span>    </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">(Double -&gt; Double -&gt; Kaucher Double)
+-&gt; [Double] -&gt; [Double] -&gt; [Kaucher Double]
+forall a b c. (a -&gt; b -&gt; c) -&gt; [a] -&gt; [b] -&gt; [c]
+</span><span class="hs-identifier hs-var">zipWith</span></span><span> </span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Kaucher Double
+forall a. RealFloat a =&gt; a -&gt; a -&gt; Kaucher a
+</span><span class="hs-operator hs-var">(&lt;.&lt;)</span></span><span> </span><span class="annot"><span class="annottext">[Double]
+</span><a href="#local-6989586621679074192"><span class="hs-identifier hs-var">minX</span></a></span><span> </span><span class="annot"><span class="annottext">[Double]
+</span><a href="#local-6989586621679074191"><span class="hs-identifier hs-var">maxX</span></a></span><span>
+</span><span id="line-94"></span><span>    </span><span id="local-6989586621679074190"><span class="annot"><span class="annottext">Domains
+</span><a href="#local-6989586621679074190"><span class="hs-identifier hs-var">ds</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">((Double, Double) -&gt; Kaucher Double) -&gt; Domains -&gt; [Kaucher Double]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(Double -&gt; Double -&gt; Kaucher Double)
+-&gt; (Double, Double) -&gt; Kaucher Double
+forall a b c. (a -&gt; b -&gt; c) -&gt; (a, b) -&gt; c
+</span><span class="hs-identifier hs-var">uncurry</span></span><span> </span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Kaucher Double
+forall a. RealFloat a =&gt; a -&gt; a -&gt; Kaucher a
+</span><span class="hs-operator hs-var">(&lt;.&lt;)</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Domains
+</span><a href="#local-6989586621679074190"><span class="hs-identifier hs-var">ds</span></a></span><span>
+</span><span id="line-95"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-96"></span><span>    </span><span id="local-6989586621679074192"><span class="annot"><span class="annottext">minX :: [Double]
+</span><a href="#local-6989586621679074192"><span class="hs-identifier hs-var hs-var">minX</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Double] -&gt; [Double]
+forall a. [a] -&gt; [a]
+</span><span class="hs-identifier hs-var">Prelude.tail</span></span><span> </span><span class="annot"><span class="annottext">([Double] -&gt; [Double]) -&gt; [Double] -&gt; [Double]
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Vector Double -&gt; [Double]
+forall a. Storable a =&gt; Vector a -&gt; [a]
+</span><span class="hs-identifier hs-var">LA.toList</span></span><span> </span><span class="annot"><span class="annottext">(Vector Double -&gt; [Double]) -&gt; Vector Double -&gt; [Double]
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">(Double -&gt; Double -&gt; Double) -&gt; Matrix Double -&gt; Vector Double
+</span><span class="hs-identifier hs-var">columnPredicate</span></span><span> </span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Double
+forall a. Ord a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-identifier hs-var">min</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074194"><span class="hs-identifier hs-var">xss</span></a></span><span>
+</span><span id="line-97"></span><span>    </span><span id="local-6989586621679074191"><span class="annot"><span class="annottext">maxX :: [Double]
+</span><a href="#local-6989586621679074191"><span class="hs-identifier hs-var hs-var">maxX</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Double] -&gt; [Double]
+forall a. [a] -&gt; [a]
+</span><span class="hs-identifier hs-var">Prelude.tail</span></span><span> </span><span class="annot"><span class="annottext">([Double] -&gt; [Double]) -&gt; [Double] -&gt; [Double]
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Vector Double -&gt; [Double]
+forall a. Storable a =&gt; Vector a -&gt; [a]
+</span><span class="hs-identifier hs-var">LA.toList</span></span><span> </span><span class="annot"><span class="annottext">(Vector Double -&gt; [Double]) -&gt; Vector Double -&gt; [Double]
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">(Double -&gt; Double -&gt; Double) -&gt; Matrix Double -&gt; Vector Double
+</span><span class="hs-identifier hs-var">columnPredicate</span></span><span> </span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Double
+forall a. Ord a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-identifier hs-var">max</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074194"><span class="hs-identifier hs-var">xss</span></a></span><span>    </span><span>
+</span><span id="line-98"></span><span>    </span><span>
+</span><span id="line-99"></span><span class="annot"><a href="MachineLearning.Utils.Data.html#splitToXY"><span class="hs-identifier hs-type">splitToXY</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">LA.Matrix</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">LA.Vector</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span>
+</span><span id="line-100"></span><span id="splitToXY"><span class="annot"><span class="annottext">splitToXY :: Matrix Double -&gt; (Matrix Double, Vector Double)
+</span><a href="MachineLearning.Utils.Data.html#splitToXY"><span class="hs-identifier hs-var hs-var">splitToXY</span></a></span></span><span> </span><span id="local-6989586621679074185"><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074185"><span class="hs-identifier hs-var">mtx</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074184"><span class="hs-identifier hs-var">xss</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Vector Double
+</span><a href="#local-6989586621679074183"><span class="hs-identifier hs-var">ys</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-101"></span><span>  </span><span class="hs-keyword">where</span><span> </span><span>
+</span><span id="line-102"></span><span>    </span><span id="local-6989586621679074184"><span class="annot"><span class="annottext">xss :: Matrix Double
+</span><a href="#local-6989586621679074184"><span class="hs-identifier hs-var hs-var">xss</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074185"><span class="hs-identifier hs-var">mtx</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; (Extractor, Extractor) -&gt; Matrix Double
+forall t.
+Element t =&gt;
+Matrix t -&gt; (Extractor, Extractor) -&gt; Matrix t
+</span><span class="hs-operator hs-var">??</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Extractor
+</span><span class="hs-identifier hs-var">LA.All</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int -&gt; Extractor
+</span><span class="hs-identifier hs-var">LA.DropLast</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1</span></span><span class="hs-special">)</span><span>
+</span><span id="line-103"></span><span>    </span><span id="local-6989586621679074183"><span class="annot"><span class="annottext">ys :: Vector Double
+</span><a href="#local-6989586621679074183"><span class="hs-identifier hs-var hs-var">ys</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; Vector Double
+forall t. Element t =&gt; Matrix t -&gt; Vector t
+</span><span class="hs-identifier hs-var">LA.flatten</span></span><span> </span><span class="annot"><span class="annottext">(Matrix Double -&gt; Vector Double) -&gt; Matrix Double -&gt; Vector Double
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Matrix Double
+</span><a href="#local-6989586621679074185"><span class="hs-identifier hs-var">mtx</span></a></span><span> </span><span class="annot"><span class="annottext">Matrix Double -&gt; (Extractor, Extractor) -&gt; Matrix Double
+forall t.
+Element t =&gt;
+Matrix t -&gt; (Extractor, Extractor) -&gt; Matrix t
+</span><span class="hs-operator hs-var">??</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Extractor
+</span><span class="hs-identifier hs-var">LA.All</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int -&gt; Extractor
+</span><span class="hs-identifier hs-var">LA.TakeLast</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1</span></span><span class="hs-special">)</span><span>
+</span><span id="line-104"></span></pre></body></html>

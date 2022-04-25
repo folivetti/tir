@@ -31,7 +31,6 @@ library
       MachineLearning.TIR
       MachineLearning.TIR.Crossover
       MachineLearning.TIR.Mutation
-      MachineLearning.TIR.Selection
       MachineLearning.Utils.Config
       MachineLearning.Utils.Data
       MachineLearning.Utils.Report
