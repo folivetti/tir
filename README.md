@@ -4,7 +4,17 @@
 
 **TIR** is a fast and simple Evolutionary Algorithm for Symbolic Regression developed in Haskell. Check out the [documentation](https://folivetti.github.io/tir/) if you want to extend the code.
 
-Transformation-Interaction-Rational (TIR) is a representation proposed in [1]() extending IT representation.
+Transformation-Interaction-Rational (TIR) searches for models of the form:
+
+\(
+f(x, wp, wq) = g( (wp_0 + \sum_{i}{wp_i f_i(p_i(x,k))}) / (1 + \sum_{j}{wq_j f_j(p_j(x,k))}) )
+\)
+
+with
+
+\(
+p_i(x,k) = \prod_{j}{x_j^k_{ij}}
+\)
 
 ## Dependencies
 
