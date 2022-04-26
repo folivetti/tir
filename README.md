@@ -6,9 +6,7 @@
 
 Transformation-Interaction-Rational (TIR) searches for models of the form:
 
-\(
-f(x, wp, wq) = g( (wp_0 + \sum_{i}{wp_i f_i(p_i(x,k))}) / (1 + \sum_{j}{wq_j f_j(p_j(x,k))}) )
-\)
+![eq](https://latex.codecogs.com/gif.image?\dpi{110}f_{TIR}(\mathbf{x,&space;w_p,&space;w_q})&space;=&space;g\left(\frac{p(\mathbf{x,&space;w_p})}{1&space;&plus;&space;q(\mathbf{x,&space;w_q})}\right))
 
 with
 
