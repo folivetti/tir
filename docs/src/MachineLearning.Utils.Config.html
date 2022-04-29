@@ -27,15 +27,15 @@ Configuration parsing and report generation.
 </span><span class="hs-identifier hs-var">Id</span></span><span> </span><span class="hs-glyph">..</span><span> </span><span class="hs-special">]</span><span>
 </span><span id="line-26"></span><span>
 </span><span id="line-27"></span><span class="hs-comment">-- | Task can be Regression, Classification and One-vs-All Classification</span><span>
-</span><span id="line-28"></span><span class="hs-keyword">data</span><span> </span><span id="Task"><span class="annot"><a href="MachineLearning.Utils.Config.html#Task"><span class="hs-identifier hs-var">Task</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Regression"><span class="annot"><a href="MachineLearning.Utils.Config.html#Regression"><span class="hs-identifier hs-var">Regression</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Classification"><span class="annot"><a href="MachineLearning.Utils.Config.html#Classification"><span class="hs-identifier hs-var">Classification</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="ClassMult"><span class="annot"><a href="MachineLearning.Utils.Config.html#ClassMult"><span class="hs-identifier hs-var">ClassMult</span></a></span></span><span>
-</span><span id="line-29"></span><span>         </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073037"><span id="local-6989586621679073039"><span class="annot"><span class="annottext">Task -&gt; Task -&gt; Bool
+</span><span id="line-28"></span><span class="hs-keyword">data</span><span> </span><span id="Task"><span class="annot"><a href="MachineLearning.Utils.Config.html#Task"><span class="hs-identifier hs-var">Task</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Regression"><span class="annot"><a href="MachineLearning.Utils.Config.html#Regression"><span class="hs-identifier hs-var">Regression</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="RegressionNL"><span class="annot"><a href="MachineLearning.Utils.Config.html#RegressionNL"><span class="hs-identifier hs-var">RegressionNL</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Classification"><span class="annot"><a href="MachineLearning.Utils.Config.html#Classification"><span class="hs-identifier hs-var">Classification</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="ClassMult"><span class="annot"><a href="MachineLearning.Utils.Config.html#ClassMult"><span class="hs-identifier hs-var">ClassMult</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-29"></span><span>         </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073665"><span id="local-6989586621679073671"><span class="annot"><span class="annottext">Task -&gt; Task -&gt; Bool
 (Task -&gt; Task -&gt; Bool) -&gt; (Task -&gt; Task -&gt; Bool) -&gt; Eq Task
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 /= :: Task -&gt; Task -&gt; Bool
 $c/= :: Task -&gt; Task -&gt; Bool
 == :: Task -&gt; Task -&gt; Bool
 $c== :: Task -&gt; Task -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073028"><span id="local-6989586621679073030"><span id="local-6989586621679073032"><span id="local-6989586621679073034"><span class="annot"><span class="annottext">ReadPrec [Task]
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073640"><span id="local-6989586621679073657"><span id="local-6989586621679073660"><span id="local-6989586621679073662"><span class="annot"><span class="annottext">ReadPrec [Task]
 ReadPrec Task
 Int -&gt; ReadS Task
 ReadS [Task]
@@ -52,7 +52,7 @@ readList :: ReadS [Task]
 $creadList :: ReadS [Task]
 readsPrec :: Int -&gt; ReadS Task
 $creadsPrec :: Int -&gt; ReadS Task
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Read</span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073021"><span id="local-6989586621679073023"><span id="local-6989586621679073025"><span class="annot"><span class="annottext">Int -&gt; Task -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Read</span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073624"><span id="local-6989586621679073626"><span id="local-6989586621679073636"><span class="annot"><span class="annottext">Int -&gt; Task -&gt; ShowS
 [Task] -&gt; ShowS
 Task -&gt; String
 (Int -&gt; Task -&gt; ShowS)
@@ -69,7 +69,7 @@ $cshowsPrec :: Int -&gt; Task -&gt; ShowS
 </span><span id="line-30"></span><span>
 </span><span id="line-31"></span><span class="hs-comment">-- | Current algorithm implementation are traditional Evolutionary (GPTIR) and </span><span>
 </span><span id="line-32"></span><span class="hs-comment">-- Feasible-Infeasible two-population for shape-constraint (SCTIR).</span><span>
-</span><span id="line-33"></span><span class="hs-keyword">data</span><span> </span><span id="Algorithm"><span class="annot"><a href="MachineLearning.Utils.Config.html#Algorithm"><span class="hs-identifier hs-var">Algorithm</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="GPTIR"><span class="annot"><a href="MachineLearning.Utils.Config.html#GPTIR"><span class="hs-identifier hs-var">GPTIR</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="SCTIR"><span class="annot"><a href="MachineLearning.Utils.Config.html#SCTIR"><span class="hs-identifier hs-var">SCTIR</span></a></span></span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073014"><span id="local-6989586621679073016"><span class="annot"><span class="annottext">Algorithm -&gt; Algorithm -&gt; Bool
+</span><span id="line-33"></span><span class="hs-keyword">data</span><span> </span><span id="Algorithm"><span class="annot"><a href="MachineLearning.Utils.Config.html#Algorithm"><span class="hs-identifier hs-var">Algorithm</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="GPTIR"><span class="annot"><a href="MachineLearning.Utils.Config.html#GPTIR"><span class="hs-identifier hs-var">GPTIR</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="SCTIR"><span class="annot"><a href="MachineLearning.Utils.Config.html#SCTIR"><span class="hs-identifier hs-var">SCTIR</span></a></span></span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073617"><span id="local-6989586621679073619"><span class="annot"><span class="annottext">Algorithm -&gt; Algorithm -&gt; Bool
 (Algorithm -&gt; Algorithm -&gt; Bool)
 -&gt; (Algorithm -&gt; Algorithm -&gt; Bool) -&gt; Eq Algorithm
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -77,7 +77,7 @@ forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c/= :: Algorithm -&gt; Algorithm -&gt; Bool
 == :: Algorithm -&gt; Algorithm -&gt; Bool
 $c== :: Algorithm -&gt; Algorithm -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073006"><span id="local-6989586621679073008"><span id="local-6989586621679073010"><span id="local-6989586621679073012"><span class="annot"><span class="annottext">ReadPrec [Algorithm]
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073606"><span id="local-6989586621679073610"><span id="local-6989586621679073613"><span id="local-6989586621679073615"><span class="annot"><span class="annottext">ReadPrec [Algorithm]
 ReadPrec Algorithm
 Int -&gt; ReadS Algorithm
 ReadS [Algorithm]
@@ -97,7 +97,7 @@ readList :: ReadS [Algorithm]
 $creadList :: ReadS [Algorithm]
 readsPrec :: Int -&gt; ReadS Algorithm
 $creadsPrec :: Int -&gt; ReadS Algorithm
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Read</span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073000"><span id="local-6989586621679073002"><span id="local-6989586621679073004"><span class="annot"><span class="annottext">Int -&gt; Algorithm -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Read</span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073599"><span id="local-6989586621679073601"><span id="local-6989586621679073603"><span class="annot"><span class="annottext">Int -&gt; Algorithm -&gt; ShowS
 [Algorithm] -&gt; ShowS
 Algorithm -&gt; String
 (Int -&gt; Algorithm -&gt; ShowS)
@@ -115,7 +115,7 @@ $cshowsPrec :: Int -&gt; Algorithm -&gt; ShowS
 </span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
 </span><span id="line-34"></span><span>
 </span><span id="line-35"></span><span class="hs-comment">-- | Type of penalty function</span><span>
-</span><span id="line-36"></span><span class="hs-keyword">data</span><span> </span><span id="Penalty"><span class="annot"><a href="MachineLearning.Utils.Config.html#Penalty"><span class="hs-identifier hs-var">Penalty</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="NoPenalty"><span class="annot"><a href="MachineLearning.Utils.Config.html#NoPenalty"><span class="hs-identifier hs-var">NoPenalty</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Len"><span class="annot"><a href="MachineLearning.Utils.Config.html#Len"><span class="hs-identifier hs-var">Len</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Shape"><span class="annot"><a href="MachineLearning.Utils.Config.html#Shape"><span class="hs-identifier hs-var">Shape</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679072991"><span id="local-6989586621679072993"><span id="local-6989586621679072995"><span class="annot"><span class="annottext">Int -&gt; Penalty -&gt; ShowS
+</span><span id="line-36"></span><span class="hs-keyword">data</span><span> </span><span id="Penalty"><span class="annot"><a href="MachineLearning.Utils.Config.html#Penalty"><span class="hs-identifier hs-var">Penalty</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="NoPenalty"><span class="annot"><a href="MachineLearning.Utils.Config.html#NoPenalty"><span class="hs-identifier hs-var">NoPenalty</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Len"><span class="annot"><a href="MachineLearning.Utils.Config.html#Len"><span class="hs-identifier hs-var">Len</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Shape"><span class="annot"><a href="MachineLearning.Utils.Config.html#Shape"><span class="hs-identifier hs-var">Shape</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073585"><span id="local-6989586621679073587"><span id="local-6989586621679073594"><span class="annot"><span class="annottext">Int -&gt; Penalty -&gt; ShowS
 [Penalty] -&gt; ShowS
 Penalty -&gt; String
 (Int -&gt; Penalty -&gt; ShowS)
@@ -128,7 +128,7 @@ show :: Penalty -&gt; String
 $cshow :: Penalty -&gt; String
 showsPrec :: Int -&gt; Penalty -&gt; ShowS
 $cshowsPrec :: Int -&gt; Penalty -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679072983"><span id="local-6989586621679072985"><span id="local-6989586621679072987"><span id="local-6989586621679072989"><span class="annot"><span class="annottext">ReadPrec [Penalty]
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073566"><span id="local-6989586621679073578"><span id="local-6989586621679073581"><span id="local-6989586621679073583"><span class="annot"><span class="annottext">ReadPrec [Penalty]
 ReadPrec Penalty
 Int -&gt; ReadS Penalty
 ReadS [Penalty]
@@ -151,7 +151,7 @@ $creadsPrec :: Int -&gt; ReadS Penalty
 </span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Read</span></span></span></span></span></span><span class="hs-special">)</span><span>
 </span><span id="line-37"></span><span>
 </span><span id="line-38"></span><span class="hs-comment">-- | Output configuration </span><span>
-</span><span id="line-39"></span><span class="hs-keyword">data</span><span> </span><span id="Output"><span class="annot"><a href="MachineLearning.Utils.Config.html#Output"><span class="hs-identifier hs-var">Output</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Screen"><span class="annot"><a href="MachineLearning.Utils.Config.html#Screen"><span class="hs-identifier hs-var">Screen</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="PartialLog"><span class="annot"><a href="MachineLearning.Utils.Config.html#PartialLog"><span class="hs-identifier hs-var">PartialLog</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="EvoLog"><span class="annot"><a href="MachineLearning.Utils.Config.html#EvoLog"><span class="hs-identifier hs-var">EvoLog</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679072972"><span id="local-6989586621679072974"><span id="local-6989586621679072976"><span id="local-6989586621679072978"><span class="annot"><span class="annottext">ReadPrec [Output]
+</span><span id="line-39"></span><span class="hs-keyword">data</span><span> </span><span id="Output"><span class="annot"><a href="MachineLearning.Utils.Config.html#Output"><span class="hs-identifier hs-var">Output</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Screen"><span class="annot"><a href="MachineLearning.Utils.Config.html#Screen"><span class="hs-identifier hs-var">Screen</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="PartialLog"><span class="annot"><a href="MachineLearning.Utils.Config.html#PartialLog"><span class="hs-identifier hs-var">PartialLog</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="EvoLog"><span class="annot"><a href="MachineLearning.Utils.Config.html#EvoLog"><span class="hs-identifier hs-var">EvoLog</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073543"><span id="local-6989586621679073555"><span id="local-6989586621679073558"><span id="local-6989586621679073560"><span class="annot"><span class="annottext">ReadPrec [Output]
 ReadPrec Output
 Int -&gt; ReadS Output
 ReadS [Output]
@@ -171,7 +171,7 @@ readList :: ReadS [Output]
 $creadList :: ReadS [Output]
 readsPrec :: Int -&gt; ReadS Output
 $creadsPrec :: Int -&gt; ReadS Output
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Read</span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679072966"><span id="local-6989586621679072968"><span id="local-6989586621679072970"><span class="annot"><span class="annottext">Int -&gt; Output -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Read</span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073530"><span id="local-6989586621679073532"><span id="local-6989586621679073540"><span class="annot"><span class="annottext">Int -&gt; Output -&gt; ShowS
 [Output] -&gt; ShowS
 Output -&gt; String
 (Int -&gt; Output -&gt; ShowS)
@@ -195,7 +195,7 @@ $cshowsPrec :: Int -&gt; Output -&gt; ShowS
 </span><a href="MachineLearning.Utils.Config.html#_algorithmCfg"><span class="hs-identifier hs-var hs-var">_algorithmCfg</span></a></span></span><span>  </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Config.html#AlgorithmCfg"><span class="hs-identifier hs-type">AlgorithmCfg</span></a></span><span>
 </span><span id="line-45"></span><span>                   </span><span class="hs-special">,</span><span> </span><span id="_constraintCfg"><span class="annot"><span class="annottext">Config -&gt; ConstraintCfg
 </span><a href="MachineLearning.Utils.Config.html#_constraintCfg"><span class="hs-identifier hs-var hs-var">_constraintCfg</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Config.html#ConstraintCfg"><span class="hs-identifier hs-type">ConstraintCfg</span></a></span><span>
-</span><span id="line-46"></span><span>                   </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679072955"><span id="local-6989586621679072957"><span id="local-6989586621679072959"><span class="annot"><span class="annottext">Int -&gt; Config -&gt; ShowS
+</span><span id="line-46"></span><span>                   </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073513"><span id="local-6989586621679073515"><span id="local-6989586621679073522"><span class="annot"><span class="annottext">Int -&gt; Config -&gt; ShowS
 [Config] -&gt; ShowS
 Config -&gt; String
 (Int -&gt; Config -&gt; ShowS)
@@ -221,7 +221,7 @@ $cshowsPrec :: Int -&gt; Config -&gt; ShowS
 </span><a href="MachineLearning.Utils.Config.html#_vars"><span class="hs-identifier hs-var hs-var">_vars</span></a></span></span><span>   </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span>
 </span><span id="line-53"></span><span>                          </span><span class="hs-special">,</span><span> </span><span id="_budget"><span class="annot"><span class="annottext">MutationCfg -&gt; Int
 </span><a href="MachineLearning.Utils.Config.html#_budget"><span class="hs-identifier hs-var hs-var">_budget</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-54"></span><span>                          </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679072943"><span id="local-6989586621679072945"><span id="local-6989586621679072947"><span class="annot"><span class="annottext">Int -&gt; MutationCfg -&gt; ShowS
+</span><span id="line-54"></span><span>                          </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073491"><span id="local-6989586621679073493"><span id="local-6989586621679073505"><span class="annot"><span class="annottext">Int -&gt; MutationCfg -&gt; ShowS
 [MutationCfg] -&gt; ShowS
 MutationCfg -&gt; String
 (Int -&gt; MutationCfg -&gt; ShowS)
@@ -236,7 +236,7 @@ show :: MutationCfg -&gt; String
 $cshow :: MutationCfg -&gt; String
 showsPrec :: Int -&gt; MutationCfg -&gt; ShowS
 $cshowsPrec :: Int -&gt; MutationCfg -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679072935"><span id="local-6989586621679072937"><span id="local-6989586621679072939"><span id="local-6989586621679072941"><span class="annot"><span class="annottext">ReadPrec [MutationCfg]
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073463"><span id="local-6989586621679073483"><span id="local-6989586621679073486"><span id="local-6989586621679073488"><span class="annot"><span class="annottext">ReadPrec [MutationCfg]
 ReadPrec MutationCfg
 Int -&gt; ReadS MutationCfg
 ReadS [MutationCfg]
@@ -276,7 +276,7 @@ $creadsPrec :: Int -&gt; ReadS MutationCfg
 </span><a href="MachineLearning.Utils.Config.html#_testFilename"><span class="hs-identifier hs-var hs-var">_testFilename</span></a></span></span><span>  </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
 </span><span id="line-62"></span><span>                   </span><span class="hs-special">,</span><span> </span><span id="_logType"><span class="annot"><span class="annottext">IOCfg -&gt; Output
 </span><a href="MachineLearning.Utils.Config.html#_logType"><span class="hs-identifier hs-var hs-var">_logType</span></a></span></span><span>       </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="MachineLearning.Utils.Config.html#Output"><span class="hs-identifier hs-type">Output</span></a></span><span>
-</span><span id="line-63"></span><span>                   </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679072924"><span id="local-6989586621679072926"><span id="local-6989586621679072928"><span class="annot"><span class="annottext">Int -&gt; IOCfg -&gt; ShowS
+</span><span id="line-63"></span><span>                   </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073446"><span id="local-6989586621679073448"><span id="local-6989586621679073455"><span class="annot"><span class="annottext">Int -&gt; IOCfg -&gt; ShowS
 [IOCfg] -&gt; ShowS
 IOCfg -&gt; String
 (Int -&gt; IOCfg -&gt; ShowS)
@@ -289,7 +289,7 @@ show :: IOCfg -&gt; String
 $cshow :: IOCfg -&gt; String
 showsPrec :: Int -&gt; IOCfg -&gt; ShowS
 $cshowsPrec :: Int -&gt; IOCfg -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679072916"><span id="local-6989586621679072918"><span id="local-6989586621679072920"><span id="local-6989586621679072922"><span class="annot"><span class="annottext">ReadPrec [IOCfg]
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073425"><span id="local-6989586621679073439"><span id="local-6989586621679073442"><span id="local-6989586621679073444"><span class="annot"><span class="annottext">ReadPrec [IOCfg]
 ReadPrec IOCfg
 Int -&gt; ReadS IOCfg
 ReadS [IOCfg]
@@ -328,7 +328,7 @@ $creadsPrec :: Int -&gt; ReadS IOCfg
 </span><a href="MachineLearning.Utils.Config.html#_seed"><span class="hs-identifier hs-var hs-var">_seed</span></a></span></span><span>      </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
 </span><span id="line-73"></span><span>                           </span><span class="hs-special">,</span><span> </span><span id="_measures"><span class="annot"><span class="annottext">AlgorithmCfg -&gt; [Measure]
 </span><a href="MachineLearning.Utils.Config.html#_measures"><span class="hs-identifier hs-var hs-var">_measures</span></a></span></span><span>  </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="MachineLearning.Model.Measure.html#Measure"><span class="hs-identifier hs-type">Measure</span></a></span><span class="hs-special">]</span><span>
-</span><span id="line-74"></span><span>                           </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679072901"><span id="local-6989586621679072903"><span id="local-6989586621679072905"><span class="annot"><span class="annottext">Int -&gt; AlgorithmCfg -&gt; ShowS
+</span><span id="line-74"></span><span>                           </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073398"><span id="local-6989586621679073400"><span id="local-6989586621679073413"><span class="annot"><span class="annottext">Int -&gt; AlgorithmCfg -&gt; ShowS
 [AlgorithmCfg] -&gt; ShowS
 AlgorithmCfg -&gt; String
 (Int -&gt; AlgorithmCfg -&gt; ShowS)
@@ -376,7 +376,7 @@ forall a. Maybe a
 </span><a href="MachineLearning.Utils.Config.html#_domains"><span class="hs-identifier hs-var hs-var">_domains</span></a></span></span><span>     </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span class="hs-special">)</span><span class="hs-special">]</span><span>
 </span><span id="line-82"></span><span>                            </span><span class="hs-special">,</span><span> </span><span id="_evaluator"><span class="annot"><span class="annottext">ConstraintCfg -&gt; Maybe Evaluator
 </span><a href="MachineLearning.Utils.Config.html#_evaluator"><span class="hs-identifier hs-var hs-var">_evaluator</span></a></span></span><span>   </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Evaluator</span></span><span> </span><span>
-</span><span id="line-83"></span><span>                            </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679072889"><span id="local-6989586621679072891"><span id="local-6989586621679072893"><span class="annot"><span class="annottext">Int -&gt; ConstraintCfg -&gt; ShowS
+</span><span id="line-83"></span><span>                            </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073377"><span id="local-6989586621679073379"><span id="local-6989586621679073389"><span class="annot"><span class="annottext">Int -&gt; ConstraintCfg -&gt; ShowS
 [ConstraintCfg] -&gt; ShowS
 ConstraintCfg -&gt; String
 (Int -&gt; ConstraintCfg -&gt; ShowS)
@@ -391,7 +391,7 @@ show :: ConstraintCfg -&gt; String
 $cshow :: ConstraintCfg -&gt; String
 showsPrec :: Int -&gt; ConstraintCfg -&gt; ShowS
 $cshowsPrec :: Int -&gt; ConstraintCfg -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679072881"><span id="local-6989586621679072883"><span id="local-6989586621679072885"><span id="local-6989586621679072887"><span class="annot"><span class="annottext">ReadPrec [ConstraintCfg]
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679073349"><span id="local-6989586621679073366"><span id="local-6989586621679073369"><span id="local-6989586621679073371"><span class="annot"><span class="annottext">ReadPrec [ConstraintCfg]
 ReadPrec ConstraintCfg
 Int -&gt; ReadS ConstraintCfg
 ReadS [ConstraintCfg]
@@ -531,57 +531,57 @@ forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 </span><span id="line-125"></span><span>
 </span><span id="line-126"></span><span class="annot"><a href="MachineLearning.Utils.Config.html#readConfig"><span class="hs-identifier hs-type">readConfig</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><a href="MachineLearning.Utils.Config.html#Config"><span class="hs-identifier hs-type">Config</span></a></span><span>
 </span><span id="line-127"></span><span id="readConfig"><span class="annot"><span class="annottext">readConfig :: String -&gt; IO Config
-</span><a href="MachineLearning.Utils.Config.html#readConfig"><span class="hs-identifier hs-var hs-var">readConfig</span></a></span></span><span> </span><span id="local-6989586621679072864"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072864"><span class="hs-identifier hs-var">fname</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679072863"><span class="annot"><span class="annottext">Text
-</span><a href="#local-6989586621679072863"><span class="hs-identifier hs-var">content</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO Text
+</span><a href="MachineLearning.Utils.Config.html#readConfig"><span class="hs-identifier hs-var hs-var">readConfig</span></a></span></span><span> </span><span id="local-6989586621679073331"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679073331"><span class="hs-identifier hs-var">fname</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679073330"><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679073330"><span class="hs-identifier hs-var">content</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO Text
 </span><span class="hs-identifier hs-var">readFile</span></span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072864"><span class="hs-identifier hs-var">fname</span></a></span><span>
+</span><a href="#local-6989586621679073331"><span class="hs-identifier hs-var">fname</span></a></span><span>
 </span><span id="line-128"></span><span>                      </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Text -&gt; IniParser Config -&gt; Either String Config
 forall a. Text -&gt; IniParser a -&gt; Either String a
 </span><span class="hs-identifier hs-var">parseIniFile</span></span><span> </span><span class="annot"><span class="annottext">Text
-</span><a href="#local-6989586621679072863"><span class="hs-identifier hs-var">content</span></a></span><span> </span><span class="annot"><span class="annottext">IniParser Config
+</span><a href="#local-6989586621679073330"><span class="hs-identifier hs-var">content</span></a></span><span> </span><span class="annot"><span class="annottext">IniParser Config
 </span><a href="MachineLearning.Utils.Config.html#parseConfig"><span class="hs-identifier hs-var">parseConfig</span></a></span><span> </span><span class="hs-keyword">of</span><span>
-</span><span id="line-129"></span><span>                        </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span id="local-6989586621679072861"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072861"><span class="hs-identifier hs-var">e</span></a></span></span><span>    </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO Config
+</span><span id="line-129"></span><span>                        </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span id="local-6989586621679073328"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679073328"><span class="hs-identifier hs-var">e</span></a></span></span><span>    </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO Config
 forall a. HasCallStack =&gt; String -&gt; a
 </span><span class="hs-identifier hs-var">error</span></span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072861"><span class="hs-identifier hs-var">e</span></a></span><span>
-</span><span id="line-130"></span><span>                        </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span id="local-6989586621679072859"><span class="annot"><span class="annottext">Config
-</span><a href="#local-6989586621679072859"><span class="hs-identifier hs-var">cfg</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Config -&gt; IO Config
+</span><a href="#local-6989586621679073328"><span class="hs-identifier hs-var">e</span></a></span><span>
+</span><span id="line-130"></span><span>                        </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span id="local-6989586621679073326"><span class="annot"><span class="annottext">Config
+</span><a href="#local-6989586621679073326"><span class="hs-identifier hs-var">cfg</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Config -&gt; IO Config
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Config
-</span><a href="#local-6989586621679072859"><span class="hs-identifier hs-var">cfg</span></a></span><span>
+</span><a href="#local-6989586621679073326"><span class="hs-identifier hs-var">cfg</span></a></span><span>
 </span><span id="line-131"></span><span>
 </span><span id="line-132"></span><span class="hs-comment">-- | Read the config file and run the algorithm.</span><span>
 </span><span id="line-133"></span><span class="annot"><a href="MachineLearning.Utils.Config.html#parseConfig"><span class="hs-identifier hs-type">parseConfig</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IniParser</span></span><span> </span><span class="annot"><a href="MachineLearning.Utils.Config.html#Config"><span class="hs-identifier hs-type">Config</span></a></span><span>
 </span><span id="line-134"></span><span id="parseConfig"><span class="annot"><span class="annottext">parseConfig :: IniParser Config
 </span><a href="MachineLearning.Utils.Config.html#parseConfig"><span class="hs-identifier hs-var hs-var">parseConfig</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-135"></span><span>  </span><span id="local-6989586621679072858"><span class="annot"><span class="annottext">MutationCfg
-</span><a href="#local-6989586621679072858"><span class="hs-identifier hs-var">mutCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser MutationCfg -&gt; IniParser MutationCfg
+</span><span id="line-135"></span><span>  </span><span id="local-6989586621679073325"><span class="annot"><span class="annottext">MutationCfg
+</span><a href="#local-6989586621679073325"><span class="hs-identifier hs-var">mutCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser MutationCfg -&gt; IniParser MutationCfg
 forall a. Text -&gt; SectionParser a -&gt; IniParser a
 </span><span class="hs-identifier hs-var">section</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Mutation&quot;</span></span><span> </span><span class="annot"><span class="annottext">(SectionParser MutationCfg -&gt; IniParser MutationCfg)
 -&gt; SectionParser MutationCfg -&gt; IniParser MutationCfg
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-136"></span><span>    </span><span id="local-6989586621679072857"><span class="annot"><span class="annottext">(Int, Int)
-</span><a href="#local-6989586621679072857"><span class="hs-identifier hs-var">krange</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span id="line-136"></span><span>    </span><span id="local-6989586621679073324"><span class="annot"><span class="annottext">(Int, Int)
+</span><a href="#local-6989586621679073324"><span class="hs-identifier hs-var">krange</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
 -&gt; (Text -&gt; Either String (Int, Int)) -&gt; SectionParser (Int, Int)
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;krange&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String (Int, Int)
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-137"></span><span>    </span><span id="local-6989586621679072856"><span class="annot"><span class="annottext">[Function]
-</span><a href="#local-6989586621679072856"><span class="hs-identifier hs-var">tfuncs</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span id="line-137"></span><span>    </span><span id="local-6989586621679073323"><span class="annot"><span class="annottext">[Function]
+</span><a href="#local-6989586621679073323"><span class="hs-identifier hs-var">tfuncs</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
 -&gt; (Text -&gt; Either String [Function]) -&gt; SectionParser [Function]
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;transfunctions&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String [Function]
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-138"></span><span>    </span><span id="local-6989586621679072855"><span class="annot"><span class="annottext">[Function]
-</span><a href="#local-6989586621679072855"><span class="hs-identifier hs-var">ytfuncs</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span id="line-138"></span><span>    </span><span id="local-6989586621679073322"><span class="annot"><span class="annottext">[Function]
+</span><a href="#local-6989586621679073322"><span class="hs-identifier hs-var">ytfuncs</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
 -&gt; (Text -&gt; Either String [Function]) -&gt; SectionParser [Function]
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
@@ -596,34 +596,34 @@ forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">(Int, Int)
 -&gt; [Function] -&gt; [Function] -&gt; [Int] -&gt; Int -&gt; MutationCfg
 </span><a href="MachineLearning.Utils.Config.html#MutCfg"><span class="hs-identifier hs-var">MutCfg</span></a></span><span> </span><span class="annot"><span class="annottext">(Int, Int)
-</span><a href="#local-6989586621679072857"><span class="hs-identifier hs-var">krange</span></a></span><span> </span><span class="annot"><span class="annottext">[Function]
-</span><a href="#local-6989586621679072856"><span class="hs-identifier hs-var">tfuncs</span></a></span><span> </span><span class="annot"><span class="annottext">[Function]
-</span><a href="#local-6989586621679072855"><span class="hs-identifier hs-var">ytfuncs</span></a></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679073324"><span class="hs-identifier hs-var">krange</span></a></span><span> </span><span class="annot"><span class="annottext">[Function]
+</span><a href="#local-6989586621679073323"><span class="hs-identifier hs-var">tfuncs</span></a></span><span> </span><span class="annot"><span class="annottext">[Function]
+</span><a href="#local-6989586621679073322"><span class="hs-identifier hs-var">ytfuncs</span></a></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="annot"><span class="annottext">Int
 </span><span class="hs-number">0</span></span><span>
-</span><span id="line-140"></span><span>  </span><span id="local-6989586621679072854"><span class="annot"><span class="annottext">IOCfg
-</span><a href="#local-6989586621679072854"><span class="hs-identifier hs-var">ioCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser IOCfg -&gt; IniParser IOCfg
+</span><span id="line-140"></span><span>  </span><span id="local-6989586621679073321"><span class="annot"><span class="annottext">IOCfg
+</span><a href="#local-6989586621679073321"><span class="hs-identifier hs-var">ioCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser IOCfg -&gt; IniParser IOCfg
 forall a. Text -&gt; SectionParser a -&gt; IniParser a
 </span><span class="hs-identifier hs-var">section</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;IO&quot;</span></span><span> </span><span class="annot"><span class="annottext">(SectionParser IOCfg -&gt; IniParser IOCfg)
 -&gt; SectionParser IOCfg -&gt; IniParser IOCfg
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-141"></span><span>    </span><span id="local-6989586621679072853"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072853"><span class="hs-identifier hs-var">trainname</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String String) -&gt; SectionParser String
+</span><span id="line-141"></span><span>    </span><span id="local-6989586621679073320"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679073320"><span class="hs-identifier hs-var">trainname</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String String) -&gt; SectionParser String
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;train&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String String
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-142"></span><span>    </span><span id="local-6989586621679072852"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072852"><span class="hs-identifier hs-var">testname</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String String) -&gt; SectionParser String
+</span><span id="line-142"></span><span>    </span><span id="local-6989586621679073319"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679073319"><span class="hs-identifier hs-var">testname</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String String) -&gt; SectionParser String
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;test&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String String
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-143"></span><span>    </span><span id="local-6989586621679072851"><span class="annot"><span class="annottext">Output
-</span><a href="#local-6989586621679072851"><span class="hs-identifier hs-var">logg</span></a></span></span><span>      </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Output) -&gt; SectionParser Output
+</span><span id="line-143"></span><span>    </span><span id="local-6989586621679073318"><span class="annot"><span class="annottext">Output
+</span><a href="#local-6989586621679073318"><span class="hs-identifier hs-var">logg</span></a></span></span><span>      </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Output) -&gt; SectionParser Output
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;log&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Output
@@ -635,69 +635,69 @@ forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; String -&gt; Output -&gt; IOCfg
 </span><a href="MachineLearning.Utils.Config.html#IOCfg"><span class="hs-identifier hs-var">IOCfg</span></a></span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072853"><span class="hs-identifier hs-var">trainname</span></a></span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679072852"><span class="hs-identifier hs-var">testname</span></a></span><span> </span><span class="annot"><span class="annottext">Output
-</span><a href="#local-6989586621679072851"><span class="hs-identifier hs-var">logg</span></a></span><span> </span><span>
-</span><span id="line-145"></span><span>  </span><span id="local-6989586621679072850"><span class="annot"><span class="annottext">AlgorithmCfg
-</span><a href="#local-6989586621679072850"><span class="hs-identifier hs-var">algCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser AlgorithmCfg -&gt; IniParser AlgorithmCfg
+</span><a href="#local-6989586621679073320"><span class="hs-identifier hs-var">trainname</span></a></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679073319"><span class="hs-identifier hs-var">testname</span></a></span><span> </span><span class="annot"><span class="annottext">Output
+</span><a href="#local-6989586621679073318"><span class="hs-identifier hs-var">logg</span></a></span><span> </span><span>
+</span><span id="line-145"></span><span>  </span><span id="local-6989586621679073317"><span class="annot"><span class="annottext">AlgorithmCfg
+</span><a href="#local-6989586621679073317"><span class="hs-identifier hs-var">algCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser AlgorithmCfg -&gt; IniParser AlgorithmCfg
 forall a. Text -&gt; SectionParser a -&gt; IniParser a
 </span><span class="hs-identifier hs-var">section</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Algorithm&quot;</span></span><span> </span><span class="annot"><span class="annottext">(SectionParser AlgorithmCfg -&gt; IniParser AlgorithmCfg)
 -&gt; SectionParser AlgorithmCfg -&gt; IniParser AlgorithmCfg
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-146"></span><span>    </span><span id="local-6989586621679072849"><span class="annot"><span class="annottext">Algorithm
-</span><a href="#local-6989586621679072849"><span class="hs-identifier hs-var">alg</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span id="line-146"></span><span>    </span><span id="local-6989586621679073316"><span class="annot"><span class="annottext">Algorithm
+</span><a href="#local-6989586621679073316"><span class="hs-identifier hs-var">alg</span></a></span></span><span>  </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
 -&gt; (Text -&gt; Either String Algorithm) -&gt; SectionParser Algorithm
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;algorithm&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Algorithm
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-147"></span><span>    </span><span id="local-6989586621679072848"><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679072848"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Task) -&gt; SectionParser Task
+</span><span id="line-147"></span><span>    </span><span id="local-6989586621679073315"><span class="annot"><span class="annottext">Task
+</span><a href="#local-6989586621679073315"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Task) -&gt; SectionParser Task
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;task&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Task
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-148"></span><span>    </span><span id="local-6989586621679072847"><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679072847"><span class="hs-identifier hs-var">nGens</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Int) -&gt; SectionParser Int
+</span><span id="line-148"></span><span>    </span><span id="local-6989586621679073314"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679073314"><span class="hs-identifier hs-var">nGens</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Int) -&gt; SectionParser Int
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;ngens&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Int
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-149"></span><span>    </span><span id="local-6989586621679072846"><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679072846"><span class="hs-identifier hs-var">nPop</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Int) -&gt; SectionParser Int
+</span><span id="line-149"></span><span>    </span><span id="local-6989586621679073313"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679073313"><span class="hs-identifier hs-var">nPop</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Int) -&gt; SectionParser Int
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;npop&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Int
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-150"></span><span>    </span><span id="local-6989586621679072845"><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679072845"><span class="hs-identifier hs-var">pm</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Double) -&gt; SectionParser Double
+</span><span id="line-150"></span><span>    </span><span id="local-6989586621679073312"><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679073312"><span class="hs-identifier hs-var">pm</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Double) -&gt; SectionParser Double
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;probmut&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Double
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-151"></span><span>    </span><span id="local-6989586621679072844"><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679072844"><span class="hs-identifier hs-var">pc</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Double) -&gt; SectionParser Double
+</span><span id="line-151"></span><span>    </span><span id="local-6989586621679073311"><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679073311"><span class="hs-identifier hs-var">pc</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Double) -&gt; SectionParser Double
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;probcx&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Double
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-152"></span><span>    </span><span id="local-6989586621679072843"><span class="annot"><span class="annottext">[String]
-</span><a href="#local-6989586621679072843"><span class="hs-identifier hs-var">perf_mes</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String [String]) -&gt; SectionParser [String]
+</span><span id="line-152"></span><span>    </span><span id="local-6989586621679073310"><span class="annot"><span class="annottext">[String]
+</span><a href="#local-6989586621679073310"><span class="hs-identifier hs-var">perf_mes</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String [String]) -&gt; SectionParser [String]
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;measures&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String [String]
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-153"></span><span>    </span><span id="local-6989586621679072842"><span class="annot"><span class="annottext">Maybe Int
-</span><a href="#local-6989586621679072842"><span class="hs-identifier hs-var">seed</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span id="line-153"></span><span>    </span><span id="local-6989586621679073309"><span class="annot"><span class="annottext">Maybe Int
+</span><a href="#local-6989586621679073309"><span class="hs-identifier hs-var">seed</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
 -&gt; (Text -&gt; Either String (Maybe Int)) -&gt; SectionParser (Maybe Int)
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
@@ -719,43 +719,43 @@ forall a b. (a -&gt; b) -&gt; a -&gt; b
 -&gt; [Measure]
 -&gt; AlgorithmCfg
 </span><a href="MachineLearning.Utils.Config.html#AlgCfg"><span class="hs-identifier hs-var">AlgCfg</span></a></span><span> </span><span class="annot"><span class="annottext">Algorithm
-</span><a href="#local-6989586621679072849"><span class="hs-identifier hs-var">alg</span></a></span><span> </span><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679072848"><span class="hs-identifier hs-var">task</span></a></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679072847"><span class="hs-identifier hs-var">nGens</span></a></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679072846"><span class="hs-identifier hs-var">nPop</span></a></span><span> </span><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679072845"><span class="hs-identifier hs-var">pm</span></a></span><span> </span><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679072844"><span class="hs-identifier hs-var">pc</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe Int
-</span><a href="#local-6989586621679072842"><span class="hs-identifier hs-var">seed</span></a></span><span> </span><span class="annot"><span class="annottext">([Measure] -&gt; AlgorithmCfg) -&gt; [Measure] -&gt; AlgorithmCfg
+</span><a href="#local-6989586621679073316"><span class="hs-identifier hs-var">alg</span></a></span><span> </span><span class="annot"><span class="annottext">Task
+</span><a href="#local-6989586621679073315"><span class="hs-identifier hs-var">task</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679073314"><span class="hs-identifier hs-var">nGens</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679073313"><span class="hs-identifier hs-var">nPop</span></a></span><span> </span><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679073312"><span class="hs-identifier hs-var">pm</span></a></span><span> </span><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679073311"><span class="hs-identifier hs-var">pc</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe Int
+</span><a href="#local-6989586621679073309"><span class="hs-identifier hs-var">seed</span></a></span><span> </span><span class="annot"><span class="annottext">([Measure] -&gt; AlgorithmCfg) -&gt; [Measure] -&gt; AlgorithmCfg
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">(String -&gt; Measure) -&gt; [String] -&gt; [Measure]
 forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
 </span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; Measure
 </span><a href="MachineLearning.Model.Measure.html#toMeasure"><span class="hs-identifier hs-var">toMeasure</span></a></span><span> </span><span class="annot"><span class="annottext">[String]
-</span><a href="#local-6989586621679072843"><span class="hs-identifier hs-var">perf_mes</span></a></span><span>
-</span><span id="line-155"></span><span>  </span><span id="local-6989586621679072841"><span class="annot"><span class="annottext">ConstraintCfg
-</span><a href="#local-6989586621679072841"><span class="hs-identifier hs-var">cnsCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser ConstraintCfg -&gt; IniParser ConstraintCfg
+</span><a href="#local-6989586621679073310"><span class="hs-identifier hs-var">perf_mes</span></a></span><span>
+</span><span id="line-155"></span><span>  </span><span id="local-6989586621679073308"><span class="annot"><span class="annottext">ConstraintCfg
+</span><a href="#local-6989586621679073308"><span class="hs-identifier hs-var">cnsCfg</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; SectionParser ConstraintCfg -&gt; IniParser ConstraintCfg
 forall a. Text -&gt; SectionParser a -&gt; IniParser a
 </span><span class="hs-identifier hs-var">section</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;Constraints&quot;</span></span><span> </span><span class="annot"><span class="annottext">(SectionParser ConstraintCfg -&gt; IniParser ConstraintCfg)
 -&gt; SectionParser ConstraintCfg -&gt; IniParser ConstraintCfg
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-156"></span><span>    </span><span id="local-6989586621679072840"><span class="annot"><span class="annottext">Penalty
-</span><a href="#local-6989586621679072840"><span class="hs-identifier hs-var">penalty</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Penalty) -&gt; SectionParser Penalty
+</span><span id="line-156"></span><span>    </span><span id="local-6989586621679073307"><span class="annot"><span class="annottext">Penalty
+</span><a href="#local-6989586621679073307"><span class="hs-identifier hs-var">penalty</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String Penalty) -&gt; SectionParser Penalty
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;penalty&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String Penalty
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-157"></span><span>    </span><span id="local-6989586621679072839"><span class="annot"><span class="annottext">[Shape]
-</span><a href="#local-6989586621679072839"><span class="hs-identifier hs-var">shapes</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String [Shape]) -&gt; SectionParser [Shape]
+</span><span id="line-157"></span><span>    </span><span id="local-6989586621679073306"><span class="annot"><span class="annottext">[Shape]
+</span><a href="#local-6989586621679073306"><span class="hs-identifier hs-var">shapes</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; (Text -&gt; Either String [Shape]) -&gt; SectionParser [Shape]
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-identifier hs-var">fieldOf</span></span><span> </span><span class="annot"><span class="annottext">Text
 </span><span class="hs-string">&quot;shapes&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String [Shape]
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-158"></span><span>    </span><span id="local-6989586621679072838"><span class="annot"><span class="annottext">[(Double, Double)]
-</span><a href="#local-6989586621679072838"><span class="hs-identifier hs-var">domains</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span id="line-158"></span><span>    </span><span id="local-6989586621679073305"><span class="annot"><span class="annottext">[(Double, Double)]
+</span><a href="#local-6989586621679073305"><span class="hs-identifier hs-var">domains</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
 -&gt; (Text -&gt; Either String [(Double, Double)])
 -&gt; SectionParser [(Double, Double)]
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
@@ -763,8 +763,8 @@ forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
 </span><span class="hs-string">&quot;domains&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Either String [(Double, Double)]
 forall a. (Read a, Typeable a) =&gt; Text -&gt; Either String a
 </span><span class="hs-identifier hs-var">readable</span></span><span>
-</span><span id="line-159"></span><span>    </span><span id="local-6989586621679072837"><span class="annot"><span class="annottext">Maybe Evaluator
-</span><a href="#local-6989586621679072837"><span class="hs-identifier hs-var">evaluator</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span id="line-159"></span><span>    </span><span id="local-6989586621679073304"><span class="annot"><span class="annottext">Maybe Evaluator
+</span><a href="#local-6989586621679073304"><span class="hs-identifier hs-var">evaluator</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text
 -&gt; (Text -&gt; Either String (Maybe Evaluator))
 -&gt; SectionParser (Maybe Evaluator)
 forall a. Text -&gt; (Text -&gt; Either String a) -&gt; SectionParser a
@@ -783,18 +783,18 @@ forall a b. (a -&gt; b) -&gt; a -&gt; b
 -&gt; Maybe Evaluator
 -&gt; ConstraintCfg
 </span><a href="MachineLearning.Utils.Config.html#CnsCfg"><span class="hs-identifier hs-var">CnsCfg</span></a></span><span> </span><span class="annot"><span class="annottext">Penalty
-</span><a href="#local-6989586621679072840"><span class="hs-identifier hs-var">penalty</span></a></span><span> </span><span class="annot"><span class="annottext">[Shape]
-</span><a href="#local-6989586621679072839"><span class="hs-identifier hs-var">shapes</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Double)]
-</span><a href="#local-6989586621679072838"><span class="hs-identifier hs-var">domains</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe Evaluator
-</span><a href="#local-6989586621679072837"><span class="hs-identifier hs-var">evaluator</span></a></span><span> </span><span>
+</span><a href="#local-6989586621679073307"><span class="hs-identifier hs-var">penalty</span></a></span><span> </span><span class="annot"><span class="annottext">[Shape]
+</span><a href="#local-6989586621679073306"><span class="hs-identifier hs-var">shapes</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Double)]
+</span><a href="#local-6989586621679073305"><span class="hs-identifier hs-var">domains</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe Evaluator
+</span><a href="#local-6989586621679073304"><span class="hs-identifier hs-var">evaluator</span></a></span><span> </span><span>
 </span><span id="line-161"></span><span>  </span><span class="annot"><span class="annottext">Config -&gt; IniParser Config
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">(Config -&gt; IniParser Config) -&gt; Config -&gt; IniParser Config
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">MutationCfg -&gt; IOCfg -&gt; AlgorithmCfg -&gt; ConstraintCfg -&gt; Config
 </span><a href="MachineLearning.Utils.Config.html#Conf"><span class="hs-identifier hs-var">Conf</span></a></span><span> </span><span class="annot"><span class="annottext">MutationCfg
-</span><a href="#local-6989586621679072858"><span class="hs-identifier hs-var">mutCfg</span></a></span><span> </span><span class="annot"><span class="annottext">IOCfg
-</span><a href="#local-6989586621679072854"><span class="hs-identifier hs-var">ioCfg</span></a></span><span> </span><span class="annot"><span class="annottext">AlgorithmCfg
-</span><a href="#local-6989586621679072850"><span class="hs-identifier hs-var">algCfg</span></a></span><span> </span><span class="annot"><span class="annottext">ConstraintCfg
-</span><a href="#local-6989586621679072841"><span class="hs-identifier hs-var">cnsCfg</span></a></span><span> </span><span>
+</span><a href="#local-6989586621679073325"><span class="hs-identifier hs-var">mutCfg</span></a></span><span> </span><span class="annot"><span class="annottext">IOCfg
+</span><a href="#local-6989586621679073321"><span class="hs-identifier hs-var">ioCfg</span></a></span><span> </span><span class="annot"><span class="annottext">AlgorithmCfg
+</span><a href="#local-6989586621679073317"><span class="hs-identifier hs-var">algCfg</span></a></span><span> </span><span class="annot"><span class="annottext">ConstraintCfg
+</span><a href="#local-6989586621679073308"><span class="hs-identifier hs-var">cnsCfg</span></a></span><span> </span><span>
 </span><span id="line-162"></span></pre></body></html>

@@ -28,11 +28,11 @@ forall a g. (Random a, RandomGen g) =&gt; g -&gt; (a, g)
 </span><span id="line-23"></span><span>
 </span><span id="line-24"></span><span class="annot"><a href="MachineLearning.TIR.Crossover.html#rndWithProb"><span class="hs-identifier hs-type">rndWithProb</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Double</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Rnd</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-25"></span><span id="rndWithProb"><span class="annot"><span class="annottext">rndWithProb :: Double -&gt; Rnd Bool
-</span><a href="MachineLearning.TIR.Crossover.html#rndWithProb"><span class="hs-identifier hs-var hs-var">rndWithProb</span></a></span></span><span> </span><span id="local-6989586621679073689"><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679073689"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Bool
+</span><a href="MachineLearning.TIR.Crossover.html#rndWithProb"><span class="hs-identifier hs-var hs-var">rndWithProb</span></a></span></span><span> </span><span id="local-6989586621679075025"><span class="annot"><span class="annottext">Double
+</span><a href="#local-6989586621679075025"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Bool
 forall a. Ord a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">&lt;</span></span><span> </span><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679073689"><span class="hs-identifier hs-var">p</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">(Double -&gt; Bool) -&gt; StateT StdGen IO Double -&gt; Rnd Bool
+</span><a href="#local-6989586621679075025"><span class="hs-identifier hs-var">p</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">(Double -&gt; Bool) -&gt; StateT StdGen IO Double -&gt; Rnd Bool
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
 </span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">(StdGen -&gt; (Double, StdGen)) -&gt; StateT StdGen IO Double
 forall s (m :: * -&gt; *) a. MonadState s m =&gt; (s -&gt; (a, s)) -&gt; m a
@@ -41,136 +41,136 @@ forall a g. (Random a, RandomGen g) =&gt; g -&gt; (a, g)
 </span><span class="hs-identifier hs-var">random</span></span><span>
 </span><span id="line-26"></span><span class="hs-pragma">{-# INLINE</span><span> </span><span class="annot"><a href="MachineLearning.TIR.Crossover.html#rndWithProb"><span class="hs-pragma hs-type">rndWithProb</span></a></span><span> </span><span class="hs-pragma">#-}</span><span>
 </span><span id="line-27"></span><span>
-</span><span id="line-28"></span><span id="local-6989586621679073703"><span class="annot"><a href="MachineLearning.TIR.Crossover.html#choose"><span class="hs-identifier hs-type">choose</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="#local-6989586621679073703"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="#local-6989586621679073703"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="#local-6989586621679073703"><span class="hs-identifier hs-type">a</span></a></span></span><span>
-</span><span id="line-29"></span><span id="choose"><span class="annot"><span class="annottext">choose :: a -&gt; a -&gt; Bool -&gt; a
-</span><a href="MachineLearning.TIR.Crossover.html#choose"><span class="hs-identifier hs-var hs-var">choose</span></a></span></span><span> </span><span id="local-6989586621679073685"><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073685"><span class="hs-identifier hs-var">x</span></a></span></span><span> </span><span id="local-6989586621679073684"><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073684"><span class="hs-identifier hs-var">y</span></a></span></span><span> </span><span id="local-6989586621679073683"><span class="annot"><span class="annottext">Bool
-</span><a href="#local-6989586621679073683"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="annottext">Bool
-</span><a href="#local-6989586621679073683"><span class="hs-identifier hs-var">b</span></a></span><span> </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073685"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="hs-keyword">else</span><span> </span><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073684"><span class="hs-identifier hs-var">y</span></a></span><span>
+</span><span id="line-28"></span><span id="local-6989586621679075120"><span class="annot"><a href="MachineLearning.TIR.Crossover.html#choose"><span class="hs-identifier hs-type">choose</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="#local-6989586621679075120"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="#local-6989586621679075120"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="#local-6989586621679075120"><span class="hs-identifier hs-type">a</span></a></span></span><span>
+</span><span id="line-29"></span><span id="choose"><span class="annot"><span class="annottext">choose :: forall a. a -&gt; a -&gt; Bool -&gt; a
+</span><a href="MachineLearning.TIR.Crossover.html#choose"><span class="hs-identifier hs-var hs-var">choose</span></a></span></span><span> </span><span id="local-6989586621679075021"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679075021"><span class="hs-identifier hs-var">x</span></a></span></span><span> </span><span id="local-6989586621679075020"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679075020"><span class="hs-identifier hs-var">y</span></a></span></span><span> </span><span id="local-6989586621679075019"><span class="annot"><span class="annottext">Bool
+</span><a href="#local-6989586621679075019"><span class="hs-identifier hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="annottext">Bool
+</span><a href="#local-6989586621679075019"><span class="hs-identifier hs-var">b</span></a></span><span> </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679075021"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="hs-keyword">else</span><span> </span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679075020"><span class="hs-identifier hs-var">y</span></a></span><span>
 </span><span id="line-30"></span><span class="hs-pragma">{-# INLINE</span><span> </span><span class="annot"><a href="MachineLearning.TIR.Crossover.html#choose"><span class="hs-pragma hs-type">choose</span></a></span><span> </span><span class="hs-pragma">#-}</span><span>
 </span><span id="line-31"></span><span>
 </span><span id="line-32"></span><span class="hs-comment">-- | One-point crossover</span><span>
 </span><span id="line-33"></span><span class="annot"><a href="MachineLearning.TIR.Crossover.html#onepoint"><span class="hs-identifier hs-type">onepoint</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="MachineLearning.TIR.html#Individual"><span class="hs-identifier hs-type">Individual</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Rnd</span></span><span> </span><span class="annot"><a href="MachineLearning.TIR.html#Individual"><span class="hs-identifier hs-type">Individual</span></a></span><span>
 </span><span id="line-34"></span><span id="onepoint"><span class="annot"><span class="annottext">onepoint :: [Individual] -&gt; Rnd Individual
-</span><a href="MachineLearning.TIR.Crossover.html#onepoint"><span class="hs-identifier hs-var hs-var">onepoint</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073681"><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073681"><span class="hs-identifier hs-var">p1</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679073680"><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073680"><span class="hs-identifier hs-var">p2</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span class="annot"><span class="annottext">[Individual]
+</span><a href="MachineLearning.TIR.Crossover.html#onepoint"><span class="hs-identifier hs-var hs-var">onepoint</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679075017"><span class="annot"><span class="annottext">Individual
+</span><a href="#local-6989586621679075017"><span class="hs-identifier hs-var">p1</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679075016"><span class="annot"><span class="annottext">Individual
+</span><a href="#local-6989586621679075016"><span class="hs-identifier hs-var">p2</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span class="annot"><span class="annottext">[Individual]
 </span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-35"></span><span>  </span><span id="local-6989586621679073679"><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073679"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; Rnd Int
+</span><span id="line-35"></span><span>  </span><span id="local-6989586621679075015"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679075015"><span class="hs-identifier hs-var">r</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; Rnd Int
 </span><a href="MachineLearning.TIR.html#randomRng"><span class="hs-identifier hs-var">randomRng</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int
 </span><span class="hs-number">0</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073677"><span class="hs-identifier hs-var">npc1</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+</span><a href="#local-6989586621679075013"><span class="hs-identifier hs-var">npc1</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
 forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-operator hs-var">+</span></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073675"><span class="hs-identifier hs-var">nqc1</span></a></span><span class="hs-special">)</span><span>
+</span><a href="#local-6989586621679075011"><span class="hs-identifier hs-var">nqc1</span></a></span><span class="hs-special">)</span><span>
 </span><span id="line-36"></span><span>  </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073679"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
+</span><a href="#local-6989586621679075015"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">Int
 </span><span class="hs-number">0</span></span><span>
 </span><span id="line-37"></span><span>     </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="annottext">Rnd Individual
-</span><a href="#local-6989586621679073674"><span class="hs-identifier hs-var">swapY</span></a></span><span>
+</span><a href="#local-6989586621679075010"><span class="hs-identifier hs-var">swapY</span></a></span><span>
 </span><span id="line-38"></span><span>     </span><span class="hs-keyword">else</span><span> </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073679"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
+</span><a href="#local-6989586621679075015"><span class="hs-identifier hs-var">r</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
 forall a. Ord a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">&lt;=</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073671"><span class="hs-identifier hs-var">pc1</span></a></span><span>
+</span><a href="#local-6989586621679075007"><span class="hs-identifier hs-var">pc1</span></a></span><span>
 </span><span id="line-39"></span><span>            </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="annottext">Rnd Individual
-</span><a href="#local-6989586621679073670"><span class="hs-identifier hs-var">swapP</span></a></span><span>
+</span><a href="#local-6989586621679075006"><span class="hs-identifier hs-var">swapP</span></a></span><span>
 </span><span id="line-40"></span><span>            </span><span class="hs-keyword">else</span><span> </span><span class="annot"><span class="annottext">Rnd Individual
-</span><a href="#local-6989586621679073669"><span class="hs-identifier hs-var">swapQ</span></a></span><span>
+</span><a href="#local-6989586621679075005"><span class="hs-identifier hs-var">swapQ</span></a></span><span>
 </span><span id="line-41"></span><span>  </span><span class="hs-keyword">where</span><span>
-</span><span id="line-42"></span><span>    </span><span id="local-6989586621679073668"><span class="annot"><span class="annottext">c1 :: TIR
-</span><a href="#local-6989586621679073668"><span class="hs-identifier hs-var hs-var">c1</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
+</span><span id="line-42"></span><span>    </span><span id="local-6989586621679075004"><span class="annot"><span class="annottext">c1 :: TIR
+</span><a href="#local-6989586621679075004"><span class="hs-identifier hs-var hs-var">c1</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var hs-var">_chromo</span></a></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073681"><span class="hs-identifier hs-var">p1</span></a></span><span>
-</span><span id="line-43"></span><span>    </span><span id="local-6989586621679073666"><span class="annot"><span class="annottext">c2 :: TIR
-</span><a href="#local-6989586621679073666"><span class="hs-identifier hs-var hs-var">c2</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
+</span><a href="#local-6989586621679075017"><span class="hs-identifier hs-var">p1</span></a></span><span>
+</span><span id="line-43"></span><span>    </span><span id="local-6989586621679075002"><span class="annot"><span class="annottext">c2 :: TIR
+</span><a href="#local-6989586621679075002"><span class="hs-identifier hs-var hs-var">c2</span></a></span></span><span>    </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var hs-var">_chromo</span></a></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073680"><span class="hs-identifier hs-var">p2</span></a></span><span>
-</span><span id="line-44"></span><span>    </span><span id="local-6989586621679073671"><span class="annot"><span class="annottext">pc1 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073671"><span class="hs-identifier hs-var hs-var">pc1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075016"><span class="hs-identifier hs-var">p2</span></a></span><span>
+</span><span id="line-44"></span><span>    </span><span id="local-6989586621679075007"><span class="annot"><span class="annottext">pc1 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075007"><span class="hs-identifier hs-var hs-var">pc1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073665"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075001"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_p"><span class="hs-identifier hs-var hs-var">_p</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073668"><span class="hs-identifier hs-var">c1</span></a></span><span>
-</span><span id="line-45"></span><span>    </span><span id="local-6989586621679073663"><span class="annot"><span class="annottext">qc1 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073663"><span class="hs-identifier hs-var hs-var">qc1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075004"><span class="hs-identifier hs-var">c1</span></a></span><span>
+</span><span id="line-45"></span><span>    </span><span id="local-6989586621679074999"><span class="annot"><span class="annottext">qc1 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074999"><span class="hs-identifier hs-var hs-var">qc1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073665"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075001"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_q"><span class="hs-identifier hs-var hs-var">_q</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073668"><span class="hs-identifier hs-var">c1</span></a></span><span>
-</span><span id="line-46"></span><span>    </span><span id="local-6989586621679073661"><span class="annot"><span class="annottext">pc2 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073661"><span class="hs-identifier hs-var hs-var">pc2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075004"><span class="hs-identifier hs-var">c1</span></a></span><span>
+</span><span id="line-46"></span><span>    </span><span id="local-6989586621679074997"><span class="annot"><span class="annottext">pc2 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074997"><span class="hs-identifier hs-var hs-var">pc2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073665"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075001"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_p"><span class="hs-identifier hs-var hs-var">_p</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073666"><span class="hs-identifier hs-var">c2</span></a></span><span>
-</span><span id="line-47"></span><span>    </span><span id="local-6989586621679073660"><span class="annot"><span class="annottext">qc2 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073660"><span class="hs-identifier hs-var hs-var">qc2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075002"><span class="hs-identifier hs-var">c2</span></a></span><span>
+</span><span id="line-47"></span><span>    </span><span id="local-6989586621679074996"><span class="annot"><span class="annottext">qc2 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074996"><span class="hs-identifier hs-var hs-var">qc2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073665"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075001"><span class="hs-identifier hs-var">clean</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_q"><span class="hs-identifier hs-var hs-var">_q</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073666"><span class="hs-identifier hs-var">c2</span></a></span><span>
-</span><span id="line-48"></span><span>    </span><span id="local-6989586621679073677"><span class="annot"><span class="annottext">npc1 :: Int
-</span><a href="#local-6989586621679073677"><span class="hs-identifier hs-var hs-var">npc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
+</span><a href="#local-6989586621679075002"><span class="hs-identifier hs-var">c2</span></a></span><span>
+</span><span id="line-48"></span><span>    </span><span id="local-6989586621679075013"><span class="annot"><span class="annottext">npc1 :: Int
+</span><a href="#local-6989586621679075013"><span class="hs-identifier hs-var hs-var">npc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073671"><span class="hs-identifier hs-var">pc1</span></a></span><span>
-</span><span id="line-49"></span><span>    </span><span id="local-6989586621679073675"><span class="annot"><span class="annottext">nqc1 :: Int
-</span><a href="#local-6989586621679073675"><span class="hs-identifier hs-var hs-var">nqc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
+</span><a href="#local-6989586621679075007"><span class="hs-identifier hs-var">pc1</span></a></span><span>
+</span><span id="line-49"></span><span>    </span><span id="local-6989586621679075011"><span class="annot"><span class="annottext">nqc1 :: Int
+</span><a href="#local-6989586621679075011"><span class="hs-identifier hs-var hs-var">nqc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073663"><span class="hs-identifier hs-var">qc1</span></a></span><span>
-</span><span id="line-50"></span><span>    </span><span id="local-6989586621679073659"><span class="annot"><span class="annottext">npc2 :: Int
-</span><a href="#local-6989586621679073659"><span class="hs-identifier hs-var hs-var">npc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
+</span><a href="#local-6989586621679074999"><span class="hs-identifier hs-var">qc1</span></a></span><span>
+</span><span id="line-50"></span><span>    </span><span id="local-6989586621679074992"><span class="annot"><span class="annottext">npc2 :: Int
+</span><a href="#local-6989586621679074992"><span class="hs-identifier hs-var hs-var">npc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073661"><span class="hs-identifier hs-var">pc2</span></a></span><span>
-</span><span id="line-51"></span><span>    </span><span id="local-6989586621679073658"><span class="annot"><span class="annottext">nqc2 :: Int
-</span><a href="#local-6989586621679073658"><span class="hs-identifier hs-var hs-var">nqc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
+</span><a href="#local-6989586621679074997"><span class="hs-identifier hs-var">pc2</span></a></span><span>
+</span><span id="line-51"></span><span>    </span><span id="local-6989586621679074990"><span class="annot"><span class="annottext">nqc2 :: Int
+</span><a href="#local-6989586621679074990"><span class="hs-identifier hs-var hs-var">nqc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073660"><span class="hs-identifier hs-var">qc2</span></a></span><span>
-</span><span id="line-52"></span><span>    </span><span id="local-6989586621679073657"><span class="annot"><span class="annottext">sortPi :: (a, b, [a]) -&gt; (a, b, [a])
-</span><a href="#local-6989586621679073657"><span class="hs-identifier hs-var hs-var">sortPi</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073656"><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073656"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679073655"><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073655"><span class="hs-identifier hs-var">y</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679073654"><span class="annot"><span class="annottext">[a]
-</span><a href="#local-6989586621679073654"><span class="hs-identifier hs-var">z</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073656"><span class="hs-identifier hs-var">x</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073655"><span class="hs-identifier hs-var">y</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">[a] -&gt; [a]
+</span><a href="#local-6989586621679074996"><span class="hs-identifier hs-var">qc2</span></a></span><span>
+</span><span id="line-52"></span><span>    </span><span id="local-6989586621679074987"><span class="annot"><span class="annottext">sortPi :: (a, b, [a]) -&gt; (a, b, [a])
+</span><a href="#local-6989586621679074987"><span class="hs-identifier hs-var hs-var">sortPi</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679074986"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679074986"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679074985"><span class="annot"><span class="annottext">b
+</span><a href="#local-6989586621679074985"><span class="hs-identifier hs-var">y</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679074984"><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679074984"><span class="hs-identifier hs-var">z</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679074986"><span class="hs-identifier hs-var">x</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">b
+</span><a href="#local-6989586621679074985"><span class="hs-identifier hs-var">y</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">[a] -&gt; [a]
 forall a. Ord a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">sort</span></span><span> </span><span class="annot"><span class="annottext">[a]
-</span><a href="#local-6989586621679073654"><span class="hs-identifier hs-var">z</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-53"></span><span>    </span><span id="local-6989586621679073665"><span class="annot"><span class="annottext">clean :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074984"><span class="hs-identifier hs-var">z</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-53"></span><span>    </span><span id="local-6989586621679075001"><span class="annot"><span class="annottext">clean :: [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073665"><span class="hs-identifier hs-var hs-var">clean</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075001"><span class="hs-identifier hs-var hs-var">clean</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Eq a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">nub</span></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
@@ -187,42 +187,42 @@ forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
 </span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">(Double, Function, [(Int, Int)])
 -&gt; (Double, Function, [(Int, Int)])
-forall a a b. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
-</span><a href="#local-6989586621679073657"><span class="hs-identifier hs-var">sortPi</span></a></span><span>
-</span><span id="line-54"></span><span>    </span><span id="local-6989586621679073674"><span class="annot"><span class="annottext">swapY :: Rnd Individual
-</span><a href="#local-6989586621679073674"><span class="hs-identifier hs-var hs-var">swapY</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; Rnd Individual
+forall {a} {a} {b}. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
+</span><a href="#local-6989586621679074987"><span class="hs-identifier hs-var">sortPi</span></a></span><span>
+</span><span id="line-54"></span><span>    </span><span id="local-6989586621679075010"><span class="annot"><span class="annottext">swapY :: Rnd Individual
+</span><a href="#local-6989586621679075010"><span class="hs-identifier hs-var hs-var">swapY</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; Rnd Individual
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
 </span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(Individual -&gt; Rnd Individual) -&gt; Individual -&gt; Rnd Individual
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073681"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
+</span><a href="#local-6989586621679075017"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var">_chromo</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073668"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_p :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075004"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_p :: [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_p"><span class="hs-identifier hs-var">_p</span></a></span><span class="hs-glyph">=</span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073671"><span class="hs-identifier hs-var">pc1</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_q :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075007"><span class="hs-identifier hs-var">pc1</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_q :: [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_q"><span class="hs-identifier hs-var">_q</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073660"><span class="hs-identifier hs-var">qc2</span></a></span><span> </span><span class="hs-special">}</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
-</span><a href="MachineLearning.TIR.html#_fit"><span class="hs-identifier hs-var">_fit</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
-</span><span id="line-55"></span><span>    </span><span id="local-6989586621679073670"><span class="annot"><span class="annottext">swapP :: Rnd Individual
-</span><a href="#local-6989586621679073670"><span class="hs-identifier hs-var hs-var">swapP</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679073651"><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073651"><span class="hs-identifier hs-var">ix</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; Rnd Int
+</span><a href="#local-6989586621679074996"><span class="hs-identifier hs-var">qc2</span></a></span><span> </span><span class="hs-special">}</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
+</span><a href="#local-6989586621679074969"><span class="hs-identifier hs-var">_fit</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-55"></span><span>    </span><span id="local-6989586621679075006"><span class="annot"><span class="annottext">swapP :: Rnd Individual
+</span><a href="#local-6989586621679075006"><span class="hs-identifier hs-var hs-var">swapP</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679074961"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074961"><span class="hs-identifier hs-var">ix</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; Rnd Int
 </span><a href="MachineLearning.TIR.html#randomRng"><span class="hs-identifier hs-var">randomRng</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int
 </span><span class="hs-number">0</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
 forall a. Ord a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-identifier hs-var">min</span></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073677"><span class="hs-identifier hs-var">npc1</span></a></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073659"><span class="hs-identifier hs-var">npc2</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+</span><a href="#local-6989586621679075013"><span class="hs-identifier hs-var">npc1</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074992"><span class="hs-identifier hs-var">npc2</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
 forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-glyph hs-var">-</span></span><span> </span><span class="annot"><span class="annottext">Int
 </span><span class="hs-number">1</span></span><span class="hs-special">)</span><span>
-</span><span id="line-56"></span><span>               </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679073649"><span class="annot"><span class="annottext">pc' :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073649"><span class="hs-identifier hs-var hs-var">pc'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span id="line-56"></span><span>               </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679074957"><span class="annot"><span class="annottext">pc' :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074957"><span class="hs-identifier hs-var hs-var">pc'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Int -&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">take</span></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073651"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073671"><span class="hs-identifier hs-var">pc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074961"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075007"><span class="hs-identifier hs-var">pc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Semigroup a =&gt; a -&gt; a -&gt; a
@@ -231,41 +231,41 @@ forall a. Semigroup a =&gt; a -&gt; a -&gt; a
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Int -&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">drop</span></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073651"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073661"><span class="hs-identifier hs-var">pc2</span></a></span><span> </span><span>
+</span><a href="#local-6989586621679074961"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074997"><span class="hs-identifier hs-var">pc2</span></a></span><span> </span><span>
 </span><span id="line-57"></span><span>               </span><span class="annot"><span class="annottext">Individual -&gt; Rnd Individual
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
 </span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(Individual -&gt; Rnd Individual) -&gt; Individual -&gt; Rnd Individual
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073681"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
+</span><a href="#local-6989586621679075017"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var">_chromo</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073668"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_p :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075004"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_p :: [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_p"><span class="hs-identifier hs-var">_p</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073649"><span class="hs-identifier hs-var">pc'</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_q :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074957"><span class="hs-identifier hs-var">pc'</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_q :: [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_q"><span class="hs-identifier hs-var">_q</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073663"><span class="hs-identifier hs-var">qc1</span></a></span><span> </span><span class="hs-special">}</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
-</span><a href="MachineLearning.TIR.html#_fit"><span class="hs-identifier hs-var">_fit</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
-</span><span id="line-58"></span><span>    </span><span id="local-6989586621679073669"><span class="annot"><span class="annottext">swapQ :: Rnd Individual
-</span><a href="#local-6989586621679073669"><span class="hs-identifier hs-var hs-var">swapQ</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679073646"><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073646"><span class="hs-identifier hs-var">ix</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; Rnd Int
+</span><a href="#local-6989586621679074999"><span class="hs-identifier hs-var">qc1</span></a></span><span> </span><span class="hs-special">}</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
+</span><a href="#local-6989586621679074969"><span class="hs-identifier hs-var">_fit</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-58"></span><span>    </span><span id="local-6989586621679075005"><span class="annot"><span class="annottext">swapQ :: Rnd Individual
+</span><a href="#local-6989586621679075005"><span class="hs-identifier hs-var hs-var">swapQ</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span> </span><span id="local-6989586621679074947"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074947"><span class="hs-identifier hs-var">ix</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; Rnd Int
 </span><a href="MachineLearning.TIR.html#randomRng"><span class="hs-identifier hs-var">randomRng</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int
 </span><span class="hs-number">0</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
 forall a. Ord a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-identifier hs-var">min</span></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073675"><span class="hs-identifier hs-var">nqc1</span></a></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073658"><span class="hs-identifier hs-var">nqc2</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+</span><a href="#local-6989586621679075011"><span class="hs-identifier hs-var">nqc1</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679074990"><span class="hs-identifier hs-var">nqc2</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
 forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-glyph hs-var">-</span></span><span> </span><span class="annot"><span class="annottext">Int
 </span><span class="hs-number">1</span></span><span class="hs-special">)</span><span>
-</span><span id="line-59"></span><span>               </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679073645"><span class="annot"><span class="annottext">qc' :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073645"><span class="hs-identifier hs-var hs-var">qc'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span id="line-59"></span><span>               </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679074945"><span class="annot"><span class="annottext">qc' :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074945"><span class="hs-identifier hs-var hs-var">qc'</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Int -&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">take</span></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073646"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073663"><span class="hs-identifier hs-var">qc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074947"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074999"><span class="hs-identifier hs-var">qc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Semigroup a =&gt; a -&gt; a -&gt; a
@@ -274,21 +274,21 @@ forall a. Semigroup a =&gt; a -&gt; a -&gt; a
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Int -&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">drop</span></span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679073646"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073660"><span class="hs-identifier hs-var">qc2</span></a></span><span> </span><span>
+</span><a href="#local-6989586621679074947"><span class="hs-identifier hs-var">ix</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074996"><span class="hs-identifier hs-var">qc2</span></a></span><span> </span><span>
 </span><span id="line-60"></span><span>               </span><span class="annot"><span class="annottext">Individual -&gt; Rnd Individual
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
 </span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(Individual -&gt; Rnd Individual) -&gt; Individual -&gt; Rnd Individual
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073681"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
+</span><a href="#local-6989586621679075017"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var">_chromo</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073668"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_p :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075004"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_p :: [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_p"><span class="hs-identifier hs-var">_p</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073671"><span class="hs-identifier hs-var">pc1</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_q :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679075007"><span class="hs-identifier hs-var">pc1</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_q :: [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_q"><span class="hs-identifier hs-var">_q</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073645"><span class="hs-identifier hs-var">qc'</span></a></span><span> </span><span class="hs-special">}</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
-</span><a href="MachineLearning.TIR.html#_fit"><span class="hs-identifier hs-var">_fit</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
+</span><a href="#local-6989586621679074945"><span class="hs-identifier hs-var">qc'</span></a></span><span> </span><span class="hs-special">}</span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
+</span><a href="#local-6989586621679074969"><span class="hs-identifier hs-var">_fit</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
 </span><span id="line-61"></span><span class="annot"><a href="MachineLearning.TIR.Crossover.html#onepoint"><span class="hs-identifier hs-var">onepoint</span></a></span><span> </span><span class="annot"><span class="annottext">[Individual]
 </span><span class="hs-identifier">_</span></span><span>         </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Char] -&gt; Rnd Individual
 forall a. HasCallStack =&gt; [Char] -&gt; a
@@ -298,30 +298,30 @@ forall a. HasCallStack =&gt; [Char] -&gt; a
 </span><span id="line-63"></span><span class="hs-comment">-- | Uniform crossover</span><span>
 </span><span id="line-64"></span><span class="annot"><a href="MachineLearning.TIR.Crossover.html#uniformCx"><span class="hs-identifier hs-type">uniformCx</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="MachineLearning.TIR.html#Individual"><span class="hs-identifier hs-type">Individual</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Rnd</span></span><span> </span><span class="annot"><a href="MachineLearning.TIR.html#Individual"><span class="hs-identifier hs-type">Individual</span></a></span><span>
 </span><span id="line-65"></span><span id="uniformCx"><span class="annot"><span class="annottext">uniformCx :: [Individual] -&gt; Rnd Individual
-</span><a href="MachineLearning.TIR.Crossover.html#uniformCx"><span class="hs-identifier hs-var hs-var">uniformCx</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073642"><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073642"><span class="hs-identifier hs-var">p1</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679073641"><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073641"><span class="hs-identifier hs-var">p2</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span class="annot"><span class="annottext">[Individual]
+</span><a href="MachineLearning.TIR.Crossover.html#uniformCx"><span class="hs-identifier hs-var hs-var">uniformCx</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679074942"><span class="annot"><span class="annottext">Individual
+</span><a href="#local-6989586621679074942"><span class="hs-identifier hs-var">p1</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span id="local-6989586621679074941"><span class="annot"><span class="annottext">Individual
+</span><a href="#local-6989586621679074941"><span class="hs-identifier hs-var">p2</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span class="annot"><span class="annottext">[Individual]
 </span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-66"></span><span>  </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679073640"><span class="annot"><span class="annottext">c1 :: TIR
-</span><a href="#local-6989586621679073640"><span class="hs-identifier hs-var hs-var">c1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
+</span><span id="line-66"></span><span>  </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679074940"><span class="annot"><span class="annottext">c1 :: TIR
+</span><a href="#local-6989586621679074940"><span class="hs-identifier hs-var hs-var">c1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var hs-var">_chromo</span></a></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073642"><span class="hs-identifier hs-var">p1</span></a></span><span>
-</span><span id="line-67"></span><span>      </span><span id="local-6989586621679073639"><span class="annot"><span class="annottext">c2 :: TIR
-</span><a href="#local-6989586621679073639"><span class="hs-identifier hs-var hs-var">c2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
+</span><a href="#local-6989586621679074942"><span class="hs-identifier hs-var">p1</span></a></span><span>
+</span><span id="line-67"></span><span>      </span><span id="local-6989586621679074939"><span class="annot"><span class="annottext">c2 :: TIR
+</span><a href="#local-6989586621679074939"><span class="hs-identifier hs-var hs-var">c2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var hs-var">_chromo</span></a></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073641"><span class="hs-identifier hs-var">p2</span></a></span><span>
-</span><span id="line-68"></span><span>      </span><span id="local-6989586621679073638"><span class="annot"><span class="annottext">f1 :: Double
-</span><a href="#local-6989586621679073638"><span class="hs-identifier hs-var hs-var">f1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; Double
+</span><a href="#local-6989586621679074941"><span class="hs-identifier hs-var">p2</span></a></span><span>
+</span><span id="line-68"></span><span>      </span><span id="local-6989586621679074936"><span class="annot"><span class="annottext">f1 :: Double
+</span><a href="#local-6989586621679074936"><span class="hs-identifier hs-var hs-var">f1</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; Double
 forall a. Solution a =&gt; a -&gt; Double
 </span><span class="hs-identifier hs-var">_getFitness</span></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073642"><span class="hs-identifier hs-var">p1</span></a></span><span>
-</span><span id="line-69"></span><span>      </span><span id="local-6989586621679073636"><span class="annot"><span class="annottext">f2 :: Double
-</span><a href="#local-6989586621679073636"><span class="hs-identifier hs-var hs-var">f2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; Double
+</span><a href="#local-6989586621679074942"><span class="hs-identifier hs-var">p1</span></a></span><span>
+</span><span id="line-69"></span><span>      </span><span id="local-6989586621679074933"><span class="annot"><span class="annottext">f2 :: Double
+</span><a href="#local-6989586621679074933"><span class="hs-identifier hs-var hs-var">f2</span></a></span></span><span>   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Individual -&gt; Double
 forall a. Solution a =&gt; a -&gt; Double
 </span><span class="hs-identifier hs-var">_getFitness</span></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073641"><span class="hs-identifier hs-var">p2</span></a></span><span>
-</span><span id="line-70"></span><span>      </span><span id="local-6989586621679073635"><span class="annot"><span class="annottext">pc1 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073635"><span class="hs-identifier hs-var hs-var">pc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074941"><span class="hs-identifier hs-var">p2</span></a></span><span>
+</span><span id="line-70"></span><span>      </span><span id="local-6989586621679074922"><span class="annot"><span class="annottext">pc1 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074922"><span class="hs-identifier hs-var hs-var">pc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Eq a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">nub</span></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
@@ -336,17 +336,17 @@ forall a b. (a -&gt; b) -&gt; a -&gt; b
 forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
 </span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">(Double, Function, [(Int, Int)])
 -&gt; (Double, Function, [(Int, Int)])
-forall a a b. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
-</span><a href="#local-6989586621679073634"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+forall {a} {a} {b}. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
+</span><a href="#local-6989586621679074921"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_p"><span class="hs-identifier hs-var hs-var">_p</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073640"><span class="hs-identifier hs-var">c1</span></a></span><span>
-</span><span id="line-71"></span><span>      </span><span id="local-6989586621679073633"><span class="annot"><span class="annottext">pc2 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073633"><span class="hs-identifier hs-var hs-var">pc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074940"><span class="hs-identifier hs-var">c1</span></a></span><span>
+</span><span id="line-71"></span><span>      </span><span id="local-6989586621679074910"><span class="annot"><span class="annottext">pc2 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074910"><span class="hs-identifier hs-var hs-var">pc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Eq a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">nub</span></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
@@ -361,17 +361,17 @@ forall a b. (a -&gt; b) -&gt; a -&gt; b
 forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
 </span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">(Double, Function, [(Int, Int)])
 -&gt; (Double, Function, [(Int, Int)])
-forall a a b. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
-</span><a href="#local-6989586621679073634"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+forall {a} {a} {b}. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
+</span><a href="#local-6989586621679074921"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_p"><span class="hs-identifier hs-var hs-var">_p</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073639"><span class="hs-identifier hs-var">c2</span></a></span><span>
-</span><span id="line-72"></span><span>      </span><span id="local-6989586621679073632"><span class="annot"><span class="annottext">qc1 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073632"><span class="hs-identifier hs-var hs-var">qc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074939"><span class="hs-identifier hs-var">c2</span></a></span><span>
+</span><span id="line-72"></span><span>      </span><span id="local-6989586621679074899"><span class="annot"><span class="annottext">qc1 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074899"><span class="hs-identifier hs-var hs-var">qc1</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Eq a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">nub</span></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
@@ -386,17 +386,17 @@ forall a b. (a -&gt; b) -&gt; a -&gt; b
 forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
 </span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">(Double, Function, [(Int, Int)])
 -&gt; (Double, Function, [(Int, Int)])
-forall a a b. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
-</span><a href="#local-6989586621679073634"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+forall {a} {a} {b}. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
+</span><a href="#local-6989586621679074921"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_q"><span class="hs-identifier hs-var hs-var">_q</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073640"><span class="hs-identifier hs-var">c1</span></a></span><span>
-</span><span id="line-73"></span><span>      </span><span id="local-6989586621679073631"><span class="annot"><span class="annottext">qc2 :: [(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073631"><span class="hs-identifier hs-var hs-var">qc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074940"><span class="hs-identifier hs-var">c1</span></a></span><span>
+</span><span id="line-73"></span><span>      </span><span id="local-6989586621679074888"><span class="annot"><span class="annottext">qc2 :: [(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074888"><span class="hs-identifier hs-var hs-var">qc2</span></a></span></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Eq a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">nub</span></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
@@ -411,57 +411,57 @@ forall a b. (a -&gt; b) -&gt; a -&gt; b
 forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
 </span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">(Double, Function, [(Int, Int)])
 -&gt; (Double, Function, [(Int, Int)])
-forall a a b. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
-</span><a href="#local-6989586621679073634"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
+forall {a} {a} {b}. Ord a =&gt; (a, b, [a]) -&gt; (a, b, [a])
+</span><a href="#local-6989586621679074921"><span class="hs-identifier hs-var">sortPi</span></a></span><span> </span><span class="annot"><span class="annottext">([(Double, Function, [(Int, Int)])]
  -&gt; [(Double, Function, [(Int, Int)])])
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">TIR -&gt; [(Double, Function, [(Int, Int)])]
 </span><a href="MachineLearning.TIR.html#_q"><span class="hs-identifier hs-var hs-var">_q</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073639"><span class="hs-identifier hs-var">c2</span></a></span><span>
-</span><span id="line-74"></span><span>      </span><span id="local-6989586621679073630"><span class="annot"><span class="annottext">rnd1 :: Rnd Bool
-</span><a href="#local-6989586621679073630"><span class="hs-identifier hs-var hs-var">rnd1</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Double -&gt; Rnd Bool
+</span><a href="#local-6989586621679074939"><span class="hs-identifier hs-var">c2</span></a></span><span>
+</span><span id="line-74"></span><span>      </span><span id="local-6989586621679074883"><span class="annot"><span class="annottext">rnd1 :: Rnd Bool
+</span><a href="#local-6989586621679074883"><span class="hs-identifier hs-var hs-var">rnd1</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Double -&gt; Rnd Bool
 </span><a href="MachineLearning.TIR.Crossover.html#rndWithProb"><span class="hs-identifier hs-var">rndWithProb</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679073638"><span class="hs-identifier hs-var">f1</span></a></span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Double
+</span><a href="#local-6989586621679074936"><span class="hs-identifier hs-var">f1</span></a></span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Double
 forall a. Fractional a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-operator hs-var">/</span></span><span class="hs-special">(</span><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679073638"><span class="hs-identifier hs-var">f1</span></a></span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Double
+</span><a href="#local-6989586621679074936"><span class="hs-identifier hs-var">f1</span></a></span><span class="annot"><span class="annottext">Double -&gt; Double -&gt; Double
 forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-operator hs-var">+</span></span><span class="annot"><span class="annottext">Double
-</span><a href="#local-6989586621679073636"><span class="hs-identifier hs-var">f2</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><a href="#local-6989586621679074933"><span class="hs-identifier hs-var">f2</span></a></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
 </span><span id="line-75"></span><span>
-</span><span id="line-76"></span><span>      </span><span id="local-6989586621679073628"><span class="annot"><span class="annottext">rndChoice :: b -&gt; b -&gt; StateT StdGen IO b
-</span><a href="#local-6989586621679073628"><span class="hs-identifier hs-var hs-var">rndChoice</span></a></span></span><span> </span><span id="local-6989586621679073627"><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073627"><span class="hs-identifier hs-var">x</span></a></span></span><span> </span><span id="local-6989586621679073626"><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073626"><span class="hs-identifier hs-var">y</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">b -&gt; b -&gt; Bool -&gt; b
+</span><span id="line-76"></span><span>      </span><span id="local-6989586621679074879"><span class="annot"><span class="annottext">rndChoice :: b -&gt; b -&gt; StateT StdGen IO b
+</span><a href="#local-6989586621679074879"><span class="hs-identifier hs-var hs-var">rndChoice</span></a></span></span><span> </span><span id="local-6989586621679074878"><span class="annot"><span class="annottext">b
+</span><a href="#local-6989586621679074878"><span class="hs-identifier hs-var">x</span></a></span></span><span> </span><span id="local-6989586621679074877"><span class="annot"><span class="annottext">b
+</span><a href="#local-6989586621679074877"><span class="hs-identifier hs-var">y</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">b -&gt; b -&gt; Bool -&gt; b
 forall a. a -&gt; a -&gt; Bool -&gt; a
 </span><a href="MachineLearning.TIR.Crossover.html#choose"><span class="hs-identifier hs-var">choose</span></a></span><span> </span><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073627"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073626"><span class="hs-identifier hs-var">y</span></a></span><span> </span><span class="annot"><span class="annottext">(Bool -&gt; b) -&gt; Rnd Bool -&gt; StateT StdGen IO b
+</span><a href="#local-6989586621679074878"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">b
+</span><a href="#local-6989586621679074877"><span class="hs-identifier hs-var">y</span></a></span><span> </span><span class="annot"><span class="annottext">(Bool -&gt; b) -&gt; Rnd Bool -&gt; StateT StdGen IO b
 forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
 </span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">Rnd Bool
-</span><a href="#local-6989586621679073630"><span class="hs-identifier hs-var">rnd1</span></a></span><span>
-</span><span id="line-77"></span><span>      </span><span id="local-6989586621679073634"><span class="annot"><span class="annottext">sortPi :: (a, b, [a]) -&gt; (a, b, [a])
-</span><a href="#local-6989586621679073634"><span class="hs-identifier hs-var hs-var">sortPi</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679073625"><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073625"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679073624"><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073624"><span class="hs-identifier hs-var">y</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679073623"><span class="annot"><span class="annottext">[a]
-</span><a href="#local-6989586621679073623"><span class="hs-identifier hs-var">z</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
-</span><a href="#local-6989586621679073625"><span class="hs-identifier hs-var">x</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">b
-</span><a href="#local-6989586621679073624"><span class="hs-identifier hs-var">y</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">[a] -&gt; [a]
+</span><a href="#local-6989586621679074883"><span class="hs-identifier hs-var">rnd1</span></a></span><span>
+</span><span id="line-77"></span><span>      </span><span id="local-6989586621679074921"><span class="annot"><span class="annottext">sortPi :: (a, b, [a]) -&gt; (a, b, [a])
+</span><a href="#local-6989586621679074921"><span class="hs-identifier hs-var hs-var">sortPi</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679074874"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679074874"><span class="hs-identifier hs-var">x</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679074873"><span class="annot"><span class="annottext">b
+</span><a href="#local-6989586621679074873"><span class="hs-identifier hs-var">y</span></a></span></span><span class="hs-special">,</span><span id="local-6989586621679074872"><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679074872"><span class="hs-identifier hs-var">z</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679074874"><span class="hs-identifier hs-var">x</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">b
+</span><a href="#local-6989586621679074873"><span class="hs-identifier hs-var">y</span></a></span><span class="hs-special">,</span><span class="annot"><span class="annottext">[a] -&gt; [a]
 forall a. Ord a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">sort</span></span><span> </span><span class="annot"><span class="annottext">[a]
-</span><a href="#local-6989586621679073623"><span class="hs-identifier hs-var">z</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-78"></span><span>  </span><span id="local-6989586621679073622"><span class="annot"><span class="annottext">Function
-</span><a href="#local-6989586621679073622"><span class="hs-identifier hs-var">g'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Function -&gt; Function -&gt; StateT StdGen IO Function
-forall b. b -&gt; b -&gt; StateT StdGen IO b
-</span><a href="#local-6989586621679073628"><span class="hs-identifier hs-var">rndChoice</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">TIR -&gt; Function
+</span><a href="#local-6989586621679074872"><span class="hs-identifier hs-var">z</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-78"></span><span>  </span><span id="local-6989586621679074871"><span class="annot"><span class="annottext">Function
+</span><a href="#local-6989586621679074871"><span class="hs-identifier hs-var">g'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Function -&gt; Function -&gt; StateT StdGen IO Function
+forall {b}. b -&gt; b -&gt; StateT StdGen IO b
+</span><a href="#local-6989586621679074879"><span class="hs-identifier hs-var">rndChoice</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">TIR -&gt; Function
 </span><a href="MachineLearning.TIR.html#_funY"><span class="hs-identifier hs-var hs-var">_funY</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073640"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">TIR -&gt; Function
+</span><a href="#local-6989586621679074940"><span class="hs-identifier hs-var">c1</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">TIR -&gt; Function
 </span><a href="MachineLearning.TIR.html#_funY"><span class="hs-identifier hs-var hs-var">_funY</span></a></span><span> </span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073639"><span class="hs-identifier hs-var">c2</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-79"></span><span>  </span><span id="local-6989586621679073620"><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073620"><span class="hs-identifier hs-var">p'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">((Double, Function, [(Int, Int)])
+</span><a href="#local-6989586621679074939"><span class="hs-identifier hs-var">c2</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-79"></span><span>  </span><span id="local-6989586621679074869"><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074869"><span class="hs-identifier hs-var">p'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">((Double, Function, [(Int, Int)])
  -&gt; (Double, Function, [(Int, Int)])
  -&gt; StateT StdGen IO (Double, Function, [(Int, Int)]))
 -&gt; [(Double, Function, [(Int, Int)])]
@@ -473,12 +473,12 @@ Applicative m =&gt;
 </span><span class="hs-identifier hs-var">zipWithM</span></span><span> </span><span class="annot"><span class="annottext">(Double, Function, [(Int, Int)])
 -&gt; (Double, Function, [(Int, Int)])
 -&gt; StateT StdGen IO (Double, Function, [(Int, Int)])
-forall b. b -&gt; b -&gt; StateT StdGen IO b
-</span><a href="#local-6989586621679073628"><span class="hs-identifier hs-var">rndChoice</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073635"><span class="hs-identifier hs-var">pc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073633"><span class="hs-identifier hs-var">pc2</span></a></span><span>
-</span><span id="line-80"></span><span>  </span><span id="local-6989586621679073618"><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073618"><span class="hs-identifier hs-var">q'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">((Double, Function, [(Int, Int)])
+forall {b}. b -&gt; b -&gt; StateT StdGen IO b
+</span><a href="#local-6989586621679074879"><span class="hs-identifier hs-var">rndChoice</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074922"><span class="hs-identifier hs-var">pc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074910"><span class="hs-identifier hs-var">pc2</span></a></span><span>
+</span><span id="line-80"></span><span>  </span><span id="local-6989586621679074867"><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074867"><span class="hs-identifier hs-var">q'</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">((Double, Function, [(Int, Int)])
  -&gt; (Double, Function, [(Int, Int)])
  -&gt; StateT StdGen IO (Double, Function, [(Int, Int)]))
 -&gt; [(Double, Function, [(Int, Int)])]
@@ -490,35 +490,35 @@ Applicative m =&gt;
 </span><span class="hs-identifier hs-var">zipWithM</span></span><span> </span><span class="annot"><span class="annottext">(Double, Function, [(Int, Int)])
 -&gt; (Double, Function, [(Int, Int)])
 -&gt; StateT StdGen IO (Double, Function, [(Int, Int)])
-forall b. b -&gt; b -&gt; StateT StdGen IO b
-</span><a href="#local-6989586621679073628"><span class="hs-identifier hs-var">rndChoice</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073632"><span class="hs-identifier hs-var">qc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073631"><span class="hs-identifier hs-var">qc2</span></a></span><span>
+forall {b}. b -&gt; b -&gt; StateT StdGen IO b
+</span><a href="#local-6989586621679074879"><span class="hs-identifier hs-var">rndChoice</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074899"><span class="hs-identifier hs-var">qc1</span></a></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074888"><span class="hs-identifier hs-var">qc2</span></a></span><span>
 </span><span id="line-81"></span><span>
-</span><span id="line-82"></span><span>  </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679073617"><span class="annot"><span class="annottext">c :: TIR
-</span><a href="#local-6989586621679073617"><span class="hs-identifier hs-var hs-var">c</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Function
+</span><span id="line-82"></span><span>  </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679074858"><span class="annot"><span class="annottext">c :: TIR
+</span><a href="#local-6989586621679074858"><span class="hs-identifier hs-var hs-var">c</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Function
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 -&gt; TIR
 </span><a href="MachineLearning.TIR.html#TIR"><span class="hs-identifier hs-var">TIR</span></a></span><span> </span><span class="annot"><span class="annottext">Function
-</span><a href="#local-6989586621679073622"><span class="hs-identifier hs-var">g'</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074871"><span class="hs-identifier hs-var">g'</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Eq a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">nub</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073620"><span class="hs-identifier hs-var">p'</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
+</span><a href="#local-6989586621679074869"><span class="hs-identifier hs-var">p'</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
 -&gt; [(Double, Function, [(Int, Int)])]
 forall a. Eq a =&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">nub</span></span><span> </span><span class="annot"><span class="annottext">[(Double, Function, [(Int, Int)])]
-</span><a href="#local-6989586621679073618"><span class="hs-identifier hs-var">q'</span></a></span><span class="hs-special">)</span><span>
+</span><a href="#local-6989586621679074867"><span class="hs-identifier hs-var">q'</span></a></span><span class="hs-special">)</span><span>
 </span><span id="line-83"></span><span>  </span><span class="annot"><span class="annottext">Individual -&gt; Rnd Individual
 forall (f :: * -&gt; *) a. Applicative f =&gt; a -&gt; f a
 </span><span class="hs-identifier hs-var">pure</span></span><span> </span><span class="annot"><span class="annottext">(Individual -&gt; Rnd Individual) -&gt; Individual -&gt; Rnd Individual
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Individual
-</span><a href="#local-6989586621679073642"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
+</span><a href="#local-6989586621679074942"><span class="hs-identifier hs-var">p1</span></a></span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">_chromo :: TIR
 </span><a href="MachineLearning.TIR.html#_chromo"><span class="hs-identifier hs-var">_chromo</span></a></span><span class="hs-glyph">=</span><span class="annot"><span class="annottext">TIR
-</span><a href="#local-6989586621679073617"><span class="hs-identifier hs-var">c</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
-</span><a href="MachineLearning.TIR.html#_fit"><span class="hs-identifier hs-var">_fit</span></a></span><span class="hs-glyph">=</span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
+</span><a href="#local-6989586621679074858"><span class="hs-identifier hs-var">c</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">_fit :: [Double]
+</span><a href="#local-6989586621679074969"><span class="hs-identifier hs-var">_fit</span></a></span><span class="hs-glyph">=</span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">}</span><span>
 </span><span id="line-84"></span><span>
 </span><span id="line-85"></span><span class="annot"><a href="MachineLearning.TIR.Crossover.html#uniformCx"><span class="hs-identifier hs-var">uniformCx</span></a></span><span> </span><span class="annot"><span class="annottext">[Individual]
 </span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Char] -&gt; Rnd Individual
