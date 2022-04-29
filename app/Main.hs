@@ -25,7 +25,9 @@ import System.Clock               (Clock(..), getTime, sec)
 import Numeric.ModalInterval
 import qualified Data.Vector.Storable  as VS
 import qualified Data.Vector  as V
+import qualified Numeric.LinearAlgebra as LA
 
+import Data.List (intercalate)
 import Prelude hiding (null)
 import Algorithm.ShapeConstraint (getViolationFun)
 
@@ -44,8 +46,8 @@ instance EvoClass Individual where
   data Crossover Individual = OnePoint | UniformCX deriving (Show, Read)
   data Mutation  Individual = GroupMutation deriving (Show, Read)
 
-parseCLI :: [String] -> IO ()
-parseCLI [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, trainname] = do
+parseCLI :: Task -> [String] -> IO ()
+parseCLI Regression [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, trainname] = do
   let mutCfg = dfltMutCfg { _kRange = (read expminP, read expmaxP)
                           , _yfuns  = map read $ splitOn "," ytfuncsP
                           , _funs   = map read $ splitOn "," tfuncsP
@@ -66,7 +68,45 @@ parseCLI [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, 
   let bias = V.head $ VS.convert $ head $ _weights champion
   print $ (showPython . assembleTree bias . _chromo) champion <> ";" <> (show . _len) champion <> ";" <> (show . _fit) champion 
 
-parseCLI _ = putStrLn "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty trainname"
+parseCLI task [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, niter, trainname] = do
+  let mutCfg = dfltMutCfg { _kRange = (read expminP, read expmaxP)
+                          , _yfuns  = map read $ splitOn "," ytfuncsP
+                          , _funs   = map read $ splitOn "," tfuncsP
+                          , _vars   = []
+                          }
+      algCfg = dfltAlgCfg { _gens     = read nGensP
+                          , _nPop     = read nPopP
+                          , _pm       = read pmP
+                          , _pc       = read pcP
+                          , _seed     = let s = read seedP in if s < 0 then Nothing else Just s
+                          , _measures = [toMeasure errorMetric]
+                          , _task     = case task of
+                                          RegressionNL _ -> RegressionNL $ read niter
+                                          Classification _ -> Classification $ read niter
+                                          ClassMult _ -> ClassMult $ read niter
+                          }
+      ioCfg = IOCfg trainname trainname Screen
+      pn    = read penalty
+      cnst  = if pn == 0.0 then dfltCnstrCfg  else dfltCnstrCfg{ _penaltyType  = Len pn }
+      cfg   = Conf mutCfg ioCfg algCfg cnst
+  (champion, _, _) <- runGP cfg 
+  
+  let 
+    tir    = _chromo champion
+    trees  = intercalate "#" . map (showPython . getTree tir) $ _weights champion
+  print $ trees <> ";" <> (show . _len) champion <> ";" <> (show . _fit) champion 
+  where
+    getTree :: TIR -> LA.Vector Double -> SRTree Int Double
+    getTree tir w = let bias   = V.head $ VS.convert w
+                        consts = V.tail $ VS.convert w
+                        sigm z = 1 / (1+exp(-z))
+                    
+                in  case task of 
+                      Classification _ -> sigm $ assembleTree bias $ replaceConsts tir consts
+                      ClassMult      _ -> sigm $ assembleTree bias $ replaceConsts tir consts
+                      _                -> assembleTree bias $ replaceConsts tir consts
+                        
+parseCLI _ _ = putStrLn "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty trainname"
 
 runWithCfg :: [FilePath] -> IO ()
 runWithCfg [fname] = do 
@@ -133,6 +173,9 @@ main :: IO ()
 main = do
   args <- getArgs  
   case args of
-    ("cli":opts)    -> parseCLI opts
-    ("config":opts) -> runWithCfg opts
-    _               -> putStrLn "Usage: ./tir {cli/config} args"
+    ("regress":opts)    -> parseCLI Regression opts
+    ("regressNL":opts)  -> parseCLI (RegressionNL 0) opts
+    ("class":opts)      -> parseCLI (Classification 0) opts
+    ("multiclass":opts) -> parseCLI (ClassMult 0) opts
+    ("config":opts)     -> runWithCfg opts
+    _                   -> putStrLn "Usage: ./tir {regress/regressNL/class/multiclass/config} args"

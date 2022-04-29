@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 import re
 
-from sklearn.base import BaseEstimator, RegressorMixin
+from sklearn.base import BaseEstimator, RegressorMixin, ClassifierMixin
 from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
 
     
@@ -19,9 +19,9 @@ def sqrtAbs(a):
     return np.sqrt(np.abs(a))
 
 
-class TIRRegressor(BaseEstimator, RegressorMixin):
+class TIRClassifier(BaseEstimator, ClassifierMixin):
 
-    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", penalty=0.00, niter=0, random_state=-1):
+    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="Log-Loss", penalty=0.00, niter=10, random_state=-1):
         """ Builds a Symbolic Regression model using ITEA.
 
         Parameters
@@ -56,6 +56,9 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         self.penalty = penalty
         self.niter = niter
         
+        if niter <= 0:
+            raise RuntimeError('niter should be greater than 0')
+        
     def fit(self, X_train, y_train):
         """A reference implementation of a fitting function.
         Parameters
@@ -70,6 +73,11 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         self : object
             Returns self.
         """
+        
+        self.nclasses = len(np.unique(y_train))
+        self.labels = { i : l for i, l in enumerate(np.unique(y_train)) }
+        self.revlabels = { l : i for i, l in enumerate(np.unique(y_train)) }
+        y_train = np.array([self.revlabels[y_train[i]] for i in range(len(y_train))])
 
         with TemporaryDirectory() as temp_dir:
             X_train, y_train = check_X_y(X_train, y_train, accept_sparse=False)
@@ -89,12 +97,12 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
             minK, maxK = self.exponents
             
             cwd = os.path.dirname(os.path.realpath(__file__))
-            if self.niter == 0:
-                ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{fname}"], cwd=cwd)
+            if self.nclasses == 2:
+                ans = subprocess.check_output(["tir", "class", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{fname}"], cwd=cwd)
             else:
-                ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{fname}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "multiclass", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{fname}"], cwd=cwd)
+            
             self.expr, n, e = eval(ans).split(";")
-            print(e)
 
             self.expr = self.expr.replace("/ ((1.0) + ())", "").replace("atan","arctan")
 
@@ -105,7 +113,14 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
 
     def eval_expr(self, x):
         """ Evaluates the expression with data point x. """
-        Z = eval(self.expr)
+        Z = np.zeros((x.shape[0], self.nclasses))
+        if self.nclasses == 2:
+          Z[:,1] = eval(self.expr)
+          Z[:,0] = 1 - Z[:,1]
+        else:
+          for i, e in enumerate(self.expr.split("#")):
+            Z[:,i] = eval(e)
+          
         inds = np.where(np.isnan(Z))[0]
         inds2 = np.where(np.isinf(Z))[0]
         Z[inds] = 0
@@ -128,4 +143,23 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         check_is_fitted(self)
         X_test = check_array(X_test, accept_sparse=False)
         X_test = X_test[:,self.cols]
+        y_hat = self.eval_expr(X_test).argmax(axis=1)
+        
+        return np.array([self.labels[y_hat[i]] for i in range(len(y_hat))])
+
+    def predict_proba(self, X_test, ic=None):
+        """ A reference implementation of a predicting function.
+        Parameters
+        ----------
+        X : {array-like, sparse matrix}, shape (n_samples, n_features)
+            The training input samples.
+        Returns
+        -------
+        y : ndarray, shape (n_samples,)
+            Returns an array of ones.
+        """        
+        check_is_fitted(self)
+        X_test = check_array(X_test, accept_sparse=False)
+        X_test = X_test[:,self.cols]
+        
         return self.eval_expr(X_test)
