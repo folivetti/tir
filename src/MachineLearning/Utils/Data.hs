@@ -15,7 +15,7 @@ module MachineLearning.Utils.Data (processData) where
 import Data.List                             (transpose)
 import Data.List.Split                       (splitOn)
 import Data.Vector                           (Vector, fromList)
-import           Numeric.ModalInterval            (Kaucher, (<.<))
+import Numeric.ModalInterval            (Kaucher, (<.<))
 import Numeric.LinearAlgebra ((??))
 import qualified Numeric.LinearAlgebra as LA
 import Numeric.Morpheus.MatrixReduce         (columnPredicate)

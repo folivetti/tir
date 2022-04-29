@@ -48,7 +48,6 @@ library
     , hmatrix
     , hmatrix-gsl
     , hmatrix-morpheus
-    , mltool
     , modal-interval
     , mtl
     , random
@@ -76,7 +75,6 @@ executable tir-exe
     , hmatrix
     , hmatrix-gsl
     , hmatrix-morpheus
-    , mltool
     , modal-interval
     , mtl
     , random
@@ -106,7 +104,6 @@ test-suite tir-test
     , hmatrix
     , hmatrix-gsl
     , hmatrix-morpheus
-    , mltool
     , modal-interval
     , mtl
     , random

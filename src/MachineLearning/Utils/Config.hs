@@ -25,7 +25,7 @@ import Algorithm.ShapeConstraint
 allFunctions = [Id .. ]
 
 -- | Task can be Regression, Classification and One-vs-All Classification
-data Task = Regression | Classification | ClassMult
+data Task = Regression | RegressionNL Int | Classification Int | ClassMult Int
          deriving (Eq, Read, Show)
 
 -- | Current algorithm implementation are traditional Evolutionary (GPTIR) and 

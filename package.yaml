@@ -27,7 +27,6 @@ dependencies:
 - hmatrix
 - hmatrix-gsl
 - hmatrix-morpheus
-- mltool
 - modal-interval
 - split
 - config-ini

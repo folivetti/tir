@@ -34,9 +34,9 @@
           packageOverrides = pkgs: {
             haskell = pkgs.haskell // {
               packages = pkgs.haskell.packages // {
-                ghc = pkgs.haskell.packages.ghc8107.override {
+                ghc = pkgs.haskell.packages.ghc922.override {
                   overrides = self: super: {
-                    mltool = pkgs.haskell.lib.dontCheck super.mltool;
+                    # mltool = pkgs.haskell.lib.dontCheck super.mltool;
                     srtree = super.callCabal2nix "srtree" mysrtree {};
                     shape-constraint = super.callCabal2nix "shape-constraint" myshapeconstraint {};
                     evolution = super.callCabal2nix "evolution" myevo {};

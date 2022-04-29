@@ -24,9 +24,10 @@ import qualified Numeric.LinearAlgebra as LA
 
 import Control.Evolution (Population)
 import MachineLearning.Model.Measure                         (Measure(..))
-import MachineLearning.TIR                         (Individual(..), assembleTree)
+import MachineLearning.TIR                         (Individual(..), assembleTree, replaceConsts)
 import Data.SRTree.Print                            (showDefault, showPython)
-import MachineLearning.Utils.Config                          (Config(..), Output(..), IOCfg(..), getLogType, getMeasures)
+import MachineLearning.Utils.Config                          (Config(..), Output(..), IOCfg(..), Task(..), AlgorithmCfg(..), getLogType, getMeasures)
+import Data.SRTree (SRTree(..))
 
 -- | Creates a file if it does not exist
 createIfDoesNotExist :: FilePath -> IO Handle
@@ -46,9 +47,10 @@ writeChampionStats cfg fitTest totTime champion = do
       statsFname = dirname ++ "/stats.json"
       exprFname  = dirname ++ "/exprs.csv"
       cfgFname   = dirname ++ "/parameters.csv"
+      task       = _task $ _algorithmCfg cfg
   createDirectoryIfMissing True dirname
   writeCfg cfgFname cfg
-  writeExprs exprFname champion
+  writeExprs task exprFname champion
   writeStats statsFname fitTest (getMeasures cfg) totTime champion
 
 -- | writes the stats to a file
@@ -77,15 +79,27 @@ writeCfg cfgFname cfg = do
   hClose h
 
 -- | pretty write the expressions
-writeExprs :: FilePath -> Individual -> IO ()
-writeExprs exprFname champion = do
+writeExprs :: Task -> FilePath -> Individual -> IO ()
+writeExprs task exprFname champion = do
     h <- createIfDoesNotExist exprFname
-    hPutStrLn h $ "\"" ++ showDefault tree ++ "\",\"" ++ show ws ++ "\",\"" ++ showPython tree ++ "\""
+    hPutStrLn h $ unlines logs
+    hPutStrLn h "======================================"
     hClose h
   where
-    tree  = assembleTree bias $ _chromo champion
-    ws    = _weights champion
-    bias  = V.head $ VS.convert $ head ws
+    tir    = _chromo champion
+    trees  = map getTree ws
+    ws     = _weights champion
+    bias   = V.head $ VS.convert $ head ws
+    logs   = zipWith (\t w -> "\"" ++ showDefault t ++ "\",\"" ++ show w ++ "\",\"" ++ showPython t ++ "\"") trees ws 
+
+    getTree :: LA.Vector Double -> SRTree Int Double
+    getTree w = let bias   = V.head $ VS.convert w
+                    consts = V.tail $ VS.convert w
+                    sigm z = 1 / (1+exp(-z))
+                in  case task of 
+                      Classification _ -> sigm $ assembleTree bias $ replaceConsts tir consts
+                      ClassMult      _ -> sigm $ assembleTree bias $ replaceConsts tir consts
+                      _                -> assembleTree bias $ replaceConsts tir consts
 
 -- | creates a log of the evolution process
 evoLog :: Handle -> (Individual -> Maybe [Double]) -> Population Individual -> IO ()
