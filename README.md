@@ -6,7 +6,7 @@
 
 Transformation-Interaction-Rational (TIR) searches for models of the form:
 
-![eq](https://latex.codecogs.com/gif.image?\inline&space;\LARGE&space;\dpi{150}\bg{black}f_{TIR}(\mathbf{x,&space;w_p,&space;w_q})&space;=&space;g\left(\frac{p(\mathbf{x,&space;w_p})}{1&space;&plus;&space;q(\mathbf{x,&space;w_q})}\right))
+$$f_{TIR}(\mathbf{x,&space;w_p,&space;w_q})&space;=&space;g\left(\frac{p(\mathbf{x,&space;w_p})}{1&space;&plus;&space;q(\mathbf{x,&space;w_q})}\right))$$
 
 where `g` is an invertible  function, `p, q` are IT expressions with `m_p > 0` and `m_q \geq 0` terms defined as:
 
