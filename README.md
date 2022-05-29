@@ -6,15 +6,15 @@
 
 Transformation-Interaction-Rational (TIR) searches for models of the form:
 
-![eq](https://latex.codecogs.com/gif.image?\inline&space;\LARGE&space;\dpi{150}\bg{black}f_{TIR}(\mathbf{x,&space;w_p,&space;w_q})&space;=&space;g\left(\frac{p(\mathbf{x,&space;w_p})}{1&space;&plus;&space;q(\mathbf{x,&space;w_q})}\right))
+$$f_{TIR}(\mathbf{x,w_p,w_q})=g\left(\frac{p(\mathbf{x,w_p})}{1 + q(\mathbf{x, w_q})}\right)$$
 
 where `g` is an invertible  function, `p, q` are IT expressions with `m_p > 0` and `m_q \geq 0` terms defined as:
 
-![eq](https://latex.codecogs.com/gif.image?\inline&space;\LARGE&space;\dpi{150}\bg{black}f_{IT}(\mathbf{x,&space;w})&space;=&space;w_0&space;&plus;&space;\sum_{j&space;=&space;1}^{m}{w_{j}&space;\cdot&space;(f_j&space;\circ&space;r_j)&space;(\mathbf{x})})
+$$f_{IT}(\mathbf{x,w}) = w_0 + \sum_{j = 1}^{m}{w_{j} \cdot (f_j \circ r_j)(\mathbf{x})}$$
 
 representing a model with `m`terms where `w` are the coefficients of the affine combination, `f_j` is the j-th transformation function and `r_j` is the interaction function:
 
-![eq](https://latex.codecogs.com/gif.image?\inline&space;\LARGE&space;\dpi{150}\bg{black}r_j(\mathbf{x})&space;=&space;\prod_{i&space;=&space;1}^{d}{x_i^{k_{ij}}})
+$$r_j(\mathbf{x}) = \prod_{i = 1}^{d}{x_i^{k_{ij}}}$$
 
 where `k_ij` represents the integral exponents for each variable.
 
