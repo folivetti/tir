@@ -169,6 +169,7 @@ regressNL niter tir xss ys = [ws]
     ws           = nonlinearFit niter zssP zssQ ys f f' theta0
     f            = evalFun $ _funY tir
     f'           = derivative $ _funY tir
+    --theta0       = LA.konst 1 (LA.cols zssP + LA.cols zssQ)
     theta0       = head $ regress tir xss ys
     (zssP, zssQ) = tirToMatrix xss tir
 
