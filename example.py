@@ -2,7 +2,7 @@ import numpy as np
 from pyTIR import TIRRegressor, TIRClassifier
 from sklearn.datasets import load_iris
 
-Z = np.loadtxt("datasets/airfoil/airfoil-train-0.dat", delimiter=",")
+Z = np.loadtxt("datasets/airfoil-train-0.dat", delimiter=",")
 clr = TIRRegressor(100,100,1.0, 0.25, (-2,2), penalty=0.01, niter=0)
 clr.fit(Z[:,:-1], Z[:,-1])
 yhat = clr.predict(Z[:,:-1])
