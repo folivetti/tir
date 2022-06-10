@@ -48,7 +48,7 @@ instance EvoClass Individual where
   data Mutation  Individual = GroupMutation deriving (Show, Read)
 
 parseCLI :: Task -> [String] -> IO ()
-parseCLI Regression [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, trainname] = do
+parseCLI Regression [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, alg, trainname] = do
   let mutCfg = dfltMutCfg { _kRange = (read expminP, read expmaxP)
                           , _yfuns  = map read $ splitOn "," ytfuncsP
                           , _funs   = map read $ splitOn "," tfuncsP
@@ -56,6 +56,7 @@ parseCLI Regression [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, n
                           }
       algCfg = dfltAlgCfg { _gens     = read nGensP
                           , _nPop     = read nPopP
+                          , _algorithm = read alg 
                           , _pm       = read pmP
                           , _pc       = read pcP
                           , _seed     = let s = read seedP in if s < 0 then Nothing else Just s
@@ -108,7 +109,7 @@ parseCLI task [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, 
                       ClassMult      _ -> sigm $ assembleTree bias $ replaceConsts tir consts
                       _                -> assembleTree bias $ replaceConsts tir consts
                         
-parseCLI _ _ = putStrLn "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty trainname"
+parseCLI _ _ = putStrLn "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty alg trainname"
 
 runWithCfg :: [FilePath] -> IO ()
 runWithCfg [fname] = do 
