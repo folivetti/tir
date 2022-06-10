@@ -62,7 +62,7 @@ writeStats statsFname fitTest measures totTime champion = do
   where
     mNames     = map _name measures
     trainNames = map (++"_train") mNames
-    trainErrors = map show $ _fit champion
+    trainErrors = map show $ _accs champion
     testErrors  = map show $ fromMaybe nans $ fitTest champion
     testNames  = map (++"_test")  mNames
     fields     = "tot_time" : (trainNames ++ testNames)

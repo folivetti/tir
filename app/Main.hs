@@ -26,6 +26,7 @@ import Numeric.ModalInterval
 import qualified Data.Vector.Storable  as VS
 import qualified Data.Vector  as V
 import qualified Numeric.LinearAlgebra as LA
+import Data.Function (on) 
 
 import Data.List (intercalate)
 import Prelude hiding (null)
@@ -68,7 +69,7 @@ parseCLI Regression [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, n
   let bias = V.head $ VS.convert $ head $ _weights champion
   print $ (showPython . assembleTree bias . _chromo) champion <> ";" <> (show . _len) champion <> ";" <> (show . _fit) champion 
 
-parseCLI task [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, niter, trainname] = do
+parseCLI task [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, niter, alg, trainname] = do
   let mutCfg = dfltMutCfg { _kRange = (read expminP, read expmaxP)
                           , _yfuns  = map read $ splitOn "," ytfuncsP
                           , _funs   = map read $ splitOn "," tfuncsP
@@ -78,6 +79,7 @@ parseCLI task [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, 
                           , _nPop     = read nPopP
                           , _pm       = read pmP
                           , _pc       = read pcP
+                          , _algorithm = read alg
                           , _seed     = let s = read seedP in if s < 0 then Nothing else Just s
                           , _measures = [toMeasure errorMetric]
                           , _task     = case task of
@@ -138,8 +140,8 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
       cnstr        = case _evaluator cnstCfg of 
                        Nothing -> const 0.0 
                        Just e  -> getViolationFun e (_shapes cnstCfg) (_domains cnstCfg)
-      fitnessTrain = evalTrain task False measures cnstr penalty domains (fst train) (snd train) (fst val) (snd val)
-      fitnessAll   = evalTrain task True measures cnstr penalty domains (fst alldata) (snd alldata) (fst alldata) (snd alldata)
+      fitnessTrain = evalTrain task (_algorithm algCfg == MOO) False measures cnstr penalty domains (fst train) (snd train) (fst val) (snd val)
+      fitnessAll   = evalTrain task (_algorithm algCfg == MOO) True measures cnstr penalty domains (fst alldata) (snd alldata) (fst alldata) (snd alldata)
       fitnessTest  = evalTest task measures (fst test) (snd test)
       
       myCX OnePoint  = onepoint
@@ -161,13 +163,17 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
                        [ With Feasible :> Cross OnePoint 2 (_pc algCfg) (Tournament 2) :> Mutate GroupMutation (_pm algCfg) :> Done
                        , With Infeasible :> Cross OnePoint 2 (_pc algCfg) (Tournament 2) :> Mutate GroupMutation (_pm algCfg) :> Done
                        ]
-                                                      
+      moo          = Reproduce NonDominated
+                       [Done, Cross OnePoint 2 (_pc algCfg) (CrowdingTournament 2) :> Mutate GroupMutation (_pm algCfg) :> Done]
+
       alg          = case _algorithm algCfg of
                        GPTIR -> gp
                        SCTIR -> fi
+                       MOO   -> moo
   (logger, mh)  <- makeLogger cfg fitnessTest
-  (_, champion) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret 
-  return (fitnessAll champion, mh, fitnessTest)
+  (_, champion, front) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret 
+  let champion' = V.minimumBy (compare `on` (head . _getFitness)) front 
+  return (fitnessAll champion', mh, fitnessTest)
 
 main :: IO ()
 main = do

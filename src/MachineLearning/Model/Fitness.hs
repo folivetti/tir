@@ -71,6 +71,7 @@ isInvalidInterval ys =  Interval.isEmpty ys
 -- with either OLS or a nonlinear optimization (not yet implemented) 
 -- and calculating the fitness vector, constraints, penalty.
 evalTrain :: Task                          -- ^ Regression or Classification task
+          -> Bool                          -- ^ if it is a single (False) or MOO (True)
           -> Bool                          -- ^ if we are fitting the final best individual, in this case do not split the training data for validation
           -> [Measure]                     -- ^ list of performance measures to calculate
           -> Constraint                    -- ^ constraint function
@@ -82,17 +83,18 @@ evalTrain :: Task                          -- ^ Regression or Classification tas
           -> Vector Double                 -- ^ validation target
           -> Individual 
           -> Individual
-evalTrain task isRefit measures cnstrFun penalty domains xss_train ys_train xss_val ys_val sol
+evalTrain task moo isRefit measures cnstrFun penalty domains xss_train ys_train xss_val ys_val sol
 --  | LA.cols zss == 0                   = error "found"
 --  | (not.null) (LA.find (\x -> isNaN x || isInfinite x) zss)  = error $ (show $ _chromo sol) <> show domains 
   | not isRefit && (not.null._fit) sol = sol
 --  | LA.cols zssP == 0                  = sol { _fit = [1/0] }
-  | otherwise                          = sol{ _chromo  = fitted
-                                            , _fit     = fitness
-                                            , _weights = ws
-                                            , _constr  = cnst
-                                            , _len     = len
-                                            , _penalty = pnlty 
+  | otherwise                          = sol{ _chromo   = fitted
+                                            , _fit      = fitness
+                                            , _accs     = myMeasures
+                                            , _weights  = ws
+                                            , _constr   = cnst
+                                            , _len      = len
+                                            , _penalty  = pnlty 
                                             }
   where
     -- Fit the rational IT
@@ -101,8 +103,9 @@ evalTrain task isRefit measures cnstrFun penalty domains xss_train ys_train xss_
     
     -- Validate (it should be applied to every different weights set)
     fitted         = replaceConsts tir . V.tail . VS.convert . head
-                   $ ws               
-    fitness        = map nan2inf . fromJust . evalTest task measures xss_val ys_val
+                   $ ws
+    fitness        = if moo then head myMeasures : [fromIntegral len] else [head myMeasures]
+    myMeasures     = map nan2inf . fromJust . evalTest task measures xss_val ys_val
                    $ sol{ _chromo=fitted, _weights=ws }
     -- Length and constraint   
     tree           = assembleTree (V.head $ VS.convert $ head ws) fitted

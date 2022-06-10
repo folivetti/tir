@@ -30,7 +30,7 @@ data Task = Regression | RegressionNL Int | Classification Int | ClassMult Int
 
 -- | Current algorithm implementation are traditional Evolutionary (GPTIR) and 
 -- Feasible-Infeasible two-population for shape-constraint (SCTIR).
-data Algorithm = GPTIR | SCTIR deriving (Eq, Read, Show)
+data Algorithm = GPTIR | SCTIR | MOO deriving (Eq, Read, Show)
 
 -- | Type of penalty function
 data Penalty = NoPenalty | Len Double | Shape Double deriving (Show, Read)

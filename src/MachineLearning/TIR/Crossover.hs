@@ -65,8 +65,8 @@ uniformCx :: [Individual] -> Rnd Individual
 uniformCx (p1:p2:_) = do
   let c1   = _chromo p1
       c2   = _chromo p2
-      f1   = _getFitness p1
-      f2   = _getFitness p2
+      f1   = head $ _getFitness p1
+      f2   = head $ _getFitness p2
       pc1  = nub $ map sortPi $ _p c1
       pc2  = nub $ map sortPi $ _p c2
       qc1  = nub $ map sortPi $ _q c1

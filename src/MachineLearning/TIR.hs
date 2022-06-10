@@ -153,17 +153,18 @@ type Constraint = SRTree Int Double -> Double
 -- one vector of coefficient per class),
 -- the constraint violation, the size of the expression,
 -- and the penalty value.
-data Individual = Individual { _chromo  :: TIR
-                             , _fit     :: [Double]
-                             , _weights :: [LA.Vector Double]
-                             , _constr  :: Double
-                             , _len     :: Int
-                             , _penalty :: Double
+data Individual = Individual { _chromo   :: TIR
+                             , _fit      :: [Double]
+                             , _accs     :: [Double]
+                             , _weights  :: [LA.Vector Double]
+                             , _constr   :: Double
+                             , _len      :: Int
+                             , _penalty  :: Double
                              }
 
 -- | creates an unevaluated individual.
 createIndividual :: TIR -> Individual
-createIndividual tir = Individual tir [] [] 0.0 0 0.0
+createIndividual tir = Individual tir [] [] [] 0.0 0 0.0
 
 -- | calculates the penalized fitness.
 penalizedFit :: Individual -> Double
@@ -182,16 +183,43 @@ replaceWeight (w, g, h) = state $ \ws -> case ws of
                                            (wi:ws') -> ((wi, g, h), ws')
                                            []       -> error $ show h -- ((w, g, h), [])
 
+{-
 instance Eq Individual where
     t1 == t2 = penalizedFit t1 == penalizedFit t2 
 instance Ord Individual where
     t1 <= t2 = penalizedFit t1 <= penalizedFit t2
+-}
+epsDom x y | abs (x - y) <= eps = EQ
+           | otherwise          = compare x y
+  where eps = 0.00
+{-# inline epsDom #-}
+
+instance Eq Individual where
+  t1 == t2 = case epsDom f1h f2h of
+               EQ -> all (uncurry (==)) $ zip f1t f2t
+               _  -> False
+    where 
+     f1h = penalizedFit t1 
+     f1t = tail (_fit t1)
+     f2h = penalizedFit t2 
+     f2t = tail (_fit t2)
+instance Ord Individual where
+  t1 <= t2 = case epsDom f1h f2h of
+               EQ -> (any (uncurry (<)) (zip f1t f2t) && all (uncurry (<=)) (zip f1t f2t)) -- lesser
+                     || f1t == f2t
+               LT -> all (uncurry (<=)) (zip f1t f2t)
+               GT -> False
+    where 
+     f1h = penalizedFit t1 
+     f1t = tail (_fit t1)
+     f2h = penalizedFit t2 
+     f2t = tail (_fit t2)
 
 instance NFData Individual where
   rnf _ = ()
 
 instance Solution Individual where
-  _getFitness = head . _fit
+  _getFitness = _fit
   _isFeasible = (<1e-12) . _constr
 
 -- | creates a symbolic tree from a TIR expression.
