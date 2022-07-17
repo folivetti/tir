@@ -198,10 +198,10 @@ instance Eq Individual where
   t1 == t2 = case epsDom f1h f2h of
                EQ -> all (uncurry (==)) $ zip f1t f2t
                _  -> False
-    where 
-     f1h = penalizedFit t1 
+    where
+     f1h = penalizedFit t1
      f1t = tail (_fit t1)
-     f2h = penalizedFit t2 
+     f2h = penalizedFit t2
      f2t = tail (_fit t2)
 instance Ord Individual where
   t1 <= t2 = case epsDom f1h f2h of
@@ -209,10 +209,10 @@ instance Ord Individual where
                      || f1t == f2t
                LT -> all (uncurry (<=)) (zip f1t f2t)
                GT -> False
-    where 
-     f1h = penalizedFit t1 
+    where
+     f1h = penalizedFit t1
      f1t = tail (_fit t1)
-     f2h = penalizedFit t2 
+     f2h = penalizedFit t2
      f2t = tail (_fit t2)
 
 instance NFData Individual where

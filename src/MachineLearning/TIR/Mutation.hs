@@ -100,7 +100,7 @@ insertNode params (TIR g p q)
                              in  if nvars >= ix
                                   then appendVar x y : xs
                                   else x : insertInto (ix - nvars) xs y
-    appendVar (x, y, z) z' = if z' `elem` z then (x, y, z) else (x, y, z':z)
+    appendVar (x, y, z) z' = if fst z' `elem` (map fst z) then (x, y, z) else (x, y, z':z)
 
 -- | removes a random node
 removeNode :: MutationCfg -> TIR -> Rnd TIR
