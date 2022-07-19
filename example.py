@@ -12,7 +12,7 @@ print("Fitness should be approx.: ", np.sqrt(mse))
 print(clr.expr)
 print(clr.len)
 
-Z = np.loadtxt("datasets/breast_cancer/breast-train.dat", delimiter=",")
+Z = np.loadtxt("datasets/breast-train.dat", delimiter=",")
 clr = TIRClassifier(100,100,1.0, 0.25, (-2,2), penalty=0.01, niter=10)
 clr.fit(Z[:,:-1], Z[:,-1])
 yhat = clr.predict_proba(Z[:,:-1])

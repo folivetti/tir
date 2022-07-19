@@ -28,6 +28,7 @@ import           Data.List                     (nub)
 import           Data.Vector.Storable          (Vector, splitAt)
 import           Numeric.LinearAlgebra         ((<\>), Matrix)
 import           Numeric.GSL.Fitting           (nlFitting, FittingMethod(..))
+import           Numeric.GSL.SimulatedAnnealing   (simanSolve, SimulatedAnnealingParams (SimulatedAnnealingParams))
 import           Prelude               hiding  (splitAt)
 
 import qualified Numeric.LinearAlgebra                     as LA
@@ -183,10 +184,21 @@ nonlinearFit :: Int
              -> (Vector Double -> Vector Double) 
              -> Vector Double 
              -> Vector Double
-nonlinearFit niter zssP zssQ ys f f' theta0 = fst $ nlFitting LevenbergMarquardtScaled 1e-6 1e-6 niter model' jacob' theta0
+nonlinearFit niter zssP zssQ ys f f' theta0 = 
+    saFit niter zssP zssQ ys f theta0
+   -- fst $ nlFitting LevenbergMarquardtScaled 1e-6 1e-6 niter model' jacob' theta0
   where
     model'       = model f ys zssP zssQ
     jacob'       = jacob f' zssP zssQ    
+
+saFit :: Int -> Matrix Double -> Matrix Double -> Vector Double -> (Vector Double -> Vector Double) -> Vector Double -> Vector Double 
+saFit niter zssP zssQ ys f theta0 = simanSolve 0 nRands params theta0 cost dist step Nothing
+    where
+        nRands = VS.length theta0 
+        params = SimulatedAnnealingParams 1 1 0.1 1.0 0.1 1.2 0.01
+        cost = VS.sum . VS.map (^2) . model f ys zssP zssQ
+        dist x y = VS.sum $ VS.map abs $ VS.zipWith (-) x y
+        step rands stepSize cur = VS.zipWith stp rands cur where stp r x = r * 2 * stepSize - stepSize + x 
 
 -- | calculates the error given the parameter vector beta
 model :: (Vector Double -> Vector Double) -> Vector Double -> Matrix Double -> Matrix Double -> Vector Double -> Vector Double
