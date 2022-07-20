@@ -185,8 +185,8 @@ nonlinearFit :: Int
              -> Vector Double 
              -> Vector Double
 nonlinearFit niter zssP zssQ ys f f' theta0 = 
-    saFit niter zssP zssQ ys f theta0
-   -- fst $ nlFitting LevenbergMarquardtScaled 1e-6 1e-6 niter model' jacob' theta0
+    -- saFit niter zssP zssQ ys f theta0
+    fst $ nlFitting LevenbergMarquardtScaled 1e-6 1e-6 niter model' jacob' theta0
   where
     model'       = model f ys zssP zssQ
     jacob'       = jacob f' zssP zssQ    

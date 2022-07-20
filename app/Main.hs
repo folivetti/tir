@@ -66,7 +66,7 @@ parseCLI Regression [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, n
       pn    = read penalty
       cnst  = if pn == 0.0 then dfltCnstrCfg  else dfltCnstrCfg{ _penaltyType  = Len pn }
       cfg   = Conf mutCfg ioCfg algCfg cnst
-  (champion, _, _) <- runGP cfg 
+  (champion, _, _, _) <- runGP cfg 
   let bias = V.head $ VS.convert $ head $ _weights champion
   print $ (showPython . assembleTree bias . _chromo) champion <> ";" <> (show . _len) champion <> ";" <> (show . _fit) champion 
 
@@ -92,7 +92,7 @@ parseCLI task [expminP, expmaxP, tfuncsP, ytfuncsP, errorMetric, nGensP, nPopP, 
       pn    = read penalty
       cnst  = if pn == 0.0 then dfltCnstrCfg  else dfltCnstrCfg{ _penaltyType  = Len pn }
       cfg   = Conf mutCfg ioCfg algCfg cnst
-  (champion, _, _) <- runGP cfg 
+  (champion, _, _, _) <- runGP cfg 
   
   let 
     tir    = _chromo champion
@@ -115,7 +115,7 @@ runWithCfg :: [FilePath] -> IO ()
 runWithCfg [fname] = do 
   cfg                         <- readConfig fname   
   t0                          <- getTime Realtime
-  (champion, mh, fitnessTest) <- runGP cfg  
+  (champion, mh, fitnessTest, front) <- runGP cfg  
   putStrLn "Best expression (training set):\n"
   putStrLn $ prettyPrintsolution champion
   t1 <- getTime Realtime
@@ -124,9 +124,10 @@ runWithCfg [fname] = do
   closeIfJust mh
   putStrLn $ "Total time: " ++ show (sec t1 - sec t0) ++ " secs."
   writeChampionStats cfg fitnessTest (sec t1 - sec t0) champion
+  writeFront cfg front
 runWithCfg _ = putStrLn "Usage: ./tir config filename"
         
-runGP :: Config -> IO (Individual, Maybe Handle, Individual -> Maybe [Double])
+runGP :: Config -> IO (Individual, Maybe Handle, Individual -> Maybe [Double], Population Individual)
 runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
   g <- case (_seed . _algorithmCfg) cfg of
          Nothing -> getStdGen
@@ -173,8 +174,12 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
                        MOO   -> moo
   (logger, mh)  <- makeLogger cfg fitnessTest
   (_, champion, front) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret 
-  let champion' = V.minimumBy (compare `on` (head . _getFitness)) front 
-  return (fitnessAll champion', mh, fitnessTest)
+  let champion'  = V.minimumBy (compare `on` (head . _getFitness)) front 
+      thr        = (1.1*) . head . _getFitness $ champion'
+      champion'' = if _algorithm  algCfg == MOO
+                      then V.minimumBy (compare `on` ((!!1) . _getFitness)) $ V.filter ((<=thr) . head . _getFitness) front
+                      else champion'
+  return (fitnessAll champion'', mh, fitnessTest, front)
 
 main :: IO ()
 main = do

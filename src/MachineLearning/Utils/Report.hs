@@ -37,6 +37,26 @@ createIfDoesNotExist fname = do
   then openFile fname AppendMode
   else openFile fname WriteMode
 
+-- | writes the pareto front 
+writeFront :: Config -> Population Individual -> IO () 
+writeFront cfg front = do 
+    let dirname = case getLogType cfg of 
+                    Screen         -> "results/"
+                    PartialLog dir -> dir 
+                    EvoLog dir     -> dir
+        frontFname = dirname ++ "/front.csv"
+        printIndividual h x = hPutStrLn h $ show (_fit x) <> " " <> showDefault (showTree x)
+    h <- openFile frontFname WriteMode
+    mapM_ (printIndividual h) front 
+    hClose h 
+  where
+    showTree x = assembleTree bias $ replaceConsts tir consts 
+        where 
+            tir    = _chromo x 
+            ws     = _weights x
+            bias   = V.head $ VS.convert $ head ws
+            consts = V.tail $ VS.convert $ head ws 
+
 -- | writes all the stats from the final champion solution
 writeChampionStats :: Config -> (Individual -> Maybe [Double]) -> Int64 -> Individual -> IO ()
 writeChampionStats cfg fitTest totTime champion = do
