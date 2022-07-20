@@ -195,7 +195,7 @@ saFit :: Int -> Matrix Double -> Matrix Double -> Vector Double -> (Vector Doubl
 saFit niter zssP zssQ ys f theta0 = simanSolve 0 nRands params theta0 cost dist step Nothing
     where
         nRands = VS.length theta0 
-        params = SimulatedAnnealingParams 1 1 0.1 1.0 0.1 1.2 0.01
+        params = SimulatedAnnealingParams 1 1 0.1 1.0 0.1 1.3 0.05
         cost = VS.sum . VS.map (^2) . model f ys zssP zssQ
         dist x y = VS.sum $ VS.map abs $ VS.zipWith (-) x y
         step rands stepSize cur = VS.zipWith stp rands cur where stp r x = r * 2 * stepSize - stepSize + x 
