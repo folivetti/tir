@@ -21,8 +21,8 @@
         myevo = pkgs.fetchFromGitHub {
            owner = "folivetti";
            repo = "evolution";
-           rev = "6570a7747f31c9c2204fe0b26905622cd363f829";
-           sha256 = "BBGbh0NfNh/rmz/XUhnOtWmbaXot+hoKmqsdH2bWbzo=";
+           rev = "e38a96bd65beed4a47cffc141ee18b4973b5f5ed";
+           sha256 = "9eyym7BLmO+Zcktqw+8NmRN6NHakV/6/MYZbawgFUp4=";
         };
         mymodal = pkgs.fetchFromGitHub {
            owner = "folivetti";
@@ -34,7 +34,7 @@
           packageOverrides = pkgs: {
             haskell = pkgs.haskell // {
               packages = pkgs.haskell.packages // {
-                ghc = pkgs.haskell.packages.ghc922.override {
+                ghc = pkgs.haskell.packages.ghc923.override {
                   overrides = self: super: {
                     # mltool = pkgs.haskell.lib.dontCheck super.mltool;
                     srtree = super.callCabal2nix "srtree" mysrtree {};
