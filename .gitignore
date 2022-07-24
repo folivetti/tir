@@ -27,3 +27,5 @@ datasets/*
 __pycache__
 .ipynb_checkpoints
 configs/*
+bin/tir-exe
+python/tir

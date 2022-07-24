@@ -175,7 +175,8 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
   (logger, mh)  <- makeLogger cfg fitnessTest
   (_, champion, front) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret 
   let champion'  = V.minimumBy (compare `on` (head . _getFitness)) front 
-      thr        = (1.1*) . head . _getFitness $ champion'
+      getThr x   = if x < 0 then 0.95*x else 1.05*x 
+      thr        = getThr . head . _getFitness $ champion'
       champion'' = if _algorithm  algCfg == MOO
                       then V.minimumBy (compare `on` ((!!1) . _getFitness)) $ V.filter ((<=thr) . head . _getFitness) front
                       else champion'
