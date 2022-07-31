@@ -42,7 +42,7 @@ library:
   source-dirs: src
 
 executables:
-  tir-exe:
+  tir:
     main:                Main.hs
     source-dirs:         app
     ghc-options:

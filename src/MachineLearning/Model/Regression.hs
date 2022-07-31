@@ -88,7 +88,8 @@ solveOLS zss ys = zss <\> ys
 -- if the expression is invalid, it returns Infinity as a fitness
 --regress :: Matrix Double -> Vector Double -> [Vector Double]
 regress :: TIR -> Dataset Double -> Vector Double -> [Vector Double]
-regress tir xss ys = [ws]
+regress tir xss ys | LA.find isInfinite zss /= [] = [VS.fromList [1.0 | _ <- [0 .. LA.cols zss]]]
+                   | otherwise = [ws]
   where
     (zssP, zssQ) = tirToMatrix xss tir
     ys'          = evalFun (inverseFunc $ _funY tir) ys

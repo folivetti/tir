@@ -18,7 +18,7 @@ import Data.Text.IO            (readFile)
 import Prelude          hiding (readFile)
 
 -- import Constraints.Shape       (Shape(..), Domains)
-import MachineLearning.Model.Measure           (Measure, toMeasure)
+import MachineLearning.Model.Measure           (Measure, toMeasure, Fitness(..))
 import Data.SRTree                    (Function(..))
 import Algorithm.ShapeConstraint
 
@@ -70,11 +70,12 @@ data AlgorithmCfg = AlgCfg { _algorithm :: Algorithm
                            , _pm        :: Double
                            , _pc        :: Double
                            , _seed      :: Maybe Int
+                           , _fitness   :: [Fitness]
                            , _measures  :: [Measure]
                            } deriving (Show)
 
 dfltAlgCfg :: AlgorithmCfg
-dfltAlgCfg = AlgCfg GPTIR Regression 100 100 0.25 1.0 Nothing [toMeasure "RMSE"]
+dfltAlgCfg = AlgCfg GPTIR Regression 100 100 0.25 1.0 Nothing [ExprMeasure "RMSE"] [toMeasure "RMSE"]
 
 data ConstraintCfg = CnsCfg { _penaltyType :: Penalty
                             , _shapes      :: [Shape] 
@@ -149,9 +150,10 @@ parseConfig = do
     nPop <- fieldOf "npop" readable
     pm <- fieldOf "probmut" readable
     pc <- fieldOf "probcx" readable
+    fit_mes <- fieldOf "fitness" readable
     perf_mes <- fieldOf "measures" readable
     seed <- fieldOf "seed" readable
-    return $ AlgCfg alg task nGens nPop pm pc seed $ map toMeasure perf_mes
+    return $ AlgCfg alg task nGens nPop pm pc seed fit_mes $ map toMeasure perf_mes
   cnsCfg <- section "Constraints" $ do
     penalty <- fieldOf "penalty" readable
     shapes <- fieldOf "shapes" readable

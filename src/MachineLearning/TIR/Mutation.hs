@@ -12,6 +12,7 @@ Mutation operators.
 module MachineLearning.TIR.Mutation where
 
 import MachineLearning.TIR
+import MachineLearning.TIR.Random
 import MachineLearning.Utils.Config
 import Control.Evolution
 import Control.Monad.State.Strict

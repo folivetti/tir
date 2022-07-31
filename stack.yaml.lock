@@ -10,11 +10,11 @@ packages:
     git: https://github.com/folivetti/srtree.git
     pantry-tree:
       size: 817
-      sha256: bc96f6fba1d20b5537a961578e53e23be8b5500dcb359d49965541c4b6e18810
-    commit: 2b376f6d7a9cacf65978e9f8718c3c0d330b4cba
+      sha256: b15f4d901e58a1caa77b6086fcba31aa7da8aee37c30da59c44fcf6cb956361e
+    commit: 332cc55c3f1807edf78966105eba25afd784bb9a
   original:
     git: https://github.com/folivetti/srtree.git
-    commit: 2b376f6d7a9cacf65978e9f8718c3c0d330b4cba
+    commit: 332cc55c3f1807edf78966105eba25afd784bb9a
 - completed:
     name: evolution
     version: 0.1.0.0
@@ -31,26 +31,26 @@ packages:
     version: 0.1.0.0
     git: https://github.com/folivetti/modal-interval.git
     pantry-tree:
-      size: 950
-      sha256: 742fc6a721c8a3cf3eb3c7edb26b9acb148d162ef8daee04b03ca8150312815d
-    commit: d43ec184314c2bb61aa8bbb974866d68d14b2e45
+      size: 2101
+      sha256: b41c9d4691d749380dc0b4a301c8edf31da4af0ed29ed766bfb393b3907f1a09
+    commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75
   original:
     git: https://github.com/folivetti/modal-interval.git
-    commit: d43ec184314c2bb61aa8bbb974866d68d14b2e45
+    commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75
 - completed:
     name: shape-constraint
     version: 0.1.0.0
     git: https://github.com/folivetti/shape-constraint.git
     pantry-tree:
-      size: 643
-      sha256: 4bbe7df25b0e9213e128e443737589fd027e65e951ceece197b442d3150bb01d
-    commit: 88015baff58ef88deaf47980844becfe9ef9a110
+      size: 1462
+      sha256: e300f3d9785e0015c4a652e867e04e27f2eda93213a41dec495368e62ef2e1ca
+    commit: add8c02c519d9c0dff5e6acba6ba2233ba3cfa85
   original:
     git: https://github.com/folivetti/shape-constraint.git
-    commit: 88015baff58ef88deaf47980844becfe9ef9a110
+    commit: add8c02c519d9c0dff5e6acba6ba2233ba3cfa85
 snapshots:
 - completed:
-    size: 619093
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/19/5.yaml
-    sha256: b936d27d647a31a8834d3efec126e2a07dee9c9bd6dd401d9bdac77e7b278f1e
-  original: lts-19.5
+    size: 590100
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml
+    sha256: 428ec8d5ce932190d3cbe266b9eb3c175cd81e984babf876b64019e2cbe4ea68
+  original: lts-18.28

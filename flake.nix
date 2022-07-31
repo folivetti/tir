@@ -65,6 +65,7 @@
         mach = mach-nix.lib.${system};
 
         tir = pkgs.haskell.packages.ghc.callCabal2nix "tir" ./. { };
+        #tir = pkgs.haskell.packages.ghc.callCabal2nixWithOptions "tir" (./.) "" {}; # "--install-method=copy --installdir=./python" { };
 
         pytir = mach.buildPythonPackage rec {
           python = "python39";

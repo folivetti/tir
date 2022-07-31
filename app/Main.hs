@@ -5,6 +5,7 @@ import MachineLearning.Utils.Config
 import MachineLearning.Utils.Report
 import MachineLearning.Utils.Data
 import MachineLearning.TIR
+import MachineLearning.TIR.Random
 import MachineLearning.TIR.Crossover
 import MachineLearning.TIR.Mutation
 import MachineLearning.Model.Fitness
@@ -137,13 +138,14 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
       budget       = max 5 $ min 15 $ size (snd train) `div` 10
       mutCfg'      = mutCfg{ _yfuns = filterImage image (_yfuns mutCfg), _vars = [0 .. nvars-1], _budget=budget }
       task         = _task algCfg
+      fits         = _fitness algCfg
       measures     = _measures algCfg
       penalty      = _penaltyType cnstCfg
       cnstr        = case _evaluator cnstCfg of 
                        Nothing -> const 0.0 
                        Just e  -> getViolationFun e (_shapes cnstCfg) (_domains cnstCfg)
-      fitnessTrain = evalTrain task (_algorithm algCfg == MOO) False measures cnstr penalty domains (fst train) (snd train) (fst val) (snd val)
-      fitnessAll   = evalTrain task (_algorithm algCfg == MOO) True measures cnstr penalty domains (fst alldata) (snd alldata) (fst alldata) (snd alldata)
+      fitnessTrain = evalTrain task False fits measures cnstr penalty domains (fst train) (snd train) (fst val) (snd val)
+      fitnessAll   = evalTrain task True fits measures cnstr penalty domains (fst alldata) (snd alldata) (fst alldata) (snd alldata)
       fitnessTest  = evalTest task measures (fst test) (snd test)
       
       myCX OnePoint  = onepoint
@@ -174,7 +176,8 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
                        MOO   -> moo
   (logger, mh)  <- makeLogger cfg fitnessTest
   (_, champion, front) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret 
-  let champion'  = V.minimumBy (compare `on` (head . _getFitness)) front 
+  let -- bic model  = let n = size (snd train) in n * ln(mse) + n(1 + ln(2pi)) + ln(n)k
+      champion'  = V.minimumBy (compare `on` (head . _getFitness)) front 
       getThr x   = if x < 0 then 0.95*x else 1.05*x 
       thr        = getThr . head . _getFitness $ champion'
       champion'' = if _algorithm  algCfg == MOO

@@ -29,7 +29,7 @@ import qualified Data.Vector.Storable  as VS
 import qualified Data.Vector           as V
 import qualified Numeric.LinearAlgebra as LA
 import Data.Maybe (fromMaybe)
-import MachineLearning.Model.Measure       (Measure)
+import MachineLearning.Model.Measure       (Measure, Fitness, evalFitness)
 import MachineLearning.Model.Regression    (nonlinearFit, evalPenalty, fitTask, predictTask, applyMeasures)
 import MachineLearning.TIR       (TIR(..),  Individual(..), Dataset, Constraint, assembleTree, replaceConsts)
 import MachineLearning.Utils.Config       (Task(..), Penalty)
@@ -71,8 +71,8 @@ isInvalidInterval ys =  Interval.isEmpty ys
 -- with either OLS or a nonlinear optimization (not yet implemented) 
 -- and calculating the fitness vector, constraints, penalty.
 evalTrain :: Task                          -- ^ Regression or Classification task
-          -> Bool                          -- ^ if it is a single (False) or MOO (True)
           -> Bool                          -- ^ if we are fitting the final best individual, in this case do not split the training data for validation
+          -> [Fitness]
           -> [Measure]                     -- ^ list of performance measures to calculate
           -> Constraint                    -- ^ constraint function
           -> Penalty                       -- ^ penalty
@@ -83,7 +83,7 @@ evalTrain :: Task                          -- ^ Regression or Classification tas
           -> Vector Double                 -- ^ validation target
           -> Individual 
           -> Individual
-evalTrain task moo isRefit measures cnstrFun penalty domains xss_train ys_train xss_val ys_val sol
+evalTrain task isRefit fits measures cnstrFun penalty domains xss_train ys_train xss_val ys_val sol
 --  | LA.cols zss == 0                   = error "found"
 --  | (not.null) (LA.find (\x -> isNaN x || isInfinite x) zss)  = error $ (show $ _chromo sol) <> show domains 
   | not isRefit && (not.null._fit) sol = sol
@@ -104,7 +104,9 @@ evalTrain task moo isRefit measures cnstrFun penalty domains xss_train ys_train 
     -- Validate (it should be applied to every different weights set)
     fitted         = replaceConsts tir . V.tail . VS.convert . head
                    $ ws
-    fitness        = if moo then head myMeasures : [fromIntegral len] else [head myMeasures]
+    fitFun         = evalFitness ys_val yhat sol{ _chromo=fitted, _weights=ws } 
+    fitness        = map fitFun fits 
+    yhat           = evalToTarget task xss_val sol{ _chromo=fitted, _weights=ws }
     myMeasures     = map nan2inf . fromJust . evalTest task measures xss_val ys_val
                    $ sol{ _chromo=fitted, _weights=ws }
     -- Length and constraint   
@@ -121,8 +123,9 @@ evalTest task measures xss ys sol
   | null weights = Nothing
   | otherwise    = Just
                  $ applyMeasures measures ys
-                 $ predictTask task
-                 $ map (evalTIR xss' bias . replaceConsts tir . V.tail . VS.convert) weights
+                 $ evalToTarget task xss sol 
+                 -- $ predictTask task
+                 -- $ map (evalTIR xss' bias . replaceConsts tir . V.tail . VS.convert) weights
   where
     tir          = _chromo sol
     weights      = _weights sol
@@ -131,8 +134,19 @@ evalTest task measures xss ys sol
     xss'         = V.tail xss
     -- treeEval t   = fromJust $ runReader (evalTreeMap (VS.replicate nSamples) t) (xss' V.!?)
 
+evalToTarget :: Task -> Dataset Double -> Individual -> Vector Double
+evalToTarget task xss sol = predictTask task
+                          $ map (evalTIR xss' bias . replaceConsts tir . V.tail . VS.convert) weights
+  where
+    tir          = _chromo sol
+    weights      = _weights sol
+    bias         = V.head $ VS.convert $ head weights -- only works for regression
+    xss'         = V.tail xss
+
 evalTIR :: Dataset Double -> Double -> TIR -> LA.Vector Double
-evalTIR xss bias (TIR g p q) = evalFun g ((LA.scalar bias + p') / (1 + q'))
+evalTIR xss bias (TIR g p q)
+  | null p    = VS.replicate (LA.size $ V.head xss) bias
+  | otherwise = evalFun g ((LA.scalar bias + p') / (1 + q'))
   where
     p'     = foldr (\(w, h, ks) acc -> LA.scalar w * evalFun h (evalPi ks) + acc) 0 p
     q'     = foldr (\(w, h, ks) acc -> LA.scalar w * evalFun h (evalPi ks) + acc) 0 q

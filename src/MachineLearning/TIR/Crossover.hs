@@ -12,6 +12,7 @@ Crossover operators.
 module MachineLearning.TIR.Crossover where
 
 import MachineLearning.TIR
+import MachineLearning.TIR.Random
 import Control.Evolution
 import Control.Monad.State.Strict
 import System.Random

@@ -11,9 +11,11 @@ Performance measures for Regression and Classification.
 -}
 module MachineLearning.Model.Measure 
   ( Measure(..)
+  , Fitness(..)
   , toMeasure
   , measureAll
   , _rmse
+  , evalFitness
   )
   where
 
@@ -22,10 +24,24 @@ import Data.Semigroup (Sum(..))
 import qualified Numeric.LinearAlgebra       as LA
 import qualified Numeric.Morpheus.Statistics as Stat
 import qualified Data.Vector.Storable        as V
+import MachineLearning.TIR (Individual(..))
 
 type Vector = LA.Vector Double
 -- * Performance measures
 
+-- | A fitness function 
+data Fitness = ExprMeasure String | ExprLen | ExprBIC 
+    deriving (Show, Read)
+
+evalFitness :: Vector -> Vector -> Individual -> Fitness -> Double
+evalFitness y yhat expr (ExprMeasure m) = _fun (toMeasure m) y yhat 
+evalFitness _ _ expr ExprLen            = fromIntegral $ _len expr 
+evalFitness y yhat expr ExprBIC         = k * log n + n * log rss -- rss already divided by n
+    where
+        n = fromIntegral $ LA.size yhat 
+        k = fromIntegral $ LA.size $ head $ _weights expr 
+        rss = mse y yhat 
+        
 -- | A performance measure has a string name and a function that 
 -- takes a vector of the true values, a vector of predict values
 -- and returns a `Double`.

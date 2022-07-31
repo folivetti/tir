@@ -17,7 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-19.5
+resolver: lts-18.28
   #  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/13.yaml
 
 # User packages to be built.
@@ -43,13 +43,13 @@ packages:
 # extra-deps: []
 extra-deps:
   - git: https://github.com/folivetti/srtree.git
-    commit: 2b376f6d7a9cacf65978e9f8718c3c0d330b4cba
+    commit: 332cc55c3f1807edf78966105eba25afd784bb9a
   - git: https://github.com/folivetti/evolution.git
     commit: e38a96bd65beed4a47cffc141ee18b4973b5f5ed        
   - git: https://github.com/folivetti/modal-interval.git 
-    commit: d43ec184314c2bb61aa8bbb974866d68d14b2e45 
+    commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75 
   - git: https://github.com/folivetti/shape-constraint.git 
-    commit: 88015baff58ef88deaf47980844becfe9ef9a110
+    commit: add8c02c519d9c0dff5e6acba6ba2233ba3cfa85
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
@@ -74,4 +74,4 @@ extra-deps:
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
-system-ghc: true
+system-ghc: false
