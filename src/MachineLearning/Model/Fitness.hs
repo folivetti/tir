@@ -14,6 +14,7 @@ evaluate the fitness, penalty and constraints of a TIR expression.
 module MachineLearning.Model.Fitness 
   ( evalTrain
   , evalTest
+  , evalToTarget
   , selectValidTerms
   ) where
 

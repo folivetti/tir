@@ -55,8 +55,8 @@ multiMut :: MutationCfg -> Individual -> Rnd Individual
 multiMut params x = do
   let (TIR _ p q) = _chromo x
   mut <- if null p && null q
-          then randomFrom [insertNode]
-          else if countVars p + countVars q >= _budget params
+          then pure insertNode -- randomFrom [insertNode]
+          else if countVars p + countVars q >= _budget params && length p > 1
                  then randomFrom [removeNode, changeVar, changeExponent, changeFun]
                  else randomFrom [insertNode, removeNode, changeVar, changeExponent, changeFun]
   applyMut params x mut

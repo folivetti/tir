@@ -79,11 +79,12 @@ data Individual = Individual { _chromo   :: TIR
                              , _constr   :: Double
                              , _len      :: Int
                              , _penalty  :: Double
+                             , _distFun  :: Individual -> Individual -> Double
                              }
 
 -- | creates an unevaluated individual.
-createIndividual :: TIR -> Individual
-createIndividual tir = Individual tir [] [] [] 0.0 0 0.0
+createIndividual :: (Individual -> Individual -> Double) -> TIR -> Individual
+createIndividual df tir = Individual tir [] [] [] 0.0 0 0.0 df
 
 -- | calculates the penalized fitness.
 penalizedFit :: Individual -> Double
@@ -140,6 +141,7 @@ instance NFData Individual where
 instance Solution Individual where
   _getFitness = _fit
   _isFeasible = (<1e-12) . _constr
+  _distance x y = (_distFun x) x y
 
 -- | creates a symbolic tree from a TIR expression.
 assembleTree :: Double -> TIR -> SRTree Int Double

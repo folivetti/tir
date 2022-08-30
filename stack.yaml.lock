@@ -21,11 +21,11 @@ packages:
     git: https://github.com/folivetti/evolution.git
     pantry-tree:
       size: 1433
-      sha256: 1f62c0c5c33775666d6371cf69592ce0e261308baaa42518b02840be07b836aa
-    commit: e38a96bd65beed4a47cffc141ee18b4973b5f5ed
+      sha256: 6c51aa71085e83e6e968b8f43346753382879e380836586c8842f5a7880a4666
+    commit: 1825d0a761704b32179614dd5cf7d9d501ed1760
   original:
     git: https://github.com/folivetti/evolution.git
-    commit: e38a96bd65beed4a47cffc141ee18b4973b5f5ed
+    commit: 1825d0a761704b32179614dd5cf7d9d501ed1760
 - completed:
     name: modal-interval
     version: 0.1.0.0
@@ -43,11 +43,11 @@ packages:
     git: https://github.com/folivetti/shape-constraint.git
     pantry-tree:
       size: 1462
-      sha256: e300f3d9785e0015c4a652e867e04e27f2eda93213a41dec495368e62ef2e1ca
-    commit: add8c02c519d9c0dff5e6acba6ba2233ba3cfa85
+      sha256: df55e099e94a274c377c964764a2997356576544cafcf107438f64016fdde5e0
+    commit: 986fe161ef78d02683cc400107c9356cb1efb8aa
   original:
     git: https://github.com/folivetti/shape-constraint.git
-    commit: add8c02c519d9c0dff5e6acba6ba2233ba3cfa85
+    commit: 986fe161ef78d02683cc400107c9356cb1efb8aa
 snapshots:
 - completed:
     size: 590100

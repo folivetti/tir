@@ -53,10 +53,10 @@ onepoint (p1:p2:_) = do
     sortPi (x,y,z) = (x,y,sort z)
     clean = nub . map sortPi
     swapY = pure $ p1{ _chromo = c1{ _p=pc1, _q = qc2 }, _fit = [] }
-    swapP = do ix <- randomRng (0, min npc1 npc2 - 1)
+    swapP = do ix <- randomRng (0, max npc1 npc2 - 1)
                let pc' = take ix pc1 <> drop ix pc2 
                pure $ p1{ _chromo = c1{ _p = pc', _q = qc1 }, _fit = [] }
-    swapQ = do ix <- randomRng (0, min nqc1 nqc2 - 1)
+    swapQ = do ix <- randomRng (0, max nqc1 nqc2 - 1)
                let qc' = take ix qc1 <> drop ix qc2 
                pure $ p1{ _chromo = c1{ _p = pc1, _q = qc' }, _fit = [] }
 onepoint _         = error "Not enough individuals for onepoint crossover"

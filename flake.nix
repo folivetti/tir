@@ -25,14 +25,14 @@
         myshapeconstraint = pkgs.fetchFromGitHub {
           owner = "folivetti";
           repo = "shape-constraint";
-          rev = "88015baff58ef88deaf47980844becfe9ef9a110";
-          sha256 = "jHOs2XV2E8NWYH3Nam+AIezyYYDyS9v8aZUxpVJfeAM=";
+          rev = "986fe161ef78d02683cc400107c9356cb1efb8aa";
+          sha256 = "";
         };
         myevo = pkgs.fetchFromGitHub {
           owner = "folivetti";
           repo = "evolution";
-          rev = "e38a96bd65beed4a47cffc141ee18b4973b5f5ed";
-          sha256 = "9eyym7BLmO+Zcktqw+8NmRN6NHakV/6/MYZbawgFUp4=";
+          rev = "1825d0a761704b32179614dd5cf7d9d501ed1760";
+          sha256 = "";
         };
         mymodal = pkgs.fetchFromGitHub {
           owner = "folivetti";
