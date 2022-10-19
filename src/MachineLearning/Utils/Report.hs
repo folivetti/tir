@@ -37,7 +37,7 @@ createIfDoesNotExist fname = do
   then openFile fname AppendMode
   else openFile fname WriteMode
 
--- | writes the pareto front 
+-- | writes the final population (GP), pareto front (MOO), distinct solutions (FitShare)
 writeFront :: Config -> Population Individual -> IO () 
 writeFront cfg front = do 
     let dirname = case getLogType cfg of 
@@ -45,7 +45,7 @@ writeFront cfg front = do
                     PartialLog dir -> dir 
                     EvoLog dir     -> dir
         frontFname = dirname ++ "/front.csv"
-        printIndividual h x = hPutStrLn h $ show (_fit x) <> " " <> showDefault (showTree x)
+        printIndividual h x = hPutStrLn h $ show (_fit x) <> " " <> showPython (showTree x)
     h <- openFile frontFname WriteMode
     mapM_ (printIndividual h) front 
     hClose h 

@@ -80,6 +80,10 @@ class TIRClassifier(BaseEstimator, ClassifierMixin):
         self.revlabels = { l : i for i, l in enumerate(np.unique(y_train)) }
         y_train = np.array([self.revlabels[y_train[i]] for i in range(len(y_train))])
 
+        if self.random_state >= 0:
+            rnd = np.random.RandomState(self.random_state)
+        else:
+            rnd = np.random.RandomState()
         with TemporaryDirectory() as temp_dir:
             X_train, y_train = check_X_y(X_train, y_train, accept_sparse=False)
             self.cols = np.nonzero(X_train.var(axis=0))[0]
@@ -92,7 +96,7 @@ class TIRClassifier(BaseEstimator, ClassifierMixin):
             fname   = temp_dir + "/tmpdata.csv"
             
             ixs = np.arange(0, Z_train.shape[0])
-            np.random.shuffle(ixs)
+            rnd.shuffle(ixs)
             np.savetxt(f"{fname}", Z_train[ixs,:], delimiter=",")    
             
             minK, maxK = self.exponents
@@ -104,6 +108,7 @@ class TIRClassifier(BaseEstimator, ClassifierMixin):
                 ans = subprocess.check_output(["tir", "multiclass", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
             
             self.expr, n, e = eval(ans).split(";")
+            print(n,e)
 
             self.expr = self.expr.replace("/ ((1.0) + ())", "").replace("atan","arctan")
 

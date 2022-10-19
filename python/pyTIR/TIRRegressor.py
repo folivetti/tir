@@ -72,6 +72,10 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
             Returns self.
         """
 
+        if self.random_state >= 0:
+            rnd = np.random.RandomState(self.random_state)
+        else:
+            rnd = np.random.RandomState()
         with TemporaryDirectory() as temp_dir:
             X_train, y_train = check_X_y(X_train, y_train, accept_sparse=False)
             self.cols = np.nonzero(X_train.var(axis=0))[0]
@@ -80,22 +84,23 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
                 Z_train = np.hstack((X_train, y_train[:,None]))
             else:
                 Z_train = np.hstack((X_train, y_train))
-            
-            fname   = temp_dir + "/tmpdata.csv"
-            
+
+            fname = temp_dir + "/tmpdata.csv"
+
             ixs = np.arange(0, Z_train.shape[0])
-            np.random.shuffle(ixs)
+            rnd.shuffle(ixs)
             np.savetxt(f"{fname}", Z_train[ixs,:], delimiter=",")    
-            
+
             minK, maxK = self.exponents
-            
+
             cwd = os.path.dirname(os.path.realpath(__file__))
+
             if self.niter == 0:
-                ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.alg}", f"{fname}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
             else:
                 ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
             self.expr, n, e = eval(ans).split(";")
-            print(e)
+            print(n,e)
 
             self.expr = self.expr.replace("/ ((1.0) + ())", "").replace("atan","arctan")
 

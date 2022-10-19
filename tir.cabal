@@ -62,6 +62,7 @@ library
 executable tir
   main-is: Main.hs
   other-modules:
+      Loading
       Paths_tir
   hs-source-dirs:
       app

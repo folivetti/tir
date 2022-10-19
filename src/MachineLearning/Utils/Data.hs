@@ -10,11 +10,12 @@ Portability : POSIX
 Dataset handling functions.
 
 -}
-module MachineLearning.Utils.Data (processData) where
+module MachineLearning.Utils.Data (getData, processData) where
 
 import Data.List                             (transpose)
 import Data.List.Split                       (splitOn)
 import Data.Vector                           (Vector, fromList)
+import qualified Data.Vector as V
 import Numeric.ModalInterval            (Kaucher, (<.<))
 import Numeric.LinearAlgebra ((??))
 import qualified Numeric.LinearAlgebra as LA
@@ -27,19 +28,24 @@ import MachineLearning.TIR
 -- | A tuple of features columns and target
 type DataSplit = (Dataset Double, Column Double)
 
--- | Reads and loads the data. It returns the training X, y, test X, y, vector of domains and image of the training data,
--- number of variables
-processData :: Config -> IO (DataSplit, DataSplit, DataSplit, DataSplit, Vector (Kaucher Double), Kaucher Double, Int)
-processData cfg =
+-- | Returns vector of domains, image, number of samples,
+-- and number of variables of the training data
+processData :: Config -> DataSplit -> (Vector (Kaucher Double), Kaucher Double, Int, Int)
+processData cfg (trainX, trainY) = (domains, image, nVars, nSamples)
+  where nVars    = V.length trainX - 1
+        nSamples = LA.size trainY
+        domains  = fromList $ estimateDomains (getDomains cfg) trainX
+        image    = estimateImage (getImage cfg) trainY 
+
+-- | Reads and loads the data. It returns the training X, y, test X, y
+getData :: Config -> IO (DataSplit, DataSplit, DataSplit, DataSplit)
+getData cfg =
   do (trainX, trainY) <- readAndParse (getTrainName cfg)
      (testX , testY ) <- readAndParse (getTestName  cfg)
-     let nVars    = LA.cols trainX - 1
-         domains  = fromList $ estimateDomains (getDomains cfg) trainX
-         image    = estimateImage (getImage cfg) trainY 
-         xss_all  = toVecOfColumns trainX
+     let xss_all  = toVecOfColumns trainX
          xss_test = toVecOfColumns testX
          (xss_train, y_train, xss_val, y_val) = splitValidation 0.9 trainX trainY
-     return ((xss_train, y_train), (xss_val, y_val), (xss_all, trainY), (xss_test, testY), domains, image, nVars)
+     return ((xss_train, y_train), (xss_val, y_val), (xss_all, trainY), (xss_test, testY))
 
 -- | Parse a numerical csv file into predictors and target variables
 parseFile :: String -> (LA.Matrix Double, Column Double)
@@ -87,14 +93,14 @@ estimateImage image ys =
 type Domains = [(Double, Double)]
 
 -- | estimates the target domain of the function    
-estimateDomains :: Domains -> LA.Matrix Double -> [Kaucher Double]
+estimateDomains :: Domains -> Dataset Double -> [Kaucher Double]
 estimateDomains domains xss =
   case domains of
     [] -> zipWith (<.<) minX maxX
     ds -> map (uncurry (<.<)) ds
   where
-    minX = Prelude.tail $ LA.toList $ columnPredicate min xss
-    maxX = Prelude.tail $ LA.toList $ columnPredicate max xss    
+    minX = tail $ V.toList $ V.map LA.minElement xss
+    maxX = tail $ V.toList $ V.map LA.maxElement xss    
     
 splitToXY :: LA.Matrix Double -> (LA.Matrix Double, LA.Vector Double)
 splitToXY mtx = (xss, ys)
