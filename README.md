@@ -129,12 +129,26 @@ As an alternative you can use the python wrapper as illustrated in `example.py`.
 
 ## Cite
 
-de França, F. O. (2022). Interaction-Transformation Evolutionary Algorithm for Symbolic Regression. *GECCO 2022*.
+Fabrício Olivetti de França. 2022. Transformation-interaction-rational representation for symbolic regression. In Proceedings of the Genetic and Evolutionary Computation Conference (GECCO '22). Association for Computing Machinery, New York, NY, USA, 920–928. https://doi.org/10.1145/3512290.3528695
 
 Bibtex:
 
-    @article{
-    }
+    @inproceedings{10.1145/3512290.3528695,
+        author = {de Fran\c{c}a, Fabr\'{\i}cio Olivetti},
+        title = {Transformation-Interaction-Rational Representation for Symbolic Regression},
+        year = {2022},
+        isbn = {9781450392372},
+        publisher = {Association for Computing Machinery},
+        address = {New York, NY, USA},
+        url = {https://doi.org/10.1145/3512290.3528695},
+        doi = {10.1145/3512290.3528695},
+        booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference},
+        pages = {920–928},
+        numpages = {9},
+        keywords = {genetic programming, regression, symbolic regression},
+        location = {Boston, Massachusetts},
+        series = {GECCO '22}
+        }
 
     
 ## Experiments Results
