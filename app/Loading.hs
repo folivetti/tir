@@ -167,6 +167,15 @@ findFarthest n pop = findFarthest' (n - 1) p
                             in  findFarthest' (m-1) p'
         minDist xs x = minimum [_distFun x x y | y <- xs]
 
+avgDist :: V.Vector Individual -> Double
+avgDist pop = sum dists / fromIntegral (length dists)
+  where
+    enumerate = zip [0..]
+    pop'      = enumerate $ V.toList pop
+    dists     = [ _distFun x x y | (i, x) <- pop'
+                                 , (j, y) <- pop'
+                                 , i < j
+                ]
 -- dissimilarity function
 toTheLeft, toTheRight :: Double -> Double
 toTheLeft x | x < 0 = 1.3*x
