@@ -61,7 +61,7 @@ getThings cfg@(Conf mutCfg _ algCfg cnstCfg) = do
     task     = _task algCfg
 
     mySample f = distSample (f nvars domains) 100
-    interpret = createInterpreter mutCfg' fitnessTrain $ distFun task (mySample bandBoth)
+    interpret = createInterpreter mutCfg' fitnessTrain $ distFun task (mySample bandExt)
     alg = algBuilder (_algorithm algCfg) (_pc algCfg) (_pm algCfg)
 
     fitnessTrain = fitFun False train val
