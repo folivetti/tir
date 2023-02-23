@@ -3,8 +3,8 @@ from pyTIR import TIRRegressor, TIRClassifier
 from sklearn.datasets import load_iris
 
 Z = np.loadtxt("datasets/airfoil-train-0.dat", delimiter=",")
-Z = np.loadtxt("datasets/bazie.csv", delimiter=",")
-clr = TIRRegressor(100,100,1.0, 0.25, (-2,2), penalty=0.01, alg='GPTIR', error='RMSE')
+#Z = np.loadtxt("datasets/bazie.csv", delimiter=",")
+clr = TIRRegressor(100,100,1.0, 0.25, (-2,2), penalty=0.01, alg='FS', error='RMSE')
 clr.fit(Z[:,:-1], Z[:,-1])
 yhat = clr.predict(Z[:,:-1])
 
@@ -12,7 +12,10 @@ mse = np.square(yhat - Z[:,-1]).mean()
 print("Fitness should be approx.: ", np.sqrt(mse))
 print(clr.expr)
 print(clr.len)
+for e in clr.front:
+    print(e)
 
+"""
 Z = np.loadtxt("datasets/breast-train.dat", delimiter=",")
 clr = TIRClassifier(100,100,1.0, 0.25, (-2,2), penalty=0.01, niter=10)
 clr.fit(Z[:,:-1], Z[:,-1])
@@ -28,3 +31,4 @@ clr.fit(X, y)
 print("Iris score should be: ", clr.score(X, y))
 for e in clr.expr.split("#"):
     print(e)
+"""

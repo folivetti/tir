@@ -8,7 +8,7 @@ import MachineLearning.TIR
 import MachineLearning.Model.Fitness ( evalTrain, evalTest )
 import Control.Evolution
     ( runEvolution, Solution(_getFitness), Population, Evolution, Interpreter )
-import Data.SRTree.Print ( showPython )
+import Data.SRTree.Print ( showPython, showDefault )
 
 import System.Environment (getArgs)
 import Data.Maybe                 (fromJust)
@@ -27,10 +27,13 @@ import Loading
 
 runCLI :: Task -> [String] -> IO ()
 runCLI task params = do
-  (champion, _, _, _) <- runGP $ parseCfg task $ toParams params
-  print $ intercalate ";" (info champion)
+  (champion, _, _, front) <- runGP $ parseCfg task $ toParams params
+  let best = intercalate ";" (info champion)
+      hof  = map toDef $ V.toList front
+  print . unlines $ best : hof
     where
       toPy c     = showPython . getTree task (_chromo c)
+      toDef c    = showDefault $ getTree task (_chromo c) (head $ _weights c)
       getTrees c = intercalate "#" $ map (toPy c) $ _weights c
       info c     = [getTrees c, (show . _len) c, (show . _fit) c]
 
@@ -60,7 +63,7 @@ getThings cfg@(Conf mutCfg _ algCfg cnstCfg) = do
     mutCfg'  = updateMutCfg mutCfg nsamples image nvars
     task     = _task algCfg
 
-    mySample f = distSample (f nvars domains) 100
+    mySample f = distSample (f nvars domains) 10
     interpret = createInterpreter mutCfg' fitnessTrain $ distFun task (mySample bandExt)
     alg = algBuilder (_algorithm algCfg) (_pc algCfg) (_pm algCfg)
 
@@ -84,7 +87,7 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
   (fitnessAll, fitnessTest, alg, interpret) <- getThings cfg
   (logger, mh)  <- makeLogger cfg fitnessTest
   (_, champion, finalPop) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret
-  putStrLn $ "Avg. dist.: " <> show (avgDist finalPop)
+  -- putStrLn $ "Avg. dist.: " <> show (avgDist finalPop)
   let champion' = if _algorithm algCfg == MOO
                      then bestTradeOff champion finalPop
                      else bestAcc champion finalPop

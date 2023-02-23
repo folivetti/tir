@@ -99,13 +99,15 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
                 ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
             else:
                 ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
-            self.expr, n, e = eval(ans).split(";")
+            output = eval(ans).split("\n")
+            self.expr, n, e = output[0].split(";") # eval(ans).split(";")
             print(n,e)
 
             self.expr = self.expr.replace("/ ((1.0) + ())", "").replace("atan","arctan")
 
             self.len = int(n)
             self.is_fitted_ = True
+            self.front = output[1:]
 
         return self
 
