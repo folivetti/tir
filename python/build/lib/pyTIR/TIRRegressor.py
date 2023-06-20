@@ -116,6 +116,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         Z = eval(self.expr)
         inds = np.where(np.isnan(Z))[0]
         inds2 = np.where(np.isinf(Z))[0]
+        print(x)
         Z[inds] = 0
         Z[inds2] = 0
         #print(Z)

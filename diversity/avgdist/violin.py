@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 from seaborn import violinplot
 import matplotlib.pyplot as plt
+import numpy as np
 
 def getdata(fname):
     f = open(fname)
@@ -21,6 +22,7 @@ for alg in ['FS', 'GPTIR']:
         xs = getdata(f'{dataset}_{alg}{typ}_avgdist.csv')
         algorithm += [algname[alg+typ]]*len(xs)
         avgdist += xs
+        print(alg, typ, np.mean(xs), np.std(xs))
 
 df = pd.DataFrame( { 'algorithm' : algorithm, 'avgdist' : avgdist } )
 plt.rcParams.update({'font.size': 14, 'pdf.fonttype' : 42, 'ps.fonttype' : 42})
