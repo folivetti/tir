@@ -1,0 +1,11 @@
+Instructions:
+
+- Clone the repository https://github.com/cavalab/srbench
+- Copy TIR.py, TIRpoints, TIRdim, TIRsamples, and TIRNL.py into srbench/experiment/methods folder
+- Copy tir_install.sh into srbench/experiment/methods/src folder
+- Follow the installation instruction at https://github.com/cavalab/srbench
+- Install the pmlb datasets following the instructions at https://github.com/EpistasisLab/pmlb
+- For each dataset name $n$ and each version of TIR (see below) $tir$ run the script `python runTIR.py n tir`, this will generate the script to submit a job for each seed
+- Submit the jobs and wait
+
+The TIR versions available are TIR, TIRpoints, TIRdim, TIRsamples, TIRNL.
