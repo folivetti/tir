@@ -5,52 +5,52 @@
 
 packages:
 - completed:
+    commit: 332cc55c3f1807edf78966105eba25afd784bb9a
+    git: https://github.com/folivetti/srtree.git
     name: srtree
-    version: 0.1.0.0
-    git: https://github.com/folivetti/srtree.git
     pantry-tree:
-      size: 817
       sha256: b15f4d901e58a1caa77b6086fcba31aa7da8aee37c30da59c44fcf6cb956361e
-    commit: 332cc55c3f1807edf78966105eba25afd784bb9a
+      size: 817
+    version: 0.1.0.0
   original:
+    commit: 332cc55c3f1807edf78966105eba25afd784bb9a
     git: https://github.com/folivetti/srtree.git
-    commit: 332cc55c3f1807edf78966105eba25afd784bb9a
 - completed:
+    commit: 0f6ac6851bc2b67a6e6b40fa7233cbc1abd495ba
+    git: https://github.com/folivetti/evolution.git
     name: evolution
-    version: 0.1.0.0
-    git: https://github.com/folivetti/evolution.git
     pantry-tree:
-      size: 1433
       sha256: 6c241d9a1c80c825b35dc278d148d7308dff86331aca6b4d2865e785ce5df0a4
-    commit: 0f6ac6851bc2b67a6e6b40fa7233cbc1abd495ba
+      size: 1433
+    version: 0.1.0.0
   original:
+    commit: 0f6ac6851bc2b67a6e6b40fa7233cbc1abd495ba
     git: https://github.com/folivetti/evolution.git
-    commit: 0f6ac6851bc2b67a6e6b40fa7233cbc1abd495ba
 - completed:
+    commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75
+    git: https://github.com/folivetti/modal-interval.git
     name: modal-interval
-    version: 0.1.0.0
-    git: https://github.com/folivetti/modal-interval.git
     pantry-tree:
-      size: 2101
       sha256: b41c9d4691d749380dc0b4a301c8edf31da4af0ed29ed766bfb393b3907f1a09
-    commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75
-  original:
-    git: https://github.com/folivetti/modal-interval.git
-    commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75
-- completed:
-    name: shape-constraint
+      size: 2101
     version: 0.1.0.0
-    git: https://github.com/folivetti/shape-constraint.git
-    pantry-tree:
-      size: 1462
-      sha256: df55e099e94a274c377c964764a2997356576544cafcf107438f64016fdde5e0
-    commit: 986fe161ef78d02683cc400107c9356cb1efb8aa
   original:
-    git: https://github.com/folivetti/shape-constraint.git
+    commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75
+    git: https://github.com/folivetti/modal-interval.git
+- completed:
     commit: 986fe161ef78d02683cc400107c9356cb1efb8aa
+    git: https://github.com/folivetti/shape-constraint.git
+    name: shape-constraint
+    pantry-tree:
+      sha256: df55e099e94a274c377c964764a2997356576544cafcf107438f64016fdde5e0
+      size: 1462
+    version: 0.1.0.0
+  original:
+    commit: 986fe161ef78d02683cc400107c9356cb1efb8aa
+    git: https://github.com/folivetti/shape-constraint.git
 snapshots:
 - completed:
-    size: 590100
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/28.yaml
-    sha256: 428ec8d5ce932190d3cbe266b9eb3c175cd81e984babf876b64019e2cbe4ea68
-  original: lts-18.28
+    sha256: 5a59b2a405b3aba3c00188453be172b85893cab8ebc352b1ef58b0eae5d248a2
+    size: 650475
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/26.yaml
+  original: lts-20.26

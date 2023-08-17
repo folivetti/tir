@@ -101,7 +101,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
                 ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
             output = eval(ans).split("\n")
             self.expr, n, e = output[0].split(";") # eval(ans).split(";")
-            print(n,e)
+            #print(n,e)
 
             self.expr = self.expr.replace("/ ((1.0) + ())", "").replace("atan","arctan")
 
@@ -116,7 +116,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         Z = eval(self.expr)
         inds = np.where(np.isnan(Z))[0]
         inds2 = np.where(np.isinf(Z))[0]
-        print(x)
+        #print(x)
         Z[inds] = 0
         Z[inds2] = 0
         #print(Z)

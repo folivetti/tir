@@ -108,7 +108,7 @@ regress tir xss ys | LA.find isInfinite zss /= [] = [VS.fromList [1.0 | _ <- [0 
 classify :: Int -> TIR -> Dataset Double -> Vector Double -> [Vector Double]
 classify niter tir xss ys = [ws]
   where
-    ws           = nonlinearMin niter zssP zssQ ys sigmoid dsigmoid theta0
+    ws           = nonlinearFit niter zssP zssQ ys sigmoid dsigmoid theta0
     -- nonlinearFit niter zssP zssQ ys sigmoid dsigmoid theta0
     theta0       = LA.konst 0 (LA.cols zssP + LA.cols zssQ)
     (zssP, zssQ) = tirToMatrix xss tir
@@ -195,6 +195,7 @@ nonlinearFit niter zssP zssQ ys f f' theta0 =
 
 -- | Non-linear optimization using Levenberg-Marquardt method.
 --nonlinearFit :: Monad m => Vector Double -> Matrix Double -> Matrix Double -> Vector Double -> m (Vector Double)
+{-
 nonlinearMin :: Int
              -> Matrix Double 
              -> Matrix Double 
@@ -206,10 +207,10 @@ nonlinearMin :: Int
 nonlinearMin niter zssP zssQ ys f f' theta0 = 
     fst $ minimizeVD 1e-6 niter 0.01 1e-6 model' jacob' theta0 
   where
-    model'       = modelC f ys zssP zssQ
-    jacob'       = jacobC f' zssP zssQ  
+    model'       = model f ys zssP zssQ
+    jacob'       = jacob f' zssP zssQ  
 
-
+-}
 saFit :: Int -> Matrix Double -> Matrix Double -> Vector Double -> (Vector Double -> Vector Double) -> Vector Double -> Vector Double 
 saFit niter zssP zssQ ys f theta0 = simanSolve 0 nRands params theta0 cost dist step Nothing
     where
