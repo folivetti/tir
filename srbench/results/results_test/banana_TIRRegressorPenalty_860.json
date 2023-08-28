@@ -1,0 +1,29 @@
+{
+    "dataset": "banana",
+    "algorithm": "TIRRegressorPenalty",
+    "params": {
+        "error": "R^2",
+        "exponents": "(0, 5)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 860,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 860,
+    "process_time": 1.0551095779999997,
+    "time_time": 6060.822387456894,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 32,
+    "symbolic_model": "np.arctan((2.720558742043836) + (((-0.8412404439641459) * (np.tanh(((x[:,1])**(1)) * ((x[:,0])**(4))))) + (((-3.140290554119425) * (np.cos(((x[:,1])**(1)) * ((x[:,0])**(1))))) + (((2.0850164316271593) * (np.cos((x[:,0])**(1)))) + ((-3.4529996869060553) * (np.tanh((x[:,1])**(2))))))))",
+    "mse_train": 0.5450730104593536,
+    "mae_train": 0.5278017386103869,
+    "r2_train": 0.4497109783714498,
+    "mse_test": 0.5638740346182051,
+    "mae_test": 0.5391057647244414,
+    "r2_test": 0.42767586128806656
+}

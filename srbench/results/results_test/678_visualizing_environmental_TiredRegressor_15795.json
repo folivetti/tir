@@ -1,0 +1,28 @@
+{
+    "dataset": "678_visualizing_environmental",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 15795,
+        "transfunctions": "Id",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 15795,
+    "process_time": 0.129653491,
+    "time_time": 761.4641230106354,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 43,
+    "symbolic_model": "np.sqrt(((108.04179505519096) + (((2.2054791837559836e13) * ((((x[:,2])**-5) * ((x[:,1])**-1)))) + ((-3.156429943241891e11) * ((((x[:,2])**-4) * ((x[:,1])**-1)))) + ((-1.2055855321511974e-2) * ((((x[:,1])**-1) * ((x[:,0])**3)))) + ((-6662.0306919682625) * ((((x[:,0])**-3)))) + ((6047.972900728698) * ((((x[:,0])**-2)))))))",
+    "mse_train": 6.16981649034328,
+    "mae_train": 1.9733132365226391,
+    "r2_train": 0.4645721906360182,
+    "mse_test": 15.376129120137067,
+    "mae_test": 2.565677725838374,
+    "r2_test": -0.027696908392064845
+}

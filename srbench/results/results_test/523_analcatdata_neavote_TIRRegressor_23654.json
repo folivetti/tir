@@ -1,0 +1,28 @@
+{
+    "dataset": "523_analcatdata_neavote",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-2, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 23654,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 23654,
+    "process_time": 0.566871221,
+    "time_time": 834.1362338066101,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 32,
+    "symbolic_model": "((251.60742160079283) + (((-2.6013563990806227e13) * (np.tanh(((x[:,1])**(2)) * ((x[:,0])**(2))))) + (((2.6013564441564832e13) * (np.tanh(((x[:,1])**(1)) * ((x[:,0])**(1))))) + (((-451069.04105343745) * (np.tanh((x[:,0])**(2)))) + ((-242.97591551337084) * (np.cos((x[:,1])**(-1))))))))",
+    "mse_train": 0.7321330319751725,
+    "mae_train": 0.5430481737347157,
+    "r2_train": 0.9541775340492207,
+    "mse_test": 0.7065230918498229,
+    "mae_test": 0.5173294066313758,
+    "r2_test": 0.9485101524712991
+}

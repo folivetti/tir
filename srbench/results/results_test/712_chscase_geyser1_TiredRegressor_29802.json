@@ -1,0 +1,28 @@
+{
+    "dataset": "712_chscase_geyser1",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 29802,
+        "transfunctions": "Id",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 29802,
+    "process_time": 0.137873959,
+    "time_time": 678.1145989894867,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 19,
+    "symbolic_model": "np.sqrt(((257.8896351912273) + (((1324.8010733404958) * ((((x[:,1])**1)))))) / (1 + (((-0.16112793760489097) * ((((x[:,0])**-1)))))))",
+    "mse_train": 37.8785204590661,
+    "mae_train": 4.889996932485663,
+    "r2_train": 0.7480665934916491,
+    "mse_test": 35.2383150352187,
+    "mae_test": 4.735803868080559,
+    "r2_test": 0.821057816418438
+}

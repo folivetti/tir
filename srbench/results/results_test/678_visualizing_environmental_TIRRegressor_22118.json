@@ -1,0 +1,28 @@
+{
+    "dataset": "678_visualizing_environmental",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(0, 5)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 0.17689439899999992,
+    "time_time": 964.0033276081085,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 61,
+    "symbolic_model": "np.exp(((2.6033664275828396) + (((-3.819758807377649e-2) * (np.cos(((x[:,2])**(3)) * ((x[:,0])**(5))))) + (((9.996925028939119e-2) * (np.cos((x[:,2])**(2)))) + (((-8.129971062277376e-3) * (np.sqrt((x[:,0])**(2)))) + (((7.97800401651555e-2) * (np.cos((x[:,0])**(1)))) + (((8.837390274754336e-2) * (np.sin((x[:,0])**(1)))) + ((-0.13621365054971002) * (np.cos((x[:,0])**(5)))))))))) / ((1.0) + (((-5.961033474605095e-2) * (np.cos(((x[:,2])**(3)) * ((x[:,1])**(5))))) + ((-3.939309237183085e-2) * (np.cos(((x[:,2])**(5)) * ((x[:,1])**(5))))))))",
+    "mse_train": 3.5874739654738534,
+    "mae_train": 1.504750678220078,
+    "r2_train": 0.7174568929960561,
+    "mse_test": 7.383748997168818,
+    "mae_test": 2.2736866135258893,
+    "r2_test": 0.3893711465870783
+}

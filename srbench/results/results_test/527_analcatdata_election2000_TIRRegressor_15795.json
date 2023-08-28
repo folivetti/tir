@@ -1,0 +1,28 @@
+{
+    "dataset": "527_analcatdata_election2000",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-2, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 15795,
+    "process_time": 0.6126984659999999,
+    "time_time": 1269.378662109375,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 47,
+    "symbolic_model": "((-50.5418791732582) + (((-6.052875231951757) * (np.sqrt(((((((x[:,13])**(-1)) * ((x[:,11])**(1))) * ((x[:,8])**(2))) * ((x[:,6])**(2))) * ((x[:,5])**(1))) * ((x[:,0])**(-1))))) + (((1.0010208619731928) * (np.sqrt((x[:,9])**(2)))) + (((-1.0737496130855237) * (np.sqrt((x[:,2])**(2)))) + (((-1.4634259543533292) * (np.sqrt((x[:,3])**(2)))) + ((-1.0026399783292168) * (np.sqrt((x[:,0])**(2)))))))))",
+    "mse_train": 6185.990442058735,
+    "mae_train": 53.757961943203945,
+    "r2_train": 0.9999990239382882,
+    "mse_test": 14334.590578342859,
+    "mae_test": 79.61025262777648,
+    "r2_test": 0.9999951117779583
+}

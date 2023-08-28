@@ -1,0 +1,29 @@
+{
+    "dataset": "1030_ERA",
+    "algorithm": "TIRRegressorPenalty",
+    "params": {
+        "error": "R^2",
+        "exponents": "(0, 1)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.647773779,
+    "time_time": 1110.7315049171448,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 11,
+    "symbolic_model": "((2.7525672785467026) + ((2.6590224776548637e-2) * ((((x[:,1])**(1)) * ((x[:,0])**(1))))))",
+    "mse_train": 2.6014147519494992,
+    "mae_train": 1.3050034540709958,
+    "r2_train": 0.3369237951959154,
+    "mse_test": 2.7209289148373346,
+    "mae_test": 1.3497326900341613,
+    "r2_test": 0.30936964059953287
+}

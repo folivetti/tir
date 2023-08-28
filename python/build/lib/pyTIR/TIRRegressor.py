@@ -107,7 +107,8 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
 
             self.len = int(n)
             self.is_fitted_ = True
-            self.front = output[1:]
+            self.sympy = output[1].replace("Id","").split(";")[0]
+            self.front = output[2:]
 
         return self
 

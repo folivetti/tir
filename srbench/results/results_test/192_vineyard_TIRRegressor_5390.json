@@ -1,0 +1,28 @@
+{
+    "dataset": "192_vineyard",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-2, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.17802088400000005,
+    "time_time": 856.7547903060913,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 35,
+    "symbolic_model": "np.sqrt((5.953082996179405e7) + (((5141.568470597938) * (np.sin(((x[:,1])**(-2)) * ((x[:,0])**(1))))) + (((-4.592494631138071e-4) * (np.exp((x[:,1])**(1)))) + (((-5.953171601131384e7) * (np.tanh((x[:,1])**(2)))) + (((-46.6588490411726) * (np.sin((x[:,1])**(2)))) + ((-487.8915961015448) * (np.log((x[:,1])**(-1)))))))))",
+    "mse_train": 3.1713644580124436,
+    "mae_train": 1.447445247944666,
+    "r2_train": 0.8539285232602944,
+    "mse_test": 42.02612030712391,
+    "mae_test": 4.050530799685568,
+    "r2_test": -2.958982347772542
+}

@@ -1,0 +1,28 @@
+{
+    "dataset": "210_cloud",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 5390,
+    "process_time": 0.13418750199999996,
+    "time_time": 717.3972368240356,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 31,
+    "symbolic_model": "(((0.14039723457691702) + (((-0.8493549682279761) * (sqrtAbs(((x[:,3])**1)))) + ((0.8072598130015699) * ((((x[:,3])**1)))) + ((0.4202877858509296) * ((((x[:,2])**1)))))) / (1 + (((-0.7255627889438778) * (np.sin(((x[:,4])**-1)))))))",
+    "mse_train": 0.10940476628967628,
+    "mae_train": 0.2689812310024287,
+    "r2_train": 0.9190565647089735,
+    "mse_test": 0.19430295271624332,
+    "mae_test": 0.3423646258549495,
+    "r2_test": 0.5430265966271093
+}

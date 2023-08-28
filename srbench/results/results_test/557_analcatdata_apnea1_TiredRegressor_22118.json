@@ -1,0 +1,28 @@
+{
+    "dataset": "557_analcatdata_apnea1",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 22118,
+    "process_time": 0.14631138,
+    "time_time": 933.9102592468262,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 39,
+    "symbolic_model": "(((59.298613070631646) + (((13.900513927992037) * (np.sin(((x[:,2])**1)))) + ((14.24831145871942) * (np.cos(((x[:,1])**5)))) + ((83.0207838888806) * (np.cos(((x[:,1])**5) * ((x[:,0])**1)))))) / (1 + (((-4.508338284699552e-2) * (np.exp(((x[:,1])**1)))) + ((8.750988130689037e-2) * (np.cos(((x[:,0])**1)))))))",
+    "mse_train": 1087058.9995682857,
+    "mae_train": 419.4857488640023,
+    "r2_train": 0.8976898882499867,
+    "mse_test": 751051.8889495318,
+    "mae_test": 375.31285927419316,
+    "r2_test": 0.9134685043677467
+}

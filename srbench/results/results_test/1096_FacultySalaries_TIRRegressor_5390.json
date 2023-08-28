@@ -1,0 +1,28 @@
+{
+    "dataset": "1096_FacultySalaries",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-2, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.18182941099999994,
+    "time_time": 864.4208869934082,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 55,
+    "symbolic_model": "np.exp(((4.036013740348862) + (((-4.035512843502233) * (np.sqrt(((x[:,2])**(2)) * ((x[:,1])**(-2))))) + (((5.492870407225175e-4) * (np.sqrt(((x[:,3])**(2)) * ((x[:,0])**(2))))) + (((-5.995951371492674e-3) * (np.sin((((x[:,2])**(1)) * ((x[:,1])**(2))) * ((x[:,0])**(2))))) + (((-2.5864197297661122) * (np.log((x[:,2])**(-1)))) + ((-1.5890322322853772) * (np.log((x[:,3])**(1))))))))) / ((1.0) + ((0.5459762040268615) * (np.sqrt(((x[:,2])**(-2)) * ((x[:,0])**(2)))))))",
+    "mse_train": 0.0011282138272387095,
+    "mae_train": 0.027439548583451958,
+    "r2_train": 0.9999495485505968,
+    "mse_test": 41.528557893864,
+    "mae_test": 2.1468544037012833,
+    "r2_test": -1.6663960855800086
+}

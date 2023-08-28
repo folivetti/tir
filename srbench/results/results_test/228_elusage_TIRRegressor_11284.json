@@ -1,0 +1,28 @@
+{
+    "dataset": "228_elusage",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(0, 1)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 11284,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11284,
+    "process_time": 0.5727053930000001,
+    "time_time": 1335.3251066207886,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 46,
+    "symbolic_model": "np.exp(((6.700122049549899) + (((5.370978179720808e-3) * (np.sqrt((x[:,1])**(1)))) + (((-7.92198882150768e-2) * (np.cos((x[:,1])**(1)))) + (((1.0731405759064117e-2) * (np.sin((x[:,0])**(1)))) + (((-1.3449259686199546) * (np.sqrt((x[:,0])**(1)))) + ((5.795250960824436e-2) * (((x[:,0])**(1))))))))) / ((1.0) + (((-0.13776186810203925) * (np.sqrt((x[:,0])**(1)))) + ((-2.223683796496496e-2) * (np.cos((x[:,1])**(1)))))))",
+    "mse_train": 70.70074357709692,
+    "mae_train": 6.342640848391395,
+    "r2_train": 0.8891964263922816,
+    "mse_test": 260.2195963598773,
+    "mae_test": 11.51992644433989,
+    "r2_test": -0.0984530160203545
+}

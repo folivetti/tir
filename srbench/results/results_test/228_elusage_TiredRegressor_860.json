@@ -1,0 +1,28 @@
+{
+    "dataset": "228_elusage",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 860,
+        "transfunctions": "Id",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 860,
+    "process_time": 0.4171891839999997,
+    "time_time": 2026.2852284908295,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 25,
+    "symbolic_model": "np.sqrt(((-11908.953937459097) + (((76.39840015706366) * ((((x[:,0])**1)))) + ((490770.45788243855) * ((((x[:,0])**-1)))))) / (1 + (((-2.1689369095245086e-2) * ((((x[:,1])**1)))))))",
+    "mse_train": 96.82485521283648,
+    "mae_train": 7.6957435569916255,
+    "r2_train": 0.8487660519728883,
+    "mse_test": 85.57687190351888,
+    "mae_test": 7.063750975774142,
+    "r2_test": 0.7463727815148553
+}

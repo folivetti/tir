@@ -30,7 +30,7 @@ runCLI task params = do
   (champion, _, _, front) <- runGP $ parseCfg task $ toParams params
   let best = intercalate ";" (info champion)
       hof  = map toDef $ V.toList front
-  print . unlines $ best : hof
+  print . unlines $ best : toDef champion : hof
     where
       toPy c     = showPython . getTree task (_chromo c)
       toDef c    = showDefault (getTree task (_chromo c) (head $ _weights c))

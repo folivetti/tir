@@ -1,10 +1,11 @@
 import numpy as np
 from pyTIR import TIRRegressor, TIRClassifier
 from sklearn.datasets import load_iris
+import sympy
 
 Z = np.loadtxt("datasets/airfoil-train-0.dat", delimiter=",")
 #Z = np.loadtxt("datasets/bazie.csv", delimiter=",")
-clr = TIRRegressor(1000,1000,1.0, 0.25, (-2,2), penalty=0.01, alg='MOO', error='RMSE')
+clr = TIRRegressor(100,100,1.0, 0.25, (-2,2), penalty=0.01, alg='MOO', error='RMSE')
 clr.fit(Z[:,:-1], Z[:,-1])
 yhat = clr.predict(Z[:,:-1])
 
@@ -14,7 +15,7 @@ print(clr.expr)
 print(clr.len)
 for e in clr.front:
     print(e)
-
+print(sympy.sympify(clr.sympy))
 """
 Z = np.loadtxt("datasets/breast-train.dat", delimiter=",")
 clr = TIRClassifier(100,100,1.0, 0.25, (-2,2), penalty=0.01, niter=10)

@@ -1,0 +1,28 @@
+{
+    "dataset": "695_chatfield_4",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 6265,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 6265,
+    "process_time": 0.15187994700000007,
+    "time_time": 892.5550463199615,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 45,
+    "symbolic_model": "(((5.3469233051556) + (((-5.00477574171899) * (np.cos(((x[:,11])**5) * ((x[:,3])**1) * ((x[:,10])**3) * ((x[:,0])**-2)))) + ((0.8375967744420539) * ((((x[:,11])**1)))) + ((-4.616551766979266) * (np.cos(((x[:,10])**8) * ((x[:,5])**5)))) + ((-1.8080965856934812e-8) * ((((x[:,5])**4)))) + ((1.398156549475767e-4) * (sqrtAbs(((x[:,4])**5)))))))",
+    "mse_train": 245.06595070608,
+    "mae_train": 11.690615595638432,
+    "r2_train": 0.890879361653714,
+    "mse_test": 279.1743396574226,
+    "mae_test": 11.70501437500299,
+    "r2_test": 0.7697651221743387
+}

@@ -1,0 +1,28 @@
+{
+    "dataset": "651_fri_c0_100_25",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 860,
+        "transfunctions": "Id",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 860,
+    "process_time": 0.4892020979999998,
+    "time_time": 2201.829340696335,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 19,
+    "symbolic_model": "np.log(((1.142194867754547) + (((0.39498846029941304) * ((((x[:,0])**1)))))) / (1 + (((-0.4570236967319643) * ((((x[:,3])**1)))))))",
+    "mse_train": 0.45670700291295824,
+    "mae_train": 0.5307447974562638,
+    "r2_train": 0.5341114385054668,
+    "mse_test": 0.7753097898387981,
+    "mae_test": 0.7178127746076285,
+    "r2_test": 0.003845492069843637
+}

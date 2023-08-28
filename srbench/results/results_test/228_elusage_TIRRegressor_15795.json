@@ -1,0 +1,28 @@
+{
+    "dataset": "228_elusage",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 15795,
+    "process_time": 0.5610703369999994,
+    "time_time": 1340.8437495231628,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 37,
+    "symbolic_model": "(((-1758.8628594398974) + (((8.472757961943356e-2) * (np.sin(((x[:,1])**(1)) * ((x[:,0])**(1))))) + (((5.641175984126878e-2) * (np.cos((x[:,0])**(1)))) + (((0.2709153969454039) * (((x[:,0])**(1)))) + ((1711.7835189273987) * (np.exp((x[:,0])**(-1)))))))) / ((1.0) + ((-0.13767563086306894) * (np.sqrt((x[:,0])**(1))))))",
+    "mse_train": 46.31034253261152,
+    "mae_train": 5.4983022761912,
+    "r2_train": 0.8718221068454463,
+    "mse_test": 225.9570551192053,
+    "mae_test": 11.439213115494779,
+    "r2_test": 0.7215552138889305
+}

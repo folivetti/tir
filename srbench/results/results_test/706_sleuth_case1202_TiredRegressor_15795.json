@@ -1,0 +1,28 @@
+{
+    "dataset": "706_sleuth_case1202",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 15795,
+    "process_time": 0.13971473699999992,
+    "time_time": 895.2655925750732,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 45,
+    "symbolic_model": "(((-985.3927679931054) + (((1.677451635208576e-8) * ((((x[:,2])**2) * ((x[:,3])**5)))) + ((3207.5605948529906) * (sqrtAbs(((x[:,3])**-1)))) + ((-17.389891217273785) * (np.sin(((x[:,0])**-4) * ((x[:,1])**5)))) + ((35.94113128832865) * (sqrtAbs(((x[:,4])**1)))) + ((-63.137707701869346) * (sqrtAbs(((x[:,4])**3) * ((x[:,2])**1) * ((x[:,0])**-2)))))))",
+    "mse_train": 1202.5211374659045,
+    "mae_train": 26.101152325511375,
+    "r2_train": 0.823156706187187,
+    "mse_test": 4889.936898134384,
+    "mae_test": 51.8004647159401,
+    "r2_test": 0.5923849222558617
+}

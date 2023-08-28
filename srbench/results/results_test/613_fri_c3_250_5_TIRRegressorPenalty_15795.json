@@ -1,0 +1,29 @@
+{
+    "dataset": "613_fri_c3_250_5",
+    "algorithm": "TIRRegressorPenalty",
+    "params": {
+        "error": "R^2",
+        "exponents": "(0, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 15795,
+    "process_time": 0.6541908640000003,
+    "time_time": 972.9973449707031,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 29,
+    "symbolic_model": "((-0.17276056338258966) + (((0.13943647378217375) * (((x[:,4])**(2)))) + (((-1.7139525541342626) * (np.tanh((x[:,1])**(1)))) + (((0.37437071122563464) * (((x[:,3])**(1)))) + ((0.54561022011281) * ((((x[:,1])**(2)) * ((x[:,0])**(1)))))))))",
+    "mse_train": 0.2370725865464839,
+    "mae_train": 0.399849549891238,
+    "r2_train": 0.7559601183149006,
+    "mse_test": 0.2511091117481519,
+    "mae_test": 0.4378490669167473,
+    "r2_test": 0.765023730707325
+}

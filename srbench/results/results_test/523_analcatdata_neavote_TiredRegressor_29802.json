@@ -1,0 +1,28 @@
+{
+    "dataset": "523_analcatdata_neavote",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 29802,
+    "process_time": 0.14259002099999996,
+    "time_time": 501.5681688785553,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 31,
+    "symbolic_model": "np.sqrt(((46.65409373491728) + (((-21.983949033629486) * (np.log(((x[:,1])**-1)))) + ((23.382243786683656) * (sqrtAbs(((x[:,0])**1)))) + ((-143.14886402596852) * (np.sin(((x[:,0])**1)))))) / (1 + (((-1.0495941023643889) * (np.tanh(((x[:,0])**1)))))))",
+    "mse_train": 9.770414151701443,
+    "mae_train": 1.600684717754957,
+    "r2_train": 0.38755260315457996,
+    "mse_test": 20.08746727984161,
+    "mae_test": 2.65174076778148,
+    "r2_test": -0.386643146664569
+}

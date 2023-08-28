@@ -1,0 +1,28 @@
+{
+    "dataset": "706_sleuth_case1202",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 21575,
+        "transfunctions": "Id",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 21575,
+    "process_time": 0.142005182,
+    "time_time": 901.2078354358673,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 33,
+    "symbolic_model": "np.sqrt(((1378.1872858070763) + (((-1.4925098652199013e-14) * ((((x[:,3])**3) * ((x[:,4])**-2) * ((x[:,1])**4)))) + ((4.457181809604748e-18) * ((((x[:,4])**5) * ((x[:,3])**4)))) + ((2.0065146513165033e-26) * ((((x[:,4])**4) * ((x[:,0])**5)))))))",
+    "mse_train": 2918.01017715985,
+    "mae_train": 39.296609812879424,
+    "r2_train": 0.6569283108803468,
+    "mse_test": 1872.0395756860908,
+    "mae_test": 33.5111836473017,
+    "r2_test": 0.7127148100332663
+}

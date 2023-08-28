@@ -1,0 +1,28 @@
+{
+    "dataset": "542_pollution",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(0, 5)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 15795,
+    "process_time": 0.6298645860000001,
+    "time_time": 2178.8698835372925,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 49,
+    "symbolic_model": "np.exp(((6.562569984178663) + (((4.550443249232719e-3) * (((x[:,0])**(1)))) + (((4.14516809440435e-3) * (np.log((((x[:,12])**(5)) * ((x[:,8])**(4))) * ((x[:,3])**(4))))) + ((2.669944919085779e-2) * (np.sin((x[:,6])**(5))))))) / ((1.0) + (((1.159267614685267e-14) * ((((x[:,3])**(5)) * ((x[:,1])**(4))))) + ((-4.226595343352894e-3) * (np.sin((((x[:,11])**(3)) * ((x[:,7])**(2))) * ((x[:,5])**(2))))))))",
+    "mse_train": 526.5967755795233,
+    "mae_train": 17.981591317909654,
+    "r2_train": 0.8631514002028525,
+    "mse_test": 2705.8451893372007,
+    "mae_test": 41.17188456866649,
+    "r2_test": 0.13891001709345896
+}

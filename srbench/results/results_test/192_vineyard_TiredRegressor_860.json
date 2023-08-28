@@ -1,0 +1,28 @@
+{
+    "dataset": "192_vineyard",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 860,
+        "transfunctions": "Id",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 860,
+    "process_time": 0.42738706800000026,
+    "time_time": 2104.6728920936584,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 25,
+    "symbolic_model": "(((21.972443994116272) + (((1.1498618330641062) * ((((x[:,0])**1)))) + ((-0.21716561582021476) * ((((x[:,1])**1)))) + ((-49.17815078033966) * ((((x[:,1])**-1)))))))",
+    "mse_train": 5.654742581927721,
+    "mae_train": 1.8903155952022928,
+    "r2_train": 0.7387026532047618,
+    "mse_test": 5.185856672097392,
+    "mae_test": 1.9101432213290508,
+    "r2_test": 0.5173954969248571
+}

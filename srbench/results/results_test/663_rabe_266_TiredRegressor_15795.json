@@ -1,0 +1,28 @@
+{
+    "dataset": "663_rabe_266",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 15795,
+    "process_time": 0.128607814,
+    "time_time": 732.8898258209229,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 43,
+    "symbolic_model": "(((-4173.259225852182) + (((3501.351928502107) * (np.cos(((x[:,1])**-1)))) + ((1.6534696287370543) * ((((x[:,0])**1)))) + ((601.2042068856881) * (np.exp(((x[:,1])**-1)))))) / (1 + (((9.66852879799189e-3) * (np.sin(((x[:,1])**1)))) + ((-1.2930408122456133e-2) * (np.cos(((x[:,0])**1)))) + ((3.2882824112978764) * (np.tanh(((x[:,1])**-1)))))))",
+    "mse_train": 3.2090839477543454,
+    "mae_train": 1.3070658696929516,
+    "r2_train": 0.9987212681631257,
+    "mse_test": 8.610793027693584,
+    "mae_test": 2.2317362252945627,
+    "r2_test": 0.9972108041512958
+}

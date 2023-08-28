@@ -1,0 +1,28 @@
+{
+    "dataset": "519_vinnie",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 23654,
+        "transfunctions": "Id",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 23654,
+    "process_time": 0.15061691100000008,
+    "time_time": 454.4031629562378,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 25,
+    "symbolic_model": "(((-2108.6516640239106) + (((91054.27607649354) * ((((x[:,0])**-1)))) + ((0.5730456259370074) * ((((x[:,1])**1)))) + ((12.189085389665445) * ((((x[:,0])**1)))))))",
+    "mse_train": 2.232408420680866,
+    "mae_train": 1.2004683017898314,
+    "r2_train": 0.7373718936642701,
+    "mse_test": 2.616311421954921,
+    "mae_test": 1.2885949776106826,
+    "r2_test": 0.7839806544641359
+}

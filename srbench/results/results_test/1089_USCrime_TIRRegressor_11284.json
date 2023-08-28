@@ -1,0 +1,28 @@
+{
+    "dataset": "1089_USCrime",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(0, 5)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 11284,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11284,
+    "process_time": 0.6169485370000003,
+    "time_time": 1556.5303003787994,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 49,
+    "symbolic_model": "np.exp(((0.41564612110662374) + (((0.2254352836941498) * (np.log((x[:,6])**(3)))) + (((2.2221192323863423e-2) * (np.log((((x[:,9])**(2)) * ((x[:,1])**(3))) * ((x[:,0])**(5))))) + (((-3.0084617448527334e-2) * (np.cos(((x[:,7])**(3)) * ((x[:,0])**(5))))) + ((-4.477687918827614e-2) * (np.cos(((x[:,8])**(4)) * ((x[:,5])**(2))))))))) / ((1.0) + ((1.2071380103632435e-10) * (np.sqrt(((x[:,12])**(5)) * ((x[:,3])**(2)))))))",
+    "mse_train": 46.61644899527218,
+    "mae_train": 5.25013183645915,
+    "r2_train": 0.9660537776067822,
+    "mse_test": 800.3637379101455,
+    "mae_test": 22.336651762263745,
+    "r2_test": 0.6025615602746979
+}

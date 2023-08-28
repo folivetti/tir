@@ -1,0 +1,28 @@
+{
+    "dataset": "485_analcatdata_vehicle",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 860,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 860,
+    "process_time": 0.135769841,
+    "time_time": 687.9893410205841,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 59,
+    "symbolic_model": "(((20.653092870578842) + (((-83.71778606490007) * (sqrtAbs(((x[:,2])**2)))) + ((5.013344508722888) * ((((x[:,0])**2)))) + ((29.26743164099287) * (np.exp(((x[:,0])**2)))) + ((-28.12063013009576) * (np.sin(((x[:,1])**2) * ((x[:,3])**2)))))) / (1 + (((-0.937804093416635) * (np.cos(((x[:,0])**5)))) + ((-0.17882758217104852) * (sqrtAbs(((x[:,2])**2)))) + ((7.775485896467562e-5) * ((((x[:,3])**4)))) + ((2.5051679221168405e-12) * (np.exp(((x[:,0])**2) * ((x[:,3])**2)))))))",
+    "mse_train": 3402.0148877433094,
+    "mae_train": 46.457167370591065,
+    "r2_train": 0.9472983657011025,
+    "mse_test": 100441.10658982406,
+    "mae_test": 248.51866125954936,
+    "r2_test": -0.3202954102996931
+}

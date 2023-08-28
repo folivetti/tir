@@ -1,0 +1,28 @@
+{
+    "dataset": "485_analcatdata_vehicle",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 2000,
+        "npop": 250,
+        "pc": 0.5,
+        "pm": 0.8,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 5390,
+    "process_time": 0.13675057599999996,
+    "time_time": 688.8497071266174,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 39,
+    "symbolic_model": "(((801.3291866597752) + (((17.170839590495856) * ((((x[:,3])**2) * ((x[:,2])**5)))) + ((-125.84129065025814) * (np.sin(((x[:,3])**2)))) + ((-686.3253689922417) * (np.tanh(((x[:,0])**2)))) + ((-402.10157623757067) * (np.sin(((x[:,2])**1)))) + ((-7.968039005748953e-2) * ((((x[:,3])**5)))))))",
+    "mse_train": 15599.16605594861,
+    "mae_train": 102.09707376072595,
+    "r2_train": 0.8323567993828425,
+    "mse_test": 58645.04642251075,
+    "mae_test": 211.42883378205053,
+    "r2_test": -0.5684372852245743
+}

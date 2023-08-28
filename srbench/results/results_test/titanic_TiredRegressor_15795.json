@@ -1,0 +1,28 @@
+{
+    "dataset": "titanic",
+    "algorithm": "TiredRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 1000,
+        "npop": 500,
+        "pc": 1.0,
+        "pm": 0.25,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,SqrtAbs",
+        "ytransfunctions": "Id,Sqrt,Exp,Log"
+    },
+    "random_state": 15795,
+    "process_time": 0.6300854610000002,
+    "time_time": 2097.898614168167,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 39,
+    "symbolic_model": "(((0.8593176709955582) + (((0.5045507360347662) * (np.cos(((x[:,2])**7) * ((x[:,1])**1)))) + ((-0.4513476862802884) * (np.cos(((x[:,2])**1) * ((x[:,0])**1)))) + ((-1.604625373522619) * (np.cos(((x[:,2])**3) * ((x[:,1])**1)))) + ((1.1096256399601143) * (np.tanh(((x[:,0])**2) * ((x[:,1])**2)))))))",
+    "mse_train": 0.6279897611982636,
+    "mae_train": 0.6327551391300816,
+    "r2_train": 0.28554743919732006,
+    "mse_test": 0.6241489583096448,
+    "mae_test": 0.6292407929773248,
+    "r2_test": 0.27557479320822065
+}

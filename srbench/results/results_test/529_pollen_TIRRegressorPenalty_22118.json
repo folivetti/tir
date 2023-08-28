@@ -1,0 +1,29 @@
+{
+    "dataset": "529_pollen",
+    "algorithm": "TIRRegressorPenalty",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-1, 1)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 1.093510716,
+    "time_time": 3340.617054462433,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((-2.7581516294525942e-2) + (((-0.8578572398922676) * (((x[:,0])**(1)))) + (((0.20803051616504942) * (((x[:,1])**(1)))) + ((-0.3940285503199846) * (((x[:,3])**(1)))))))",
+    "mse_train": 2.0876082080890863,
+    "mae_train": 1.13821300288526,
+    "r2_train": 0.7923133522159028,
+    "mse_test": 2.0675885082854553,
+    "mae_test": 1.143211166462937,
+    "r2_test": 0.7796354555710927
+}

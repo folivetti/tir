@@ -1,0 +1,28 @@
+{
+    "dataset": "4544_GeographicalOriginalofMusic",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-2, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 2.274009405,
+    "time_time": 3442.4343559741974,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 44,
+    "symbolic_model": "((9.106493026626588e-3) + (((0.5381441152546181) * (((x[:,41])**(1)))) + (((0.19704120724230506) * (((x[:,98])**(1)))) + (((-0.44448409409848993) * (((x[:,42])**(1)))) + (((-2.95117007102109e-3) * (((((x[:,95])**(2)) * ((x[:,71])**(2))) * ((x[:,18])**(1))))) + (((0.18096863248434433) * (((x[:,70])**(1)))) + ((0.5877198824419969) * (((x[:,99])**(1))))))))))",
+    "mse_train": 0.20354739260694743,
+    "mae_train": 0.34243898188720884,
+    "r2_train": 0.7936330028630976,
+    "mse_test": 0.3250045930408508,
+    "mae_test": 0.4034583310100344,
+    "r2_test": 0.6875979352361196
+}

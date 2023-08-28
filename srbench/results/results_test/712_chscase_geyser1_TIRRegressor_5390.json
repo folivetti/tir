@@ -1,0 +1,29 @@
+{
+    "dataset": "712_chscase_geyser1",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-2, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.17031781300000004,
+    "time_time": 266.9743494987488,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 8,
+    "symbolic_model": "np.sqrt((4668.6025748973225) + ((-1964.2724609218471) * (np.sin((x[:,1])**(1)))))",
+    "mse_train": 37.12492270028023,
+    "mae_train": 4.849412985929472,
+    "r2_train": 0.7911980775942515,
+    "mse_test": 35.594048861496496,
+    "mae_test": 5.026850251801281,
+    "r2_test": 0.7004335916974544
+}

@@ -1,0 +1,28 @@
+{
+    "dataset": "656_fri_c1_100_5",
+    "algorithm": "TIRRegressor",
+    "params": {
+        "error": "R^2",
+        "exponents": "(-2, 2)",
+        "ngens": 500,
+        "npop": 1000,
+        "pc": 0.3,
+        "pm": 0.7,
+        "random_state": 23654,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 23654,
+    "process_time": 0.5762088370000003,
+    "time_time": 993.1113443374634,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 38,
+    "symbolic_model": "((0.2741791877972154) + (((-0.5956783590771428) * (np.sin(((x[:,1])**(2)) * ((x[:,0])**(1))))) + (((-1.4783514145585455) * (np.sin(((x[:,1])**(1)) * ((x[:,0])**(1))))) + (((-0.622564281392725) * (np.tanh((x[:,0])**(1)))) + (((0.14870478183858676) * (np.exp((x[:,4])**(1)))) + ((0.6809936885825228) * (np.tanh((x[:,3])**(1)))))))))",
+    "mse_train": 0.10756547833800255,
+    "mae_train": 0.2543770861394533,
+    "r2_train": 0.8895784125549467,
+    "mse_test": 0.18489218718676326,
+    "mae_test": 0.34997384315873914,
+    "r2_test": 0.8111063320585904
+}
