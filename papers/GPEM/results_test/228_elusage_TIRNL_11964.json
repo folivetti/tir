@@ -1,0 +1,31 @@
+{
+    "dataset": "228_elusage",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.16219132799999958,
+    "time_time": 462.8961877822876,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 14,
+    "symbolic_model": "((-96.6773693669101) + (((-4.14510807065991) * (np.cos((x[:,1])**(3)))) + ((999.0740183824877) * (np.sqrt((x[:,0])**(-1))))))",
+    "mse_train": 80.32455907644729,
+    "mae_train": 6.771732070778754,
+    "r2_train": 0.8569126496927206,
+    "mse_test": 115.59693525538171,
+    "mae_test": 8.506067540302926,
+    "r2_test": 0.7752843067173463
+}

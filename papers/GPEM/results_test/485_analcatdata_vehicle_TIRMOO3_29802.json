@@ -1,0 +1,31 @@
+{
+    "dataset": "485_analcatdata_vehicle",
+    "algorithm": "TIRMOO3",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 29802,
+    "process_time": 0.16617835699999972,
+    "time_time": 2334.6756913661957,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 28,
+    "symbolic_model": "(((220.279018878462) + (((514.172981775108) * (np.cos((x[:,2])**(3)))) + ((-181.66543111066022) * (np.exp((x[:,0])**(3)))))) / ((1.0) + ((-0.6090027129894695) * (np.tanh((((x[:,3])**(1)) * ((x[:,2])**(1))) * ((x[:,1])**(1)))))))",
+    "mse_train": 13065.892785626265,
+    "mae_train": 82.99508546908447,
+    "r2_train": 0.8310320866547921,
+    "mse_test": 35011.44831858472,
+    "mae_test": 121.54523472476278,
+    "r2_test": 0.5579184277322318
+}

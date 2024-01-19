@@ -1,0 +1,31 @@
+{
+    "dataset": "712_chscase_geyser1",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.17135992600000005,
+    "time_time": 684.1122434139252,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 17,
+    "symbolic_model": "np.sqrt((344.1936678663261) + (((-59.54113196400809) * (np.sqrt(((x[:,1])**(1)) * ((x[:,0])**(1))))) + ((1460.568183749701) * (((x[:,1])**(1))))))",
+    "mse_train": 34.34562031487422,
+    "mae_train": 4.738135465356488,
+    "r2_train": 0.7807479200400606,
+    "mse_test": 40.282928623714675,
+    "mae_test": 5.164597662825957,
+    "r2_test": 0.7728106693643502
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "294_satellite_image",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 29802,
+    "process_time": 1.085784103,
+    "time_time": 6591.218568086624,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 41,
+    "symbolic_model": "((57.093732968374006) + (((-2.564956274219671e9) * (np.sqrt(((((x[:,25])**(1)) * ((x[:,24])**(-4))) * ((x[:,16])**(-4))) * ((x[:,14])**(-3))))) + (((2.036088935394939) * (np.sin((((x[:,27])**(-1)) * ((x[:,4])**(4))) * ((x[:,3])**(-3))))) + ((-1.3032068592858375) * (np.log((((x[:,22])**(4)) * ((x[:,14])**(3))) * ((x[:,13])**(2))))))))",
+    "mse_train": 1.147919714031284,
+    "mae_train": 0.8348457668628627,
+    "r2_train": 0.7651689140432729,
+    "mse_test": 1.1921910301162189,
+    "mae_test": 0.8492855644871349,
+    "r2_test": 0.7586751778020444
+}

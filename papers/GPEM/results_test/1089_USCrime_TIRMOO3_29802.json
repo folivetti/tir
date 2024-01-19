@@ -1,0 +1,31 @@
+{
+    "dataset": "1089_USCrime",
+    "algorithm": "TIRMOO3",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 29802,
+    "process_time": 0.18186781100000005,
+    "time_time": 3549.9658403396606,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 17,
+    "symbolic_model": "np.tan((1.5671762661431248) + (((-7.01888952634509e-5) * (np.sqrt(((x[:,9])**(-1)) * ((x[:,5])**(2))))) + ((-1.6817545054409123e-17) * (((x[:,12])**(5))))))",
+    "mse_train": 112.90895537505469,
+    "mae_train": 8.626058963481842,
+    "r2_train": 0.9166682911647819,
+    "mse_test": 378.63144632759304,
+    "mae_test": 17.785048218153328,
+    "r2_test": 0.8119140195486683
+}

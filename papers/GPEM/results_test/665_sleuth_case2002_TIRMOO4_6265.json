@@ -1,0 +1,31 @@
+{
+    "dataset": "665_sleuth_case2002",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 6265,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 6265,
+    "process_time": 0.1774006339999996,
+    "time_time": 2558.236009120941,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((0.1193023789480705) + (((0.22139325233426388) * (((x[:,5])**(1)))) + (((11.155582043040075) * (np.tanh((x[:,5])**(1)))) + ((-2.684001387600467) * (np.cos((x[:,4])**(2)))))))",
+    "mse_train": 48.12537530488421,
+    "mae_train": 4.956944827699956,
+    "r2_train": 0.4279281928059394,
+    "mse_test": 64.80472336219994,
+    "mae_test": 5.920588932359934,
+    "r2_test": 0.44222370559518853
+}

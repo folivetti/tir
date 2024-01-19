@@ -1,0 +1,31 @@
+{
+    "dataset": "527_analcatdata_election2000",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 6265,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 6265,
+    "process_time": 0.18212072700000004,
+    "time_time": 2621.7958903312683,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 8,
+    "symbolic_model": "((6680.194091889325) + ((8.817464008073178e-4) * (np.sqrt((x[:,9])**(3)))))",
+    "mse_train": 64960260.67083254,
+    "mae_train": 5937.019179372989,
+    "r2_train": 0.9739482489759063,
+    "mse_test": 867028253.537302,
+    "mae_test": 14222.764410909127,
+    "r2_test": 0.9338562458956347
+}

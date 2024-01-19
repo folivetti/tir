@@ -1,0 +1,31 @@
+{
+    "dataset": "678_visualizing_environmental",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 0.17312888000000015,
+    "time_time": 3589.607718706131,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((12.224949265161372) + (((1.3297851028742687) * (np.cos((x[:,0])**(1)))) + (((1.0480641012528702) * (np.sin((x[:,0])**(1)))) + ((-5.540894024966715e-2) * (np.sqrt((x[:,0])**(2)))))))",
+    "mse_train": 6.8332226551764,
+    "mae_train": 1.9592204912621596,
+    "r2_train": 0.4618274645546413,
+    "mse_test": 7.527496589015838,
+    "mae_test": 2.289306754422811,
+    "r2_test": 0.3774833606907714
+}

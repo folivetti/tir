@@ -1,0 +1,31 @@
+{
+    "dataset": "542_pollution",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.18132198700000046,
+    "time_time": 3589.463383436203,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 17,
+    "symbolic_model": "np.tan((1.5696965558613378) + (((-3.5835800019092885e-3) * (((x[:,0])**(-1)))) + ((-2.0695975526563037e-5) * (np.log(((x[:,12])**(-2)) * ((x[:,8])**(-1)))))))",
+    "mse_train": 1156.2021386732324,
+    "mae_train": 27.460348646144478,
+    "r2_train": 0.7412974427150982,
+    "mse_test": 1665.7905128645932,
+    "mae_test": 34.86711503158194,
+    "r2_test": 0.06972746778026595
+}

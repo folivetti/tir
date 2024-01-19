@@ -19,7 +19,6 @@ import qualified Data.Vector as V
 import Numeric.ModalInterval            (Kaucher, (<.<))
 import Numeric.LinearAlgebra ((??))
 import qualified Numeric.LinearAlgebra as LA
-import Numeric.Morpheus.MatrixReduce         (columnPredicate)
 
 -- import Constraints.Shape
 import MachineLearning.Utils.Config

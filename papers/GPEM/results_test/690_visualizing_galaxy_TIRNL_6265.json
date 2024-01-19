@@ -1,0 +1,31 @@
+{
+    "dataset": "690_visualizing_galaxy",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 6265,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 6265,
+    "process_time": 0.19180150900000026,
+    "time_time": 707.5367124080658,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 14,
+    "symbolic_model": "np.exp((7.375854196936184) + (((2.35714112178514e-2) * (np.tanh((x[:,0])**(1)))) + ((-1.9446955485482613e-3) * (((x[:,1])**(1))))))",
+    "mse_train": 734.9124685030189,
+    "mae_train": 22.395875778187698,
+    "r2_train": 0.9193108289681129,
+    "mse_test": 738.3988616745385,
+    "mae_test": 22.36926367807494,
+    "r2_test": 0.9080462966182204
+}

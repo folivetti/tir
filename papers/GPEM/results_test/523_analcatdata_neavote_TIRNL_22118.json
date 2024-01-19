@@ -1,0 +1,31 @@
+{
+    "dataset": "523_analcatdata_neavote",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 0.16148288000000033,
+    "time_time": 554.3106100559235,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 26,
+    "symbolic_model": "np.exp((2.887404633203788) + (((-2.553865961577786) * (np.tanh(((x[:,1])**(2)) * ((x[:,0])**(2))))) + (((1.1803872070640802) * (np.sin((x[:,1])**(2)))) + ((-1.1373218872893918) * (np.sin(((x[:,1])**(2)) * ((x[:,0])**(1))))))))",
+    "mse_train": 0.5537364873466045,
+    "mae_train": 0.47328728764961225,
+    "r2_train": 0.9647794140245528,
+    "mse_test": 1.1766956258233503,
+    "mae_test": 0.6970533277481562,
+    "r2_test": 0.9150179378160858
+}

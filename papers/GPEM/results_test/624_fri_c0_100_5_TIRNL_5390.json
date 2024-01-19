@@ -1,0 +1,31 @@
+{
+    "dataset": "624_fri_c0_100_5",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.1810348469999994,
+    "time_time": 517.9521300792694,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 44,
+    "symbolic_model": "((0.7174494609227678) + (((0.40112559673792064) * (np.sin((((x[:,0])**(2)) * ((x[:,1])**(2))) * ((x[:,4])**(1))))) + (((-0.6669421295697086) * (np.sin((x[:,1])**(2)))) + (((0.5296560826187406) * (np.sin((x[:,1])**(1)))) + (((0.40845336819823136) * (((x[:,0])**(1)))) + (((-0.6912755362208236) * (np.cos((x[:,2])**(1)))) + ((0.48677047130974693) * (((x[:,3])**(1))))))))))",
+    "mse_train": 0.19096843763418245,
+    "mae_train": 0.3512165885217012,
+    "r2_train": 0.8022687202785439,
+    "mse_test": 0.2862586900970825,
+    "mae_test": 0.4466349803427549,
+    "r2_test": 0.7063749189942325
+}

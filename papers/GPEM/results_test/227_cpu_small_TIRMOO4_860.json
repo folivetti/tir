@@ -1,0 +1,31 @@
+{
+    "dataset": "227_cpu_small",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 860,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 860,
+    "process_time": 0.7374279620000008,
+    "time_time": 6539.84734749794,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 14,
+    "symbolic_model": "((-13.777410276021897) + (((-3.7612550413423884) * (np.log((x[:,11])**(-2)))) + ((-2.7534590604976463) * (((x[:,5])**(1))))))",
+    "mse_train": 22.742745146108273,
+    "mae_train": 3.667627152790186,
+    "r2_train": 0.9322827281880084,
+    "mse_test": 22.667054155743976,
+    "mae_test": 3.69977522785186,
+    "r2_test": 0.9346360022708933
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "712_chscase_geyser1",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 23654,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 23654,
+    "process_time": 0.1708665629999997,
+    "time_time": 3701.0344734191895,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 8,
+    "symbolic_model": "np.tan((1.5635369359998363) + ((-2.4426209020111805e-2) * (np.tanh((x[:,1])**(-1)))))",
+    "mse_train": 33.49179529805648,
+    "mae_train": 4.595057928793487,
+    "r2_train": 0.7864636815309358,
+    "mse_test": 46.262096106552534,
+    "mae_test": 5.475873031973809,
+    "r2_test": 0.7430024687027379
+}

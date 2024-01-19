@@ -1,0 +1,31 @@
+{
+    "dataset": "651_fri_c0_100_25",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.2012757470000004,
+    "time_time": 1512.7636044025421,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 38,
+    "symbolic_model": "((0.5332112410287371) + (((-1.0121229862315844) * (np.tanh((x[:,2])**(-4)))) + (((0.651916290476257) * (np.tanh((x[:,0])**(1)))) + (((0.5871405583641491) * (np.tanh((x[:,4])**(3)))) + (((0.5227189686844642) * (np.tanh((x[:,1])**(3)))) + (((0.3909418918967609) * (np.cos((x[:,0])**(2)))) + ((0.8306712424613747) * (np.tanh((x[:,3])**(1))))))))))",
+    "mse_train": 0.10795621896700609,
+    "mae_train": 0.25981547774075653,
+    "r2_train": 0.886600942809348,
+    "mse_test": 0.26615649007022135,
+    "mae_test": 0.42280838865039544,
+    "r2_test": 0.7566126563386086
+}

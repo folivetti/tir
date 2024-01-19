@@ -1,0 +1,31 @@
+{
+    "dataset": "537_houses",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 11284,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11284,
+    "process_time": 0.9114291059999999,
+    "time_time": 10947.547392606735,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 41,
+    "symbolic_model": "np.exp((-1.8289328092412855e7) + (((1.226643953559526e-7) * (np.sqrt(((x[:,3])**(2)) * ((x[:,1])**(4))))) + (((0.8531433038430153) * (np.tanh((((x[:,5])**(2)) * ((x[:,4])**(-2))) * ((x[:,0])**(1))))) + (((5.027380588632908) * (np.log((x[:,6])**(-2)))) + (((0.1471129060784217) * (np.log((x[:,0])**(3)))) + ((1.828938581780775e7) * (np.exp((x[:,7])**(-3)))))))))",
+    "mse_train": 4239458680.0941305,
+    "mae_train": 45222.718924591005,
+    "r2_train": 0.691957689221661,
+    "mse_test": 3961038493.5926046,
+    "mae_test": 44205.36755100402,
+    "r2_test": 0.6989090002414469
+}

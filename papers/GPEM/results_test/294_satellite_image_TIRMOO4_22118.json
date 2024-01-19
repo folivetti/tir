@@ -1,0 +1,31 @@
+{
+    "dataset": "294_satellite_image",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 1.0523587399999998,
+    "time_time": 6466.975929260254,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 29,
+    "symbolic_model": "((21.442820044626572) + (((836548.8239535063) * (np.sqrt((x[:,14])**(-5)))) + (((-1.130329778402435) * (np.log((((x[:,22])**(4)) * ((x[:,21])**(3))) * ((x[:,8])**(-3))))) + ((-3.3220234814729935e8) * (np.sin(((x[:,20])**(-1)) * ((x[:,14])**(-3))))))))",
+    "mse_train": 1.1325415113373025,
+    "mae_train": 0.818734574237905,
+    "r2_train": 0.7702386009651985,
+    "mse_test": 1.232964928245866,
+    "mae_test": 0.8516410956401528,
+    "r2_test": 0.7437440069322327
+}

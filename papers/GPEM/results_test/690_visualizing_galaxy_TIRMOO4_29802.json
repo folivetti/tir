@@ -1,0 +1,31 @@
+{
+    "dataset": "690_visualizing_galaxy",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 29802,
+    "process_time": 0.17836825399999956,
+    "time_time": 3543.934285402298,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 14,
+    "symbolic_model": "np.exp((7.3750169645965835) + (((-1.9616568733578734e-3) * (((x[:,1])**(1)))) + ((2.3476817030363216e-2) * (np.tanh((x[:,0])**(1))))))",
+    "mse_train": 696.6021717061184,
+    "mae_train": 21.474653113754176,
+    "r2_train": 0.9212762044691339,
+    "mse_test": 853.0346095818213,
+    "mae_test": 24.87202614641661,
+    "r2_test": 0.9017561999117905
+}

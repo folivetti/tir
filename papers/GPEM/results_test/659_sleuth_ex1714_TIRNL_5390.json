@@ -1,0 +1,31 @@
+{
+    "dataset": "659_sleuth_ex1714",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.16266582899999982,
+    "time_time": 441.72755432128906,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 23,
+    "symbolic_model": "np.tan((1.5706288306799474) + (((4.683028862965242e-9) * (np.sqrt(((((x[:,1])**(1)) * ((x[:,2])**(2))) * ((x[:,5])**(1))) * ((x[:,0])**(1))))) + ((2.4937459896326532e-5) * (np.sqrt((x[:,5])**(1))))))",
+    "mse_train": 1073233.2426286563,
+    "mae_train": 781.5358266234421,
+    "r2_train": 0.8760641503954237,
+    "mse_test": 1416291.027738426,
+    "mae_test": 888.9271028569907,
+    "r2_test": 0.6286837732604931
+}

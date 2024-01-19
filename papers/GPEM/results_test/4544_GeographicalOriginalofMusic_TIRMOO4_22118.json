@@ -1,0 +1,31 @@
+{
+    "dataset": "4544_GeographicalOriginalofMusic",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 0.9296334120000003,
+    "time_time": 2145.529489517212,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 44,
+    "symbolic_model": "((3.857618646753608e-2) + (((-0.347650762260168) * (((x[:,42])**(1)))) + (((-0.4221729217731307) * (np.tanh((x[:,44])**(1)))) + (((0.4776853114343972) * (((x[:,99])**(1)))) + (((0.22751328598052228) * (np.tanh((x[:,98])**(1)))) + (((0.45134394972444736) * (np.tanh((x[:,101])**(1)))) + (((0.13845733985400602) * (((x[:,70])**(1)))) + ((0.6272898799801141) * (((x[:,41])**(1)))))))))))",
+    "mse_train": 0.19131689577119926,
+    "mae_train": 0.3292426307211706,
+    "r2_train": 0.8060329205095966,
+    "mse_test": 0.30459505467061276,
+    "mae_test": 0.39115837508546863,
+    "r2_test": 0.7072160639157306
+}

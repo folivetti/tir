@@ -1,0 +1,31 @@
+{
+    "dataset": "192_vineyard",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 22118,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 22118,
+    "process_time": 0.17866426600000018,
+    "time_time": 3495.4063436985016,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 23,
+    "symbolic_model": "np.sqrt((25.800226121550438) + (((49.1822998811027) * (np.cos(((x[:,1])**(3)) * ((x[:,0])**(2))))) + (((262.2407963604903) * (np.tanh((x[:,0])**(1)))) + ((28.932456778706715) * (((x[:,0])**(1)))))))",
+    "mse_train": 3.0773556989033786,
+    "mae_train": 1.3880761333121807,
+    "r2_train": 0.7600831380593025,
+    "mse_test": 14.472922240612425,
+    "mae_test": 3.0953757434537112,
+    "r2_test": 0.5906060994788687
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "523_analcatdata_neavote",
+    "algorithm": "TIRMOO2",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 29802,
+    "process_time": 0.16236168799999984,
+    "time_time": 3021.6099157333374,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 31,
+    "symbolic_model": "(((19858.79655538826) + (((10.011810944863768) * (np.tanh(((x[:,1])**(-1)) * ((x[:,0])**(-2))))) + ((-19856.938746360313) * (np.exp((x[:,1])**(-4)))))) / ((1.0) + ((-9.140369187769032) * (np.tanh((((x[:,1])**(-4)) * ((x[:,0])**(5))) * ((x[:,0])**(5)))))))",
+    "mse_train": 0.6521854641419648,
+    "mae_train": 0.5066560829943334,
+    "r2_train": 0.9591184893933477,
+    "mse_test": 1.0002223979845801,
+    "mae_test": 0.6212987892802752,
+    "r2_test": 0.9309543849414224
+}

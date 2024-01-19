@@ -1,0 +1,31 @@
+{
+    "dataset": "195_auto_price",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.1991553500000003,
+    "time_time": 3277.2056715488434,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "np.exp((6.530218529475703) + (((9.327201385980382e-5) * (np.sqrt((((x[:,6])**(1)) * ((x[:,4])**(4))) * ((x[:,5])**(-1))))) + ((-4.800463947502398e-2) * (np.cos((x[:,7])**(5))))))",
+    "mse_train": 4063088.2000757144,
+    "mae_train": 1312.468271277806,
+    "r2_train": 0.8861051164084681,
+    "mse_test": 7540397.226254405,
+    "mae_test": 1764.095556629364,
+    "r2_test": 0.7473907390285816
+}

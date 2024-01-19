@@ -1,0 +1,31 @@
+{
+    "dataset": "1193_BNG_lowbwt",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 23654,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 23654,
+    "process_time": 0.8617734379999993,
+    "time_time": 10701.371268510818,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 26,
+    "symbolic_model": "((4094.62579509193) + (((-294.85497060178204) * (np.cos(((x[:,7])**(2)) * ((x[:,3])**(3))))) + (((-632.0119779664877) * (np.exp((x[:,0])**(3)))) + ((-60.792043656874284) * ((((x[:,4])**(2)) * ((x[:,3])**(2))))))))",
+    "mse_train": 227732.02800121185,
+    "mae_train": 385.6157178869611,
+    "r2_train": 0.5705191870038528,
+    "mse_test": 230826.04032535787,
+    "mae_test": 389.4630113084805,
+    "r2_test": 0.5631638144171379
+}

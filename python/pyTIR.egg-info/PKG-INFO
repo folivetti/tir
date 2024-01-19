@@ -5,3 +5,6 @@ Summary: Python TIR wrapper
 Home-page: https://github.com/folivetti/tir
 Author: Fabricio Olivetti de Franca
 Author-email: folivetti@ufabc.edu.br
+Requires-Dist: scikit-learn
+Requires-Dist: numpy
+Requires-Dist: pandas

@@ -1,0 +1,31 @@
+{
+    "dataset": "192_vineyard",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.1630683150000003,
+    "time_time": 510.3870141506195,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((-1.8022857327393065) + (((-1.143734498917291) * (np.sin((x[:,0])**(1)))) + (((2.3600300537515895) * (np.log((x[:,1])**(2)))) + ((10.527349861455974) * (np.tanh((x[:,0])**(1)))))))",
+    "mse_train": 5.461445582891685,
+    "mae_train": 1.7714083261596505,
+    "r2_train": 0.7484485205063744,
+    "mse_test": 3.8395408425938298,
+    "mae_test": 1.6394339735636678,
+    "r2_test": 0.6383041235237696
+}

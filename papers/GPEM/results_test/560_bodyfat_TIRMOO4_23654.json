@@ -1,0 +1,31 @@
+{
+    "dataset": "560_bodyfat",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 23654,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 23654,
+    "process_time": 0.18911679599999953,
+    "time_time": 3308.235851287842,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 8,
+    "symbolic_model": "((-158.2967939538724) + ((75.61732033926567) * (np.exp((x[:,0])**(-3)))))",
+    "mse_train": 1.9827009753212537,
+    "mae_train": 0.5190281764972808,
+    "r2_train": 0.973750511683594,
+    "mse_test": 0.13535257093179115,
+    "mae_test": 0.2995205932630124,
+    "r2_test": 0.9974160858147995
+}

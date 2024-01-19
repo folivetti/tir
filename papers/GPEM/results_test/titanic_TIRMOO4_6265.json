@@ -1,0 +1,31 @@
+{
+    "dataset": "titanic",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 6265,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 6265,
+    "process_time": 0.3061577729999998,
+    "time_time": 4010.725503921509,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 26,
+    "symbolic_model": "((2.062289051866009) + (((-2.342829840099661) * (np.cos((x[:,2])**(3)))) + (((-0.42244712868554596) * (np.cos(((x[:,2])**(1)) * ((x[:,0])**(1))))) + ((0.9802867482433828) * (np.tanh(((x[:,1])**(2)) * ((x[:,0])**(2))))))))",
+    "mse_train": 0.6361273606104315,
+    "mae_train": 0.6441432509655626,
+    "r2_train": 0.27628943994631916,
+    "mse_test": 0.6069765288629182,
+    "mae_test": 0.6161582168301755,
+    "r2_test": 0.2955061582893276
+}

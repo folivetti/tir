@@ -1,0 +1,31 @@
+{
+    "dataset": "505_tecator",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 11284,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11284,
+    "process_time": 0.4445384560000001,
+    "time_time": 2353.166077375412,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 8,
+    "symbolic_model": "((169.58304961089365) + ((-19.13956049412938) * (np.sqrt((x[:,122])**(1)))))",
+    "mse_train": 3.9968908830125307,
+    "mae_train": 1.465925373449749,
+    "r2_train": 0.9807633794708364,
+    "mse_test": 3.5295815168048654,
+    "mae_test": 1.4748620038491018,
+    "r2_test": 0.9821983241608749
+}

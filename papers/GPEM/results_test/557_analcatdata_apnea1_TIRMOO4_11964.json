@@ -1,0 +1,31 @@
+{
+    "dataset": "557_analcatdata_apnea1",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.18520490600000006,
+    "time_time": 3481.4072222709656,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 25,
+    "symbolic_model": "(((182.16001607308823) + ((7.784654556576841) * (np.sin((x[:,2])**(1))))) / ((1.0) + (((-0.8365873262765189) * (np.sin(((x[:,1])**(5)) * ((x[:,0])**(2))))) + ((0.700868038285466) * (np.sin((x[:,1])**(5)))))))",
+    "mse_train": 940154.9311800145,
+    "mae_train": 388.19743430077784,
+    "r2_train": 0.9010060490908326,
+    "mse_test": 1056604.7494088833,
+    "mae_test": 447.77321004347857,
+    "r2_test": 0.9120492856556897
+}

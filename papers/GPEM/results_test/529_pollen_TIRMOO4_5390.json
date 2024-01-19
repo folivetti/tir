@@ -1,0 +1,31 @@
+{
+    "dataset": "529_pollen",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.41495043900000006,
+    "time_time": 5642.766039133072,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((-1.7955973391298785e-2) + (((-0.39612394703075543) * (((x[:,3])**(1)))) + (((0.20954768184859968) * (((x[:,1])**(1)))) + ((-0.860253424490796) * (((x[:,0])**(1)))))))",
+    "mse_train": 2.0580939263157156,
+    "mae_train": 1.1339131314524766,
+    "r2_train": 0.7939167974013728,
+    "mse_test": 2.1548022566569753,
+    "mae_test": 1.1564073996512567,
+    "r2_test": 0.7750304204729883
+}

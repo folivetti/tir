@@ -1,0 +1,31 @@
+{
+    "dataset": "192_vineyard",
+    "algorithm": "TIRMOO2",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 29802,
+    "process_time": 0.1821396059999998,
+    "time_time": 3049.8198194503784,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 55,
+    "symbolic_model": "np.tan(((-18.0951546447483) + (((-2.787287742106584e-3) * (np.sin(((x[:,1])**(3)) * ((x[:,0])**(3))))) + (((3.2740427991008805e-3) * (np.cos(((x[:,1])**(3)) * ((x[:,0])**(2))))) + (((19.54221744462766) * (np.tanh((x[:,1])**(1)))) + (((3.327578670894206e-5) * (((x[:,0])**(3)))) + ((1.5017612331701818e-3) * (np.cos((x[:,0])**(3))))))))) / ((1.0) + (((1.7151051183892548e-3) * (np.sin(((x[:,1])**(3)) * ((x[:,0])**(2))))) + ((-4.6813564506342664e-2) * (np.tanh((x[:,0])**(1)))))))",
+    "mse_train": 2.1751302040516793,
+    "mae_train": 1.125724280808048,
+    "r2_train": 0.8853488688535277,
+    "mse_test": 11.53095931632089,
+    "mae_test": 2.6225251342190146,
+    "r2_test": 0.3805683011893737
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "1089_USCrime",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 6265,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 6265,
+    "process_time": 0.16292077100000002,
+    "time_time": 474.34286236763,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 29,
+    "symbolic_model": "np.sqrt((592174.8472892524) + (((945.7850871858178) * (np.log(((((x[:,11])**(-4)) * ((x[:,10])**(-2))) * ((x[:,5])**(-1))) * ((x[:,3])**(4))))) + ((-12000.299220731096) * (np.log((((x[:,12])**(5)) * ((x[:,3])**(4))) * ((x[:,0])**(-1)))))))",
+    "mse_train": 117.15958536200625,
+    "mae_train": 9.45363779653737,
+    "r2_train": 0.9260521548630858,
+    "mse_test": 449.71890616709635,
+    "mae_test": 15.53652146656046,
+    "r2_test": 0.6795146041260478
+}

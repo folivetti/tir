@@ -1,0 +1,31 @@
+{
+    "dataset": "663_rabe_266",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.16587312500000007,
+    "time_time": 2698.822978258133,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 14,
+    "symbolic_model": "((38.84581860350949) + (((-25.01085024132207) * (np.log((x[:,1])**(1)))) + ((1.4296667993527654) * (((x[:,0])**(1))))))",
+    "mse_train": 40.86214737058878,
+    "mae_train": 4.658098585703358,
+    "r2_train": 0.9848860122705358,
+    "mse_test": 40.026833754804066,
+    "mae_test": 4.390205133137184,
+    "r2_test": 0.985200801258681
+}

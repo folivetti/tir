@@ -1,0 +1,31 @@
+{
+    "dataset": "1199_BNG_echoMonths",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 11284,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11284,
+    "process_time": 1.0368163679999993,
+    "time_time": 9759.44697856903,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((-6.716144741382056) + (((-4.891857072786436e-3) * (((x[:,4])**(2)))) + (((-7.364132159567271) * (((x[:,8])**(5)))) + ((36.79349705611894) * (np.cos((x[:,0])**(5)))))))",
+    "mse_train": 142.07661107816472,
+    "mae_train": 9.413830027132507,
+    "r2_train": 0.4243004945263398,
+    "mse_test": 142.35340088056807,
+    "mae_test": 9.35382698770777,
+    "r2_test": 0.4265904762978926
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "1096_FacultySalaries",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.1659447420000002,
+    "time_time": 482.38276648521423,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "np.exp((-0.5783426921645041) + (((7.636068296709573) * (np.tanh((x[:,1])**(-1)))) + ((-1.1382429096947264) * (np.log((((x[:,3])**(1)) * ((x[:,2])**(2))) * ((x[:,1])**(-4)))))))",
+    "mse_train": 0.13824684911007976,
+    "mae_train": 0.2875702684076333,
+    "r2_train": 0.9938178794261917,
+    "mse_test": 30.204914537975405,
+    "mae_test": 2.045848049297719,
+    "r2_test": -0.9393465599063373
+}

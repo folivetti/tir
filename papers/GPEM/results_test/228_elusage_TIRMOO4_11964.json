@@ -1,0 +1,31 @@
+{
+    "dataset": "228_elusage",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.1565516019999995,
+    "time_time": 3316.716495513916,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 8,
+    "symbolic_model": "((-89.8055616600761) + ((944.191134275376) * (np.sqrt((x[:,0])**(-1)))))",
+    "mse_train": 86.23517521799687,
+    "mae_train": 7.299981554391044,
+    "r2_train": 0.8463836855489791,
+    "mse_test": 102.43963751803551,
+    "mae_test": 7.943216223242223,
+    "r2_test": 0.8008615530019652
+}

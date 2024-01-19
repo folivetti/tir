@@ -1,0 +1,31 @@
+{
+    "dataset": "519_vinnie",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 23654,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 23654,
+    "process_time": 0.1773239379999998,
+    "time_time": 3718.3697810173035,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 8,
+    "symbolic_model": "((-1.4382300322843806) + ((0.5700235505645607) * (np.sqrt((x[:,1])**(2)))))",
+    "mse_train": 2.2527644756393994,
+    "mae_train": 1.2092027723986205,
+    "r2_train": 0.7349771382437564,
+    "mse_test": 2.6142985994272507,
+    "mae_test": 1.2901783408812282,
+    "r2_test": 0.7841468459203434
+}

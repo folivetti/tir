@@ -1,0 +1,31 @@
+{
+    "dataset": "4544_GeographicalOriginalofMusic",
+    "algorithm": "TIRMOO3",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 860,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 860,
+    "process_time": 0.9427563459999995,
+    "time_time": 1774.4848155975342,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((5.17893508690056e-2) + (((0.29127442068666914) * (((x[:,41])**(1)))) + (((0.5032715843888452) * (np.tanh((x[:,70])**(1)))) + ((0.4630242682631845) * (((x[:,99])**(1)))))))",
+    "mse_train": 0.3469588579099452,
+    "mae_train": 0.4352293255698808,
+    "r2_train": 0.6753900565714703,
+    "mse_test": 0.2946818760421739,
+    "mae_test": 0.40036612807379823,
+    "r2_test": 0.6246279942386166
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "594_fri_c2_100_5",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.17835546700000027,
+    "time_time": 693.0439896583557,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 14,
+    "symbolic_model": "np.log((1.0904863724721157) + (((-4.301852676533339) * (np.tanh((x[:,0])**(1)))) + ((2.4425922372786597) * (((x[:,0])**(1))))))",
+    "mse_train": 0.3827606795883674,
+    "mae_train": 0.5147529943856685,
+    "r2_train": 0.6159182199174287,
+    "mse_test": 0.9530141689246922,
+    "mae_test": 0.7794158373467935,
+    "r2_test": -0.09112788339160449
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "485_analcatdata_vehicle",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 860,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 860,
+    "process_time": 0.16088548499999966,
+    "time_time": 680.6896281242371,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 23,
+    "symbolic_model": "np.exp((6.569126303037468) + (((-0.48992313269930154) * (np.sin(((x[:,3])**(2)) * ((x[:,1])**(2))))) + (((-1.3782219738549333) * (((x[:,0])**(2)))) + ((-0.7875580690779621) * (((x[:,2])**(1)))))))",
+    "mse_train": 9801.73620759478,
+    "mae_train": 64.86756663179162,
+    "r2_train": 0.8481583608090609,
+    "mse_test": 103512.9418437598,
+    "mae_test": 263.7048433921868,
+    "r2_test": -0.3606745949250749
+}

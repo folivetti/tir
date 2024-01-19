@@ -1,0 +1,31 @@
+{
+    "dataset": "225_puma8NH",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.7398204419999992,
+    "time_time": 6239.274363279343,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 38,
+    "symbolic_model": "((2.436798631037057) + (((4.910882297084991) * (((x[:,1])**(1)))) + (((5.051728013373394) * (np.tanh((x[:,2])**(1)))) + (((-1.096615735331963) * (((x[:,1])**(2)))) + (((-1.29274781821952) * ((((x[:,2])**(1)) * ((x[:,1])**(2))))) + ((-1.9051263531582616) * ((((x[:,2])**(2)) * ((x[:,1])**(1))))))))))",
+    "mse_train": 10.933863359661183,
+    "mae_train": 2.5654809607584794,
+    "r2_train": 0.6532535478789965,
+    "mse_test": 10.645716015760975,
+    "mae_test": 2.5483089605728324,
+    "r2_test": 0.6651614450426349
+}

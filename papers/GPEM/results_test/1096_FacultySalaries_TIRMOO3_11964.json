@@ -1,0 +1,31 @@
+{
+    "dataset": "1096_FacultySalaries",
+    "algorithm": "TIRMOO3",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.17367048199999946,
+    "time_time": 3801.2016472816467,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 14,
+    "symbolic_model": "np.tan((1.560696524056791) + (((-4.726899289524047) * (np.sqrt((x[:,3])**(-3)))) + ((-6.582429854546367e-4) * (np.sin((x[:,1])**(4))))))",
+    "mse_train": 2.353389497984202,
+    "mae_train": 1.2403589012240168,
+    "r2_train": 0.9005310909179045,
+    "mse_test": 4.082850713477854,
+    "mae_test": 1.503742253484538,
+    "r2_test": 0.6673528121437241
+}

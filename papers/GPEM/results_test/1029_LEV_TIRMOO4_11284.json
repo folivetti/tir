@@ -1,0 +1,31 @@
+{
+    "dataset": "1029_LEV",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 11284,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11284,
+    "process_time": 0.21759858600000026,
+    "time_time": 3578.7844841480255,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 26,
+    "symbolic_model": "((-8.405104999628102e-2) + (((0.268791200870794) * (((x[:,0])**(1)))) + (((0.3949632500268571) * (((x[:,1])**(1)))) + (((3.941999578861723e-2) * (((x[:,2])**(2)))) + ((0.16563561521277292) * (((x[:,3])**(1))))))))",
+    "mse_train": 0.38915564805353703,
+    "mae_train": 0.4777966124899581,
+    "r2_train": 0.5522600694822775,
+    "mse_test": 0.41977044300743893,
+    "mae_test": 0.5099248307819662,
+    "r2_test": 0.5876518241577221
+}

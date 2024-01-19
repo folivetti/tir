@@ -1,0 +1,31 @@
+{
+    "dataset": "1030_ERA",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 15795,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 15795,
+    "process_time": 0.22680579499999975,
+    "time_time": 3581.8550837039948,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 32,
+    "symbolic_model": "((0.12786940657782) + (((0.33210238603403375) * (np.cos((x[:,1])**(5)))) + (((0.13054889689374552) * (((x[:,2])**(1)))) + (((0.1513915027249534) * (((x[:,0])**(1)))) + (((4.9426750774087556e-2) * (((x[:,3])**(1)))) + ((0.2396089459193342) * (((x[:,1])**(1)))))))))",
+    "mse_train": 2.3471644679534527,
+    "mae_train": 1.225469713616451,
+    "r2_train": 0.3916141600232349,
+    "mse_test": 2.489649066771679,
+    "mae_test": 1.2633007474403875,
+    "r2_test": 0.39317346600617764
+}

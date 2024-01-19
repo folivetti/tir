@@ -1,0 +1,31 @@
+{
+    "dataset": "663_rabe_266",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 11964,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11964,
+    "process_time": 0.17067794899999988,
+    "time_time": 465.23597598075867,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((39.08588528117075) + (((-0.6215164481262895) * (np.cos((x[:,0])**(3)))) + (((-12.519260503387121) * (np.log((x[:,1])**(2)))) + ((1.4335541415527824) * (((x[:,0])**(1)))))))",
+    "mse_train": 40.72257956640298,
+    "mae_train": 4.70282863304198,
+    "r2_train": 0.9849376352569824,
+    "mse_test": 40.873483493277526,
+    "mae_test": 4.380728475576772,
+    "r2_test": 0.9848877678116512
+}

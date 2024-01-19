@@ -22,7 +22,6 @@ module MachineLearning.Model.Measure
 import Data.Semigroup (Sum(..))
 
 import qualified Numeric.LinearAlgebra       as LA
-import qualified Numeric.Morpheus.Statistics as Stat
 import qualified Data.Vector.Storable        as V
 import MachineLearning.TIR (Individual(..))
 
@@ -101,7 +100,7 @@ rmse ys ysHat = sqrt $ mse ysHat ys
 rSq :: Vector -> Vector -> Double
 rSq ys ysHat = negate (1 - r/t)
   where
-    ym      = Stat.mean ys
+    ym      = mean ys
     t       = sumOfSq $ V.map (\yi -> yi - ym) ys
     r       = sumOfSq $ ys - ysHat
     sumOfSq = V.foldl (\s di -> s + di^(2 :: Int)) 0

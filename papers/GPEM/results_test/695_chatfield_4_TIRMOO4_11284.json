@@ -1,0 +1,31 @@
+{
+    "dataset": "695_chatfield_4",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 11284,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 11284,
+    "process_time": 0.2054792649999997,
+    "time_time": 2155.9639155864716,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 34,
+    "symbolic_model": "(((6.414332073208307) + (((-1.131250671627635e-5) * (((x[:,9])**(3)))) + (((3.198580893006253e-3) * ((((x[:,10])**(1)) * ((x[:,6])**(1))))) + ((0.7065356402104015) * (((x[:,11])**(1))))))) / ((1.0) + ((0.1538937695236711) * (np.cos(((x[:,10])**(2)) * ((x[:,1])**(2)))))))",
+    "mse_train": 212.1146074236881,
+    "mae_train": 11.126127854315856,
+    "r2_train": 0.8787686182363652,
+    "mse_test": 402.0134949324604,
+    "mae_test": 12.497327206931237,
+    "r2_test": 0.8582247167606807
+}

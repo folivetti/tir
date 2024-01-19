@@ -1,0 +1,31 @@
+{
+    "dataset": "678_visualizing_environmental",
+    "algorithm": "TIRNL",
+    "params": {
+        "alg": "GPTIR",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 5,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.01,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.16585670600000002,
+    "time_time": 440.7935326099396,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 20,
+    "symbolic_model": "((10.474448796713345) + (((7.19344159729762e-8) * (((x[:,1])**(3)))) + (((283.06387720804156) * (np.sqrt((x[:,0])**(-4)))) + ((-5.0118562303962e-2) * (((x[:,0])**(1)))))))",
+    "mse_train": 6.966976169917088,
+    "mae_train": 1.9755647308651452,
+    "r2_train": 0.4762598134707441,
+    "mse_test": 2895.857484999366,
+    "mae_test": 12.9353570385651,
+    "r2_test": -287.5071535043188
+}

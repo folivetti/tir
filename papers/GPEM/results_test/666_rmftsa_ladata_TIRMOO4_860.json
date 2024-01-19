@@ -1,0 +1,31 @@
+{
+    "dataset": "666_rmftsa_ladata",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 860,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 860,
+    "process_time": 0.24699989700000025,
+    "time_time": 3543.504555463791,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 41,
+    "symbolic_model": "np.exp((-4288.622310868606) + (((2.295878132525942e-7) * (((x[:,0])**(3)))) + (((-0.1398199705871423) * (np.log((x[:,5])**(1)))) + (((4289.299380054344) * (np.exp((x[:,1])**(-2)))) + (((-0.12115481079658762) * (np.cos((((x[:,7])**(1)) * ((x[:,2])**(-4))) * ((x[:,1])**(3))))) + ((-0.16784649301775162) * (np.sqrt(((x[:,6])**(-2)) * ((x[:,4])**(2))))))))))",
+    "mse_train": 2.4099690450188187,
+    "mae_train": 1.169208816288966,
+    "r2_train": 0.7152830778780273,
+    "mse_test": 2.4432092248464734,
+    "mae_test": 1.2194057524857944,
+    "r2_test": 0.6665856723458601
+}

@@ -1,0 +1,31 @@
+{
+    "dataset": "1196_BNG_pharynx",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 5390,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 5390,
+    "process_time": 0.8860612680000006,
+    "time_time": 10968.913192272186,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 40,
+    "symbolic_model": "(((348.9959378369684) + (((290.1793484760808) * (np.exp((x[:,9])**(1)))) + (((-208.54330254678888) * (np.sin((x[:,5])**(3)))) + (((76.19839162987576) * (np.sin((x[:,7])**(2)))) + (((-196.2680752795551) * (np.tanh((x[:,8])**(2)))) + ((-116.44314642576416) * (np.cos((x[:,8])**(1))))))))) / ((1.0) + ((0.10841429495436235) * (np.cos((x[:,0])**(2))))))",
+    "mse_train": 89553.67221894058,
+    "mae_train": 223.99050719658038,
+    "r2_train": 0.4892141279227882,
+    "mse_test": 93081.49456143915,
+    "mae_test": 228.09466297039634,
+    "r2_test": 0.4690998309083023
+}

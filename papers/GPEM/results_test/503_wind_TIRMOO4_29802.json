@@ -1,0 +1,31 @@
+{
+    "dataset": "503_wind",
+    "algorithm": "TIRMOO4",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(0, 3)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 29802,
+        "transfunctions": "Id,Tanh,Sin,Cos,Log,Exp,Sqrt",
+        "ytransfunctions": "Id,Sqrt,Exp,Log,ATan,Tan,Tanh"
+    },
+    "random_state": 29802,
+    "process_time": 0.8006664800000003,
+    "time_time": 6008.291506052017,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 32,
+    "symbolic_model": "((3.745691273308223) + (((0.7581307948203054) * (((x[:,1])**(1)))) + (((1.4911558789883802e-3) * (np.sqrt((((x[:,13])**(1)) * ((x[:,12])**(1))) * ((x[:,0])**(3))))) + (((-3.2011657777007385) * (np.log((x[:,1])**(1)))) + ((0.3219650923845014) * (((x[:,9])**(1))))))))",
+    "mse_train": 11.074458077730467,
+    "mae_train": 2.5715843161891057,
+    "r2_train": 0.7550643585478574,
+    "mse_test": 11.7208194870227,
+    "mae_test": 2.5970608870961125,
+    "r2_test": 0.7321277068091969
+}

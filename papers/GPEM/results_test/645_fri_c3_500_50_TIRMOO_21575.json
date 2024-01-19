@@ -1,0 +1,31 @@
+{
+    "dataset": "645_fri_c3_500_50",
+    "algorithm": "TIRMOO",
+    "params": {
+        "alg": "MOO",
+        "error": "R^2",
+        "exponents": "(-5, 5)",
+        "ngens": 500,
+        "niter": 0,
+        "npop": 1000,
+        "pc": 0.3,
+        "penalty": 0.0,
+        "pm": 0.7,
+        "random_state": 21575,
+        "transfunctions": "Id,Sin,Tanh,Sqrt,Log,Exp",
+        "ytransfunctions": "Id"
+    },
+    "random_state": 21575,
+    "process_time": 0.04037086499999987,
+    "time_time": 16.68745255470276,
+    "target_noise": 0.0,
+    "feature_noise": 0.0,
+    "model_size": 31,
+    "symbolic_model": "(((-4.925174905830864e-2) + (((0.3725573652987826) * ((((x[:,1])**(1)) * ((x[:,0])**(2))))) + (((-1.0077982301698591) * (np.tanh((x[:,0])**(1)))) + ((0.3965541699551706) * (((x[:,3])**(1))))))) / ((1.0) + ((-0.44802850637898567) * (np.sin((x[:,1])**(1))))))",
+    "mse_train": 0.3177843008171998,
+    "mae_train": 0.4579354616857002,
+    "r2_train": 0.6792291936273035,
+    "mse_test": 0.7469421607100749,
+    "mae_test": 0.5958755485323362,
+    "r2_test": 0.25895606790938974
+}
