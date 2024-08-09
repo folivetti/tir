@@ -134,6 +134,33 @@ instance Ord Individual where
      f1t = tail (_fit t1)
      f2h = penalizedFit t2
      f2t = tail (_fit t2)
+instance Domination Individual where
+  t1 ≻ t2 = case epsDom f1h f2h of
+              GT -> False
+              LT -> allLTE f1t f2t
+              EQ -> anyLT f1t f2t
+    where
+     allLTE x y = all (uncurry (<=)) (zip x y)
+     anyLT  x y = any (uncurry (<)) (zip x y)
+     f1h = penalizedFit t1
+     f1t = tail (_fit t1)
+     f2h = penalizedFit t2
+     f2t = tail (_fit t2)
+  t1 ≺ t2 = case epsDom f1h f2h of
+                 LT -> False
+                 GT -> allLTE f2t f1t
+                 EQ -> anyLT f2t f1t
+    where
+     allLTE x y = all (uncurry (<=)) (zip x y)
+     anyLT  x y = any (uncurry (<)) (zip x y)
+     f1h = penalizedFit t1
+     f1t = tail (_fit t1)
+     f2h = penalizedFit t2
+     f2t = tail (_fit t2)
+
+dom :: (Ord a, Eq a) => [a] -> [a] -> Bool
+dom x y = all (uncurry (<=)) xy && any (uncurry (<)) xy
+  where xy = zip x y
 
 instance NFData Individual where
   rnf _ = ()
@@ -142,6 +169,10 @@ instance Solution Individual where
   _getFitness = _fit
   _isFeasible = (<1e-12) . _constr
   _distance x y = (_distFun x) x y
+
+--instance Domination Solution where
+--  s1 ≻ s2 = _getFitness s1 ≻ _getFitness s2
+--  s1 ≺ s2 = _getFitness s1 ≺ _getFitness s2
 
 -- | creates a symbolic tree from a TIR expression.
 assembleTree :: Double -> TIR -> SRTree Int Double

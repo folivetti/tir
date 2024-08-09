@@ -21,7 +21,7 @@ def sqrtAbs(a):
 
 class TIRClassifier(BaseEstimator, ClassifierMixin):
 
-    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="Log-Loss", penalty=0.00, niter=10, alg="GPTIR", random_state=-1):
+    def __init__(self, npop, ngens, pc, pm, exponents, maxtime=10000000, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="Log-Loss", penalty=0.00, niter=10, alg="GPTIR", random_state=-1):
         """ Builds a Symbolic Regression model using ITEA.
 
         Parameters
@@ -49,6 +49,7 @@ class TIRClassifier(BaseEstimator, ClassifierMixin):
         self.ytransfunctions = ytransfunctions
         self.npop = npop
         self.ngens = ngens
+        self.maxtime = maxtime
         self.pc = pc
         self.pm = pm
         self.random_state = random_state
@@ -103,9 +104,9 @@ class TIRClassifier(BaseEstimator, ClassifierMixin):
             
             cwd = os.path.dirname(os.path.realpath(__file__))
             if self.nclasses == 2:
-                ans = subprocess.check_output(["tir", "class", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "class", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.maxtime}"], cwd=cwd)
             else:
-                ans = subprocess.check_output(["tir", "multiclass", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "multiclass", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.maxtime}"], cwd=cwd)
             
             self.expr, n, e = eval(ans).split(";")
             print(n,e)

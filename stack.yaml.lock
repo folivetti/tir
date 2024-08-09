@@ -16,15 +16,15 @@ packages:
     commit: 332cc55c3f1807edf78966105eba25afd784bb9a
     git: https://github.com/folivetti/srtree.git
 - completed:
-    commit: 0f6ac6851bc2b67a6e6b40fa7233cbc1abd495ba
+    commit: 7c1d4b867389f35c085951e44b124ea0ffa12fc7
     git: https://github.com/folivetti/evolution.git
     name: evolution
     pantry-tree:
-      sha256: 6c241d9a1c80c825b35dc278d148d7308dff86331aca6b4d2865e785ce5df0a4
+      sha256: c39e23540a679af77335dddf254915fecec7920919c850dad15fcac12ff77e28
       size: 1433
     version: 0.1.0.0
   original:
-    commit: 0f6ac6851bc2b67a6e6b40fa7233cbc1abd495ba
+    commit: 7c1d4b867389f35c085951e44b124ea0ffa12fc7
     git: https://github.com/folivetti/evolution.git
 - completed:
     commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75
@@ -50,7 +50,7 @@ packages:
     git: https://github.com/folivetti/shape-constraint.git
 snapshots:
 - completed:
-    sha256: 5a59b2a405b3aba3c00188453be172b85893cab8ebc352b1ef58b0eae5d248a2
-    size: 650475
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/20/26.yaml
-  original: lts-20.26
+    sha256: 417fa04a2ed8916cdae74c475ff97ac80857fed5000f19dce4f9564b5e635294
+    size: 720000
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/32.yaml
+  original: lts-22.32

@@ -87,7 +87,7 @@ runGP cfg@(Conf mutCfg _ algCfg cnstCfg) = do
 
   (fitnessAll, fitnessTest, alg, interpret) <- getThings cfg
   (logger, mh)  <- makeLogger cfg fitnessTest
-  (_, champion, finalPop) <- runEvolution (_gens algCfg) (_nPop algCfg) logger alg g interpret
+  (_, champion, finalPop) <- runEvolution (_gens algCfg) (Just $ _maxTime algCfg) (_nPop algCfg) logger alg g interpret
   -- putStrLn $ "Avg. dist.: " <> show (avgDist finalPop)
   let champion' = if _algorithm algCfg == MOO
                      then bestTradeOff champion finalPop

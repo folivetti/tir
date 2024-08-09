@@ -66,6 +66,7 @@ data IOCfg = IOCfg { _trainFilename :: String
 data AlgorithmCfg = AlgCfg { _algorithm :: Algorithm
                            , _task      :: Task
                            , _gens      :: Int
+                           , _maxTime   :: Integer
                            , _nPop      :: Int
                            , _pm        :: Double
                            , _pc        :: Double
@@ -75,7 +76,7 @@ data AlgorithmCfg = AlgCfg { _algorithm :: Algorithm
                            } deriving (Show)
 
 dfltAlgCfg :: AlgorithmCfg
-dfltAlgCfg = AlgCfg GPTIR Regression 100 100 0.25 1.0 Nothing [ExprMeasure "RMSE"] [toMeasure "RMSE"]
+dfltAlgCfg = AlgCfg GPTIR Regression 100 10000000 100 0.25 1.0 Nothing [ExprMeasure "RMSE"] [toMeasure "RMSE"]
 
 data ConstraintCfg = CnsCfg { _penaltyType :: Penalty
                             , _shapes      :: [Shape] 
@@ -147,13 +148,14 @@ parseConfig = do
     alg  <- fieldOf "algorithm" readable
     task <- fieldOf "task" readable
     nGens <- fieldOf "ngens" readable
+    maxTime <- fieldOf "maxTime" readable
     nPop <- fieldOf "npop" readable
     pm <- fieldOf "probmut" readable
     pc <- fieldOf "probcx" readable
     fit_mes <- fieldOf "fitness" readable
     perf_mes <- fieldOf "measures" readable
     seed <- fieldOf "seed" readable
-    return $ AlgCfg alg task nGens nPop pm pc seed fit_mes $ map toMeasure perf_mes
+    return $ AlgCfg alg task nGens maxTime nPop pm pc seed fit_mes $ map toMeasure perf_mes
   cnsCfg <- section "Constraints" $ do
     penalty <- fieldOf "penalty" readable
     shapes <- fieldOf "shapes" readable

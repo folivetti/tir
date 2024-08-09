@@ -21,7 +21,7 @@ def sqrtAbs(a):
 
 class TIRRegressor(BaseEstimator, RegressorMixin):
 
-    def __init__(self, npop, ngens, pc, pm, exponents, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", penalty=0.00, niter=0, alg="GPTIR", random_state=-1):
+    def __init__(self, npop, ngens, pc, pm, exponents, maxtime=10000000, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", penalty=0.00, niter=0, alg="GPTIR", random_state=-1):
         """ Builds a Symbolic Regression model using ITEA.
 
         Parameters
@@ -49,6 +49,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         self.ytransfunctions = ytransfunctions
         self.npop = npop
         self.ngens = ngens
+        self.maxtime = maxtime
         self.pc = pc
         self.pm = pm
         self.random_state = random_state
@@ -96,9 +97,9 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
             cwd = os.path.dirname(os.path.realpath(__file__))
 
             if self.niter == 0:
-                ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.maxtime}"], cwd=cwd)
             else:
-                ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.maxtime}"], cwd=cwd)
             output = eval(ans).split("\n")
             self.expr, n, e = output[0].split(";") # eval(ans).split(";")
             #print(n,e)

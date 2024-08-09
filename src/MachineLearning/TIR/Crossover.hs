@@ -17,6 +17,7 @@ import Control.Evolution
 import Control.Monad.State.Strict
 import System.Random
 import Data.List (nub, sort)
+import Control.Monad ( zipWithM )
 
 toss :: Rnd Bool 
 toss = state random

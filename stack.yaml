@@ -18,7 +18,7 @@
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
 #resolver: lts-19.29
-resolver: lts-20.26
+resolver: lts-22.32
   # lts-18.28
   #  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/13.yaml
 
@@ -47,7 +47,7 @@ extra-deps:
   - git: https://github.com/folivetti/srtree.git
     commit: 332cc55c3f1807edf78966105eba25afd784bb9a
   - git: https://github.com/folivetti/evolution.git
-    commit: 0f6ac6851bc2b67a6e6b40fa7233cbc1abd495ba        
+    commit: 7c1d4b867389f35c085951e44b124ea0ffa12fc7
   - git: https://github.com/folivetti/modal-interval.git 
     commit: 191689d30f77866a5952e4bfedb06eaa10ba5e75 
   - git: https://github.com/folivetti/shape-constraint.git 

@@ -5,7 +5,8 @@ import sympy
 
 Z = np.loadtxt("datasets/airfoil-train-0.dat", delimiter=",")
 #Z = np.loadtxt("datasets/bazie.csv", delimiter=",")
-clr = TIRRegressor(100,100,1.0, 0.25, (-2,2), penalty=0.01, alg='MOO', error='RMSE')
+
+clr = TIRRegressor(100,100,1.0, 0.25, (-2,2), maxtime=5, penalty=0.01, alg='MOO', error='RMSE')
 clr.fit(Z[:,:-1], Z[:,-1])
 yhat = clr.predict(Z[:,:-1])
 

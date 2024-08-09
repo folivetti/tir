@@ -104,8 +104,9 @@ parseMutation [expminP, expmaxP, tfuncsP, ytfuncsP] =
 parseMutation xs = error $ "Not enough parameters for parseMutation: " <> show xs
 
 parseAlgorithm :: Task -> [String] -> AlgorithmCfg
-parseAlgorithm task [errorMetric, nGensP, nPopP, pcP, pmP, seedP, alg] =
+parseAlgorithm task [errorMetric, nGensP, maxTime, nPopP, pcP, pmP, seedP, alg] =
     dfltAlgCfg { _gens      = read nGensP
+               , _maxTime   = read maxTime
                , _nPop      = read nPopP
                , _algorithm = read alg
                , _pm        = read pmP
@@ -130,12 +131,12 @@ parseCfg task [mutPars, algPars, [trainname, penalty, niter]] =
         pn    = read penalty
         cnst  = if pn == 0.0 then dfltCnstrCfg  else dfltCnstrCfg{ _penaltyType  = Len pn }
      in Conf mutCfg ioCfg algCfg cnst
-parseCfg _ _ = error "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty alg trainname"
+parseCfg _ _ = error "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty alg trainname maxTime"
 
 toParams :: [String] -> [[String]]
-toParams [expminP, expmaxP, tfuncsP, ytfuncsP,errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, niter, alg, trainname] = 
-    [[expminP, expmaxP, tfuncsP, ytfuncsP], [errorMetric, nGensP, nPopP, pcP, pmP, seedP, alg], [trainname, penalty, niter]]
-toParams _ = error "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty alg trainname"
+toParams [expminP, expmaxP, tfuncsP, ytfuncsP,errorMetric, nGensP, nPopP, pcP, pmP, seedP, penalty, niter, alg, trainname, maxTime] =
+    [[expminP, expmaxP, tfuncsP, ytfuncsP], [errorMetric, nGensP, maxTime, nPopP, pcP, pmP, seedP, alg], [trainname, penalty, niter]]
+toParams _ = error "Usage: ./tir cli expmin expmax tfuncs ytfuncs errorMetric nGens nPop pc pm seed penalty alg trainname maxTime"
 
 -- * Tree manipulation functions
 getTree :: Task -> TIR -> LA.Vector Double -> SRTree Int Double
