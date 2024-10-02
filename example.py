@@ -18,7 +18,7 @@ for e in clr.front:
     print(e)
 print(sympy.sympify(clr.sympy))
 
-clr2 = clr.create_model_from(Z[:,:-1], 3)
+clr2 = clr.create_model_from(3)
 print("Tst:")
 print(clr2.expr)
 print(np.sqrt(np.square(clr2.predict(Z[:,:-1], Z[:,-1])).mean()))

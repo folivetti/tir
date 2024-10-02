@@ -127,9 +127,8 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
 
         return Z
 
-    def create_model_from(self, x, ix):
+    def create_model_from(self, ix):
         check_is_fitted(self)
-        n = x.shape[1]
         e = self.frontnp[ix]
         reg = TIRRegressor(self.npop, self.ngens, self.pc, self.pm, self.exponents)
         reg.is_fitted_ = True
