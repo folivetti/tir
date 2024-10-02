@@ -21,7 +21,7 @@ def sqrtAbs(a):
 
 class TIRRegressor(BaseEstimator, RegressorMixin):
 
-    def __init__(self, npop, ngens, pc, pm, exponents, maxtime=10000000, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", penalty=0.00, niter=0, alg="GPTIR", random_state=-1):
+    def __init__(self, npop, ngens, pc, pm, exponents, max_time=10000000, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="RMSE", penalty=0.00, niter=0, alg="GPTIR", random_state=-1):
         """ Builds a Symbolic Regression model using ITEA.
 
         Parameters
@@ -49,7 +49,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         self.ytransfunctions = ytransfunctions
         self.npop = npop
         self.ngens = ngens
-        self.maxtime = maxtime
+        self.maxtime = max_time
         self.pc = pc
         self.pm = pm
         self.random_state = random_state
@@ -108,8 +108,10 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
 
             self.len = int(n)
             self.is_fitted_ = True
+
             self.sympy = output[1].replace("Id","").split(";")[0]
-            self.front = output[2:]
+            self.front = [e.replace("Id","").split(";")[0] for e in output[2:]]
+            self.frontnp = [e.replace("Id","").split(";")[-1] for e in output[2:]]
 
         return self
 
@@ -124,6 +126,18 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         #print(Z)
 
         return Z
+
+    def create_model_from(self, x, ix):
+        check_is_fitted(self)
+        n = x.shape[1]
+        e = self.frontnp[ix]
+        reg = TIRRegressor(self.npop, self.ngens, self.pc, self.pm, self.exponents)
+        reg.is_fitted_ = True
+        reg.cols = self.cols
+
+        reg.expr = e
+        return reg
+
 
     def predict(self, X_test, ic=None):
         """ A reference implementation of a predicting function.

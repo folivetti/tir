@@ -17,6 +17,11 @@ print(clr.len)
 for e in clr.front:
     print(e)
 print(sympy.sympify(clr.sympy))
+
+clr2 = clr.create_model_from(Z[:,:-1], 3)
+print("Tst:")
+print(clr2.expr)
+print(np.sqrt(np.square(clr2.predict(Z[:,:-1], Z[:,-1])).mean()))
 """
 Z = np.loadtxt("datasets/breast-train.dat", delimiter=",")
 clr = TIRClassifier(100,100,1.0, 0.25, (-2,2), penalty=0.01, niter=10)

@@ -34,7 +34,7 @@ runCLI task params = do
     where
       toPy c     = showPython . getTree task (_chromo c)
       toDef c    = showDefault (getTree task (_chromo c) (head $ _weights c))
-                 <> (';' : show (_len c)) <> (';' : show (_fit c))
+                 <> (';' : show (_len c)) <> (';' : show (_fit c)) <> (';' : showPython (getTree task (_chromo c) (head $ _weights c)))
       getTrees c = intercalate "#" $ map (toPy c) $ _weights c
       info c     = [getTrees c, (show . _len) c, (show . _fit) c]
 

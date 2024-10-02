@@ -21,7 +21,7 @@ def sqrtAbs(a):
 
 class TIRClassifier(BaseEstimator, ClassifierMixin):
 
-    def __init__(self, npop, ngens, pc, pm, exponents, maxtime=10000000, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="Log-Loss", penalty=0.00, niter=10, alg="GPTIR", random_state=-1):
+    def __init__(self, npop, ngens, pc, pm, exponents, max_time=10000000, transfunctions='Id,Sin,Tanh,Sqrt,Log,Exp', ytransfunctions='Id', error="Log-Loss", penalty=0.00, niter=10, alg="GPTIR", random_state=-1):
         """ Builds a Symbolic Regression model using ITEA.
 
         Parameters
@@ -49,7 +49,7 @@ class TIRClassifier(BaseEstimator, ClassifierMixin):
         self.ytransfunctions = ytransfunctions
         self.npop = npop
         self.ngens = ngens
-        self.maxtime = maxtime
+        self.maxtime = max_time
         self.pc = pc
         self.pm = pm
         self.random_state = random_state

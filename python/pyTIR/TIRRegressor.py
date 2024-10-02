@@ -108,8 +108,10 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
 
             self.len = int(n)
             self.is_fitted_ = True
+
             self.sympy = output[1].replace("Id","").split(";")[0]
-            self.front = output[2:]
+            self.front = [e.replace("Id","").split(";")[0] for e in output[2:]]
+            self.frontnp = [e.replace("Id","").split(";")[-1] for e in output[2:]]
 
         return self
 
@@ -124,6 +126,18 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         #print(Z)
 
         return Z
+
+    def create_model_from(self, x, ix):
+        check_is_fitted(self)
+        n = x.shape[1]
+        e = self.frontnp[ix]
+        reg = TIRRegressor(self.npop, self.ngens, self.pc, self.pm, self.exponents)
+        reg.is_fitted_ = True
+        reg.cols = self.cols
+
+        reg.expr = e
+        return reg
+
 
     def predict(self, X_test, ic=None):
         """ A reference implementation of a predicting function.
