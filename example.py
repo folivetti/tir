@@ -21,6 +21,7 @@ print(sympy.sympify(clr.sympy))
 clr2 = clr.create_model_from(3)
 print("Tst:")
 print(clr2.expr)
+print(clr2.sympy)
 print(np.sqrt(np.square(clr2.predict(Z[:,:-1], Z[:,-1])).mean()))
 """
 Z = np.loadtxt("datasets/breast-train.dat", delimiter=",")

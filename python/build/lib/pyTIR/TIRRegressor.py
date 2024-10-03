@@ -135,6 +135,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         reg.cols = self.cols
 
         reg.expr = e
+        reg.sympy = self.front[ix]
         return reg
 
 
