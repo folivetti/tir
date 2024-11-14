@@ -49,7 +49,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
         self.ytransfunctions = ytransfunctions
         self.npop = npop
         self.ngens = ngens
-        self.maxtime = max_time
+        self.max_time = max_time
         self.pc = pc
         self.pm = pm
         self.random_state = random_state
@@ -97,9 +97,9 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
             cwd = os.path.dirname(os.path.realpath(__file__))
 
             if self.niter == 0:
-                ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.maxtime}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "regress", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.max_time}"], cwd=cwd)
             else:
-                ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.maxtime}"], cwd=cwd)
+                ans = subprocess.check_output(["tir", "regressNL", f"{minK}", f"{maxK}", f"{self.transfunctions}", f"{self.ytransfunctions}", f"{self.error}", f"{self.ngens}", f"{self.npop}", f"{self.pc}", f"{self.pm}", f"{self.random_state}", f"{self.penalty}", f"{self.niter}", f"{self.alg}", f"{fname}", f"{self.max_time}"], cwd=cwd)
             output = eval(ans).split("\n")
             self.expr, n, e = output[0].split(";") # eval(ans).split(";")
             #print(n,e)
