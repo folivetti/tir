@@ -110,8 +110,9 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
             self.is_fitted_ = True
 
             self.sympy = output[1].replace("Id","").split(";")[0]
-            self.front = [e.replace("Id","").split(";")[0] for e in output[2:]]
-            self.frontnp = [e.replace("Id","").split(";")[-1] for e in output[2:]]
+            self.front = [e.replace("Id","").split(";")[0] for e in output[2:] if len(e)>0]
+            self.frontnp = [e.replace("Id","").split(";")[-1] for e in output[2:] if len(e)>0]
+            self.lens = [e.replace("Id","").split(";")[1] for e in output[2:] if len(e)>0]
 
         return self
 
@@ -136,6 +137,7 @@ class TIRRegressor(BaseEstimator, RegressorMixin):
 
         reg.expr = e
         reg.sympy = self.front[ix]
+        reg.len = self.lens[ix]
         return reg
 
 
